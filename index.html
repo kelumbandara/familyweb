@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skynet</title>
     <!-- ________________CSS________________ -->
-    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="assets/css/homePage.css">
 
     <!-- ________________Boxicons________________ -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -18,10 +18,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script> -->
+
+    <!-- ________________Family Members________________ -->
+    <link rel="stylesheet" href="assets/css/memberSlider.css">
+
+    <!-- ________________Font Awesome icons________________ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
 
+    <!-- Header Start -->
     <nav>
         <div class="nav_bar">
             <i class='bx bx-menu sideBarOpen'></i>
@@ -52,8 +59,146 @@
 
         </div>
     </nav>
+    <!-- Header End -->
 
-<script src="header.js"></script>
+
+    <!-- Hero Section Start -->
+    <section class="heroPage" id="home">
+        <div class="content flex">
+            <div class="text">
+                <h1>Welcome To our Family website</h1>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis quam provident, culpa minus fugiat
+                    a!</p>
+            </div>
+            <a href="#">Our Services</a>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+
+    <!-- About Us Start -->
+    <section class="about">
+        <div class="container">
+            <div class="section_title">
+                <h2>About Us</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, aliquam.</p>
+            </div>
+            <div class="row family_info">
+                <div class="left">
+                    <h3>Our Family Story</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque fugiat cumque alias sint culpa
+                        temporibus mollitia, provident earum eius delectus animi iste dolores iusto, tempora vero nobis
+                        optio labore nemo?</p>
+                </div>
+
+                <div class="right">
+                    <h3>Our Family Vision</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque fugiat cumque alias sint culpa
+                        temporibus mollitia, provident earum eius delectus animi iste dolores iusto, tempora vero nobis
+                        optio labore nemo?</p>
+                </div>
+
+
+            </div>
+
+        </div>
+    </section>
+    <!-- About Us End -->
+
+    <!-- Family Members Start -->
+
+    <section class="Members">
+        <div class="wrapper">
+            <i id="left" class="fa fa-arrow-left" aria-hidden="true"></i>
+            <ul class="carousel">
+                <li class="card">
+                    <div class="img"><img src="assets/images/Member images/img-1.jpg" alt="" draggable="false"></div>
+                    <h2>Balance Pearson</h2>
+                    <span>Sales Manager</span>
+                </li>
+                <li class="card">
+                    <div class="img"><img src="assets/images/Member images/img-2.jpg" alt="" draggable="false"></div>
+                    <h2>Joenas Brauers</h2>
+                    <span>Web Developer</span>
+                </li>
+                <li class="card">
+                    <div class="img"><img src="assets/images/Member images/img-3.jpg" alt="" draggable="false"></div>
+                    <h2>Lariach French</h2>
+                    <span>Online Teacher</span>
+                </li>
+                <li class="card">
+                    <div class="img"><img src="assets/images/Member images/img-4.jpg" alt="" draggable="false"></div>
+                    <h2>James Khosravi</h2>
+                    <span>Freelancer</span>
+                </li>
+                <li class="card">
+                    <div class="img"><img src="assets/images/Member images/img-5.jpg" alt="" draggable="false"></div>
+                    <h2>Kristiana Zasiadko</h2>
+                    <span>Bank Manager</span>
+                </li>
+                <li class="card">
+                    <div class="img"><img src="assets/images/Member images/img-6.jpg" alt="" draggable="false"></div>
+                    <h2>Donald Horton</h2>
+                    <span>App Designer</span>
+                </li>
+            </ul>
+            <i id="right" class="fa fa-arrow-right" aria-hidden="true"></i>
+        </div>
+
+    </section>
+
+    <!-- Family Member End -->
+
+
+    <!-- Contact Us Start -->
+
+    <section class="contact" id="contact">
+        <div class="con">
+            <h2>Contact Us</h2>
+            <p>Reach out to us for any inquiries or feedback.</p>
+            <div class="row">
+                <div class="col information">
+                    <div class="contact-details">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Campsite Avenue, Wilderness, CA 98765</p>
+                        <p><i class="fas fa-envelope"></i> info@campinggearexperts.com</p>
+                        <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                        <p><i class="fas fa-clock"></i> Monday - Friday: 9:00 AM - 5:00 PM</p>
+                        <p><i class="fas fa-clock"></i> Saturday: 10:00 AM - 3:00 PM</p>
+                        <p><i class="fas fa-clock"></i> Sunday: Closed</p>
+                        <p><i class="fas fa-globe"></i> www.codingnepalweb.com</p>
+                    </div>
+                </div>
+                <div class="col form">
+                    <form>
+                        <input type="text" placeholder="Name*" required>
+                        <input type="email" placeholder="Email*" required>
+                        <textarea placeholder="Message*" required></textarea>
+                        <button id="submit" type="submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+
+    <!-- Footer Start -->
+    <footer>
+        <div>
+            <span>Copyright © 2023 All Rights Reserved</span>
+            <span class="link">
+                <a href="#">Home</a>
+                <a href="#contact">Contact</a>
+            </span>
+        </div>
+    </footer>
+
+
+
+
+    <script src="assets/js/header.js"></script>
+    <script src="assets/js/member.js"></script>
 
 </body>
 
