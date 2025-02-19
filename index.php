@@ -19,11 +19,14 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script> -->
 
-    <!-- ________________Family Members________________ -->
+    <!-- ________________Family Members CSS________________ -->
     <link rel="stylesheet" href="assets/css/memberSlider.css">
 
     <!-- ________________Font Awesome icons________________ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- ________________Footer CSS________________ -->
+    <link rel="stylesheet" href="assets/css/footer.css">
 </head>
 
 <body>
@@ -49,7 +52,7 @@
 
             <div class="login_profile">
                 <div class="login_button">
-                    <a href="#"><i class='bx bx-log-in'></i>Login</a>
+                    <a href="loginPage.php"><i class='bx bx-log-in'></i>Login</a>
                 </div>
 
                 <!-- <div class="profile_button">
@@ -107,46 +110,54 @@
 
     <!-- Family Members Start -->
 
-    <section class="Members">
-        <div class="wrapper">
-            <i id="left" class="fa fa-arrow-left" aria-hidden="true"></i>
-            <ul class="carousel">
-                <li class="card">
-                    <div class="img"><img src="assets/images/Member images/img-1.jpg" alt="" draggable="false"></div>
-                    <h2>Balance Pearson</h2>
-                    <span>Sales Manager</span>
-                </li>
-                <li class="card">
-                    <div class="img"><img src="assets/images/Member images/img-2.jpg" alt="" draggable="false"></div>
-                    <h2>Joenas Brauers</h2>
-                    <span>Web Developer</span>
-                </li>
-                <li class="card">
-                    <div class="img"><img src="assets/images/Member images/img-3.jpg" alt="" draggable="false"></div>
-                    <h2>Lariach French</h2>
-                    <span>Online Teacher</span>
-                </li>
-                <li class="card">
-                    <div class="img"><img src="assets/images/Member images/img-4.jpg" alt="" draggable="false"></div>
-                    <h2>James Khosravi</h2>
-                    <span>Freelancer</span>
-                </li>
-                <li class="card">
-                    <div class="img"><img src="assets/images/Member images/img-5.jpg" alt="" draggable="false"></div>
-                    <h2>Kristiana Zasiadko</h2>
-                    <span>Bank Manager</span>
-                </li>
-                <li class="card">
-                    <div class="img"><img src="assets/images/Member images/img-6.jpg" alt="" draggable="false"></div>
-                    <h2>Donald Horton</h2>
-                    <span>App Designer</span>
-                </li>
-            </ul>
-            <i id="right" class="fa fa-arrow-right" aria-hidden="true"></i>
-        </div>
+    <div class="section_title_mem">
+        <h1>Our Members</h1>
+        <section class="Members">
+            <div class="wrapper">
+                <i id="left" class="fa fa-arrow-left" aria-hidden="true"></i>
+                <ul class="carousel">
+                    <li class="card">
+                        <div class="img"><img src="assets/images/Member images/img-1.jpg" alt="" draggable="false">
+                        </div>
+                        <h2>Balance Pearson</h2>
+                        <span>Sales Manager</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="assets/images/Member images/img-2.jpg" alt="" draggable="false">
+                        </div>
+                        <h2>Joenas Brauers</h2>
+                        <span>Web Developer</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="assets/images/Member images/img-3.jpg" alt="" draggable="false">
+                        </div>
+                        <h2>Lariach French</h2>
+                        <span>Online Teacher</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="assets/images/Member images/img-4.jpg" alt="" draggable="false">
+                        </div>
+                        <h2>James Khosravi</h2>
+                        <span>Freelancer</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="assets/images/Member images/img-5.jpg" alt="" draggable="false">
+                        </div>
+                        <h2>Kristiana Zasiadko</h2>
+                        <span>Bank Manager</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="assets/images/Member images/img-6.jpg" alt="" draggable="false">
+                        </div>
+                        <h2>Donald Horton</h2>
+                        <span>App Designer</span>
+                    </li>
+                </ul>
+                <i id="right" class="fa fa-arrow-right" aria-hidden="true"></i>
+            </div>
 
-    </section>
-
+        </section>
+    </div>
     <!-- Family Member End -->
 
 
@@ -185,14 +196,63 @@
 
     <!-- Footer Start -->
     <footer>
-        <div>
-            <span>Copyright © 2023 All Rights Reserved</span>
-            <span class="link">
-                <a href="#">Home</a>
-                <a href="#contact">Contact</a>
-            </span>
-        </div>
+        <section class="footer_sec">
+            <div class="container">
+                <div class="sec aboutus">
+                    <h2>About Us</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quod cupiditate,
+                        sapiente vitae odio mollitia. Id molestias similique dolor consequuntur accusantium dicta amet
+                        temporibus iusto explicabo quia, corporis at sed sapiente quibusdam doloribus perspiciatis?
+                    </p>
+
+                    <ul class="sci">
+                        <li><a href="#"><i class='bx bxl-facebook-circle'></i></a></li>
+                        <li><a href="#"><i class='bx bxl-instagram-alt'></i></a></li>
+                        <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
+                        <li><a href="#"><i class='bx bxl-youtube'></i></a></li>
+                    </ul>
+                </div>
+
+
+                <div class="sec quickLinks">
+                    <h2>Quick Links</h2>
+                    <ul>
+                        <li><a href="">About</a></li>
+                        <li><a href="">FAQ</a></li>
+                        <li><a href="">Privacy Policy</a></li>
+                        <li><a href="">Help</a></li>
+                        <li><a href="">Terms & Consitions</a></li>
+                        <li><a href="">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="sec contactInfo">
+                    <h2>Contact Info</h2>
+                    <ul class="info">
+                        <li>
+                            <span><i class='bx bxs-map'></i></span>
+                            <span> 138/2-3 Kynsey Road, 07 <br>Colombo</span>
+                        </li>
+                        <li>
+                            <span><i class='bx bxs-phone'></i></span>
+                            <p><a href="tel:94778557554">+94 77 855 7554</a><br><a href="tel:94778557554">+94 77 855
+                                    7554</a></p>
+                        </li>
+                        <li>
+                            <span><i class='bx bxl-gmail'></i></span>
+                            <p><a href="mailto:knowmore@gmail.com">knowmore@gmail.com</a></p>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
     </footer>
+    <div class="copyrightText">
+        <p>Copyright © 2025 SkyNet. All Rights Reserved.</p>
+    </div>
+
+
 
 
 
