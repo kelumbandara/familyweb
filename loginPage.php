@@ -24,11 +24,11 @@
             <form action="backEnd/loginback.php" method="post">
                 <h1>Login</h1>
                 <div class="input_box">
-                    <input type="text" placeholder="login_Username" >
+                    <input type="text" placeholder="Username" name="login_Username" >
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input_box">
-                    <input type="password" placeholder="login_Password" >
+                    <input type="password" placeholder="Password"  name="login_Password">
                     <i class='bx bx-lock-alt' ></i>
                 </div>
                 <div class="frogot_link">

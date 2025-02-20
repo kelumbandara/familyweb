@@ -6,13 +6,13 @@ if (isset($_REQUEST["register"])) {
    
     $username = $_REQUEST["regi_Username"];
     $Email= $_REQUEST["regi_UserEmail"]; 
-    $password = md5($_REQUEST["regi_Password"]); 
+    $password = $_REQUEST["regi_Password"]; 
     
     
     $sql = "SELECT * FROM register where user_name='$username' ";
 
     $result = mysqli_query($con, $sql);
-    if ($result->num_rows > 0) {
+    if ($result -> num_rows > 0) {
         echo "Error: Duplicate entry. Please choose a different username.";
         header("Location:../loginPage.php?RegisterError");
         exit();

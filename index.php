@@ -30,7 +30,55 @@
 </head>
 
 <body>
+    <?php
 
+
+
+?>
+
+
+    <?php
+    session_start();
+     if(isset($_SESSION['UsName'])){
+        ?>
+
+
+    <!-- Header Start -->
+    <nav>
+        <div class="nav_bar">
+            <i class='bx bx-menu sideBarOpen'></i>
+            <span class="logo"><a href="#">Skynet</a></span>
+
+            <div class="menu">
+                <div class="logo_toggle">
+                    <span class="logo"><a href="#">Skynet</a></span>
+                    <i class='bx bx-x sidebarClose'></i>
+                </div>
+
+                <ul class="nav_links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Family Tree</a></li>
+                    <li><a href="#">News & Updates</a></li>
+                </ul>
+            </div>
+
+            <div class="login_profile">
+                <!-- <div class="login_button">
+                    <a href="loginPage.php"><i class='bx bx-log-in'></i>Login</a>
+                </div> -->
+
+                <div class="profile_button">
+                    <a href="Profile.php?id='<?php echo $_SESSION['UsName'] ?>'"><img src="assets/images/Member images/img-1.jpg" alt="">Hello</a>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    <!-- Header End -->
+
+    <?php
+     }else{
+        ?>
     <!-- Header Start -->
     <nav>
         <div class="nav_bar">
@@ -56,13 +104,20 @@
                 </div>
 
                 <!-- <div class="profile_button">
-                    <a href="#"><img src="crysis-3-prophet.avif" alt="">Hello</a>
+                    <a href="Profile.php"><img src="assets/images/Member images/img-2.jpg" alt="">Hello</a>
                 </div> -->
             </div>
 
         </div>
     </nav>
     <!-- Header End -->
+
+
+
+
+    <?php
+     }
+     ?>
 
 
     <!-- Hero Section Start -->
