@@ -14,13 +14,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--text-color);
+}
+
+.section_title_mem {
+    background-color: var(--text-color);
+    min-height: 70vh;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.section_title_mem h1 {
+    font-size: 50px;
 }
 
 .wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
     padding: 0 35px;
     max-width: 1500px;
     width: 100%;
@@ -146,4 +161,3 @@
 }
 
 /* Family Members End */
-

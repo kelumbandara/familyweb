@@ -31,15 +31,15 @@
 
 <body>
     <?php
-
-
-
-?>
-
-
-    <?php
     session_start();
+    include 'backEnd/connection.php';
      if(isset($_SESSION['UsName'])){
+
+        $user=$_SESSION["UsName"];
+        $query = "SELECT * FROM register WHERE user_name='$user'";
+
+        $result=mysqli_query($con,$query);
+        $row=mysqli_fetch_assoc($result);
         ?>
 
 
@@ -56,9 +56,9 @@
                 </div>
 
                 <ul class="nav_links">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="index.php">Home</a></li>
                     <li><a href="#">Family Tree</a></li>
-                    <li><a href="#">News & Updates</a></li>
+                    <li><a href="blog.php">News & Updates</a></li>
                 </ul>
             </div>
 
@@ -68,9 +68,40 @@
                 </div> -->
 
                 <div class="profile_button">
-                    <a href="Profile.php?id='<?php echo $_SESSION['UsName'] ?>'"><img src="assets/images/Member images/img-1.jpg" alt="">Hello</a>
+                    <a href="#" onclick="toggleMenu()">
+                        <img src="./image/Memberimages/<?php echo $row['image'] ?>" alt="" >
+                        <?php echo $_SESSION['UsName'] ?>
+                    </a>
+                </div>
+                <div class="sub_menu_wrap" id="subMenu">
+                <div class="sub_menu">
+                    <div class="user_info">
+                        <img src="./assets/images/Member images/img-1.jpg">
+                        <h2><?php echo $_SESSION['UsName'] ?></h2>
+                    </div>
+                    <hr>
+
+                    <a href="./profile.php?<?php echo $_SESSION['UsName'] ?>" class="sub_menu_links">
+                        <img src="./image/profile.png">
+                        <p>Edit Profile</p>
+                        <span>></span>
+                    </a>
+                    <a href="#" class="sub_menu_links">
+                        <img src="./image/setting.png">
+                        <p>Help & Support</p>
+                        <span>></span>
+                    </a>
+                    <a href="./logout.php" class="sub_menu_links">
+                        <img src="./image/profile.png">
+                        <p>Log Out</p>
+                        <span>></span>
+                    </a>
+                
                 </div>
             </div>
+            </div>
+
+            
 
         </div>
     </nav>
@@ -92,9 +123,9 @@
                 </div>
 
                 <ul class="nav_links">
-                    <li><a href="#">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                     <li><a href="#">Family Tree</a></li>
-                    <li><a href="#">News & Updates</a></li>
+                    <li><a href="blog.php">News & Updates</a></li>
                 </ul>
             </div>
 
@@ -111,10 +142,6 @@
         </div>
     </nav>
     <!-- Header End -->
-
-
-
-
     <?php
      }
      ?>
