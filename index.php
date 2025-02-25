@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./image/images.png">
     <title>Skynet</title>
     <!-- ________________CSS________________ -->
     <link rel="stylesheet" href="assets/css/homePage.css">
@@ -30,121 +31,97 @@
 </head>
 
 <body>
-    <?php
-    session_start();
-    include 'backEnd/connection.php';
-     if(isset($_SESSION['UsName'])){
+<?php
+session_start();
+include 'backEnd/connection.php';
 
-        $user=$_SESSION["UsName"];
-        $query = "SELECT * FROM register WHERE user_name='$user'";
+// Check if the user is logged in
+if (isset($_SESSION['UsName'])) {
+    $user = $_SESSION["UsName"];
 
-        $result=mysqli_query($con,$query);
-        $row=mysqli_fetch_assoc($result);
-        ?>
+    // Securely fetch user data using prepared statements
+    $query = "SELECT * FROM register WHERE user_name = ?";
+    if ($stmt = mysqli_prepare($con, $query)) {
+        mysqli_stmt_bind_param($stmt, "s", $user);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
 
+        if ($row = mysqli_fetch_assoc($result)) {
+            $profileImage = !empty($row['image']) ? "./image/Memberimages/{$row['image']}" : "./image/Memberimages/avatar1.png";
+        } else {
+            // If no user is found, redirect to login
+            header("Location: loginPage.php");
+            exit();
+        }
+    } else {
+        die("Database query failed: " . mysqli_error($con));
+    }
+} else {
+    $profileImage = "./image/Memberimages/avatar1.png"; // Default profile image for non-logged-in users
+}
+?>
 
-    <!-- Header Start -->
-    <nav>
-        <div class="nav_bar">
-            <i class='bx bx-menu sideBarOpen'></i>
-            <span class="logo"><a href="#">Skynet</a></span>
+<!-- Header Start -->
+<nav>
+    <div class="nav_bar">
+        <i class='bx bx-menu sideBarOpen'></i>
+        <span class="logo"><a href="#">Skynet</a></span>
 
-            <div class="menu">
-                <div class="logo_toggle">
-                    <span class="logo"><a href="#">Skynet</a></span>
-                    <i class='bx bx-x sidebarClose'></i>
-                </div>
-
-                <ul class="nav_links">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="#">Family Tree</a></li>
-                    <li><a href="blog.php">News & Updates</a></li>
-                </ul>
+        <div class="menu">
+            <div class="logo_toggle">
+                <span class="logo"><a href="#">Skynet</a></span>
+                <i class='bx bx-x sidebarClose'></i>
             </div>
 
-            <div class="login_profile">
-                <!-- <div class="login_button">
-                    <a href="loginPage.php"><i class='bx bx-log-in'></i>Login</a>
-                </div> -->
+            <ul class="nav_links">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="#">Family Tree</a></li>
+                <li><a href="blog.php">News & Updates</a></li>
+            </ul>
+        </div>
 
+        <div class="login_profile">
+            <?php if (isset($_SESSION['UsName'])): ?>
                 <div class="profile_button">
                     <a href="#" onclick="toggleMenu()">
-                        <img src="./image/Memberimages/<?php echo $row['image'] ?>" alt="" >
-                        <?php echo $_SESSION['UsName'] ?>
+                        <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
+                        
                     </a>
                 </div>
+
                 <div class="sub_menu_wrap" id="subMenu">
-                <div class="sub_menu">
-                    <div class="user_info">
-                        <img src="./assets/images/Member images/img-1.jpg">
-                        <h2><?php echo $_SESSION['UsName'] ?></h2>
+                    <div class="sub_menu">
+                        <div class="user_info">
+                            <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
+                            <?php echo htmlspecialchars($_SESSION['UsName']); ?>
+                        </div>
+                        <hr>
+                        <a href="./profile.php?user=<?php echo urlencode($_SESSION['UsName']); ?>" class="sub_menu_links">
+                            <img src="./image/profile.png">
+                            <p>Edit Profile</p>
+                            <span>></span>
+                        </a>
+                        <a href="#" class="sub_menu_links">
+                            <img src="./image/setting.png">
+                            <p>Help & Support</p>
+                            <span>></span>
+                        </a>
+                        <a href="./logout.php" class="sub_menu_links">
+                            <img src="./image/profile.png">
+                            <p>Log Out</p>
+                            <span>></span>
+                        </a>
                     </div>
-                    <hr>
-
-                    <a href="./profile.php?<?php echo $_SESSION['UsName'] ?>" class="sub_menu_links">
-                        <img src="./image/profile.png">
-                        <p>Edit Profile</p>
-                        <span>></span>
-                    </a>
-                    <a href="#" class="sub_menu_links">
-                        <img src="./image/setting.png">
-                        <p>Help & Support</p>
-                        <span>></span>
-                    </a>
-                    <a href="./logout.php" class="sub_menu_links">
-                        <img src="./image/profile.png">
-                        <p>Log Out</p>
-                        <span>></span>
-                    </a>
-                
                 </div>
-            </div>
-            </div>
-
-            
-
-        </div>
-    </nav>
-    <!-- Header End -->
-
-    <?php
-     }else{
-        ?>
-    <!-- Header Start -->
-    <nav>
-        <div class="nav_bar">
-            <i class='bx bx-menu sideBarOpen'></i>
-            <span class="logo"><a href="#">Skynet</a></span>
-
-            <div class="menu">
-                <div class="logo_toggle">
-                    <span class="logo"><a href="#">Skynet</a></span>
-                    <i class='bx bx-x sidebarClose'></i>
-                </div>
-
-                <ul class="nav_links">
-                <li><a href="index.php">Home</a></li>
-                    <li><a href="#">Family Tree</a></li>
-                    <li><a href="blog.php">News & Updates</a></li>
-                </ul>
-            </div>
-
-            <div class="login_profile">
+            <?php else: ?>
                 <div class="login_button">
                     <a href="loginPage.php"><i class='bx bx-log-in'></i>Login</a>
                 </div>
-
-                <!-- <div class="profile_button">
-                    <a href="Profile.php"><img src="assets/images/Member images/img-2.jpg" alt="">Hello</a>
-                </div> -->
-            </div>
-
+            <?php endif; ?>
         </div>
-    </nav>
-    <!-- Header End -->
-    <?php
-     }
-     ?>
+    </div>
+</nav>
+<!-- Header End -->
 
 
     <!-- Hero Section Start -->

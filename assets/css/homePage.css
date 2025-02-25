@@ -134,7 +134,7 @@ nav .nav_bar .logo a {
 }
 
 .profile_button a {
-    width: 110px;
+    width: 70px;
     height: 50px;
     display: flex;
     align-items: center;
@@ -173,7 +173,7 @@ nav .nav_bar .logo a {
 }
 
 .user_info{
-    width: 120px !important;
+    width: 100px !important;
     height: 70px !important;
     display: flex;
     align-items: center;

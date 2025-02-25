@@ -149,8 +149,8 @@
                                 <div class="card-body pb-2">
                                     <div class="form-group">
                                         <label class="form-label">Current password</label>
-                                        <input type="password" class="form-control" name="oldPassword"
-                                            value="<?php echo $row['password']?>">
+                                        <input type="password" class="form-control" name="oldPassword">
+                                        <input type="hidden" class="form-control" name="hidden_oldPassword" value="<?php echo $row['password']?>">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">New password</label>

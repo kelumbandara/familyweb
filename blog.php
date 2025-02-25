@@ -6,11 +6,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/blog_style.css">
-    <link rel="stylesheet" href="./assets/fontawesome/css/all.min.css">
-
     <title>Home - Darisset</title>
 
 
@@ -27,11 +27,23 @@
 <body>
 
 
-    <?php
-    session_start();
-     if(isset($_SESSION['UsName'])){
-        ?>
+<?php
+session_start();
+include 'backEnd/connection.php';
 
+// Check if the user is logged in
+if (isset($_SESSION['UsName'])) {
+    $user = $_SESSION["UsName"];
+
+    // Securely fetch user data using prepared statement
+    $query = "SELECT * FROM register WHERE user_name = ?";
+    $stmt = mysqli_prepare($con, $query);
+    mysqli_stmt_bind_param($stmt, "s", $user);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($row = mysqli_fetch_assoc($result)) {
+?>
 
     <!-- Header Start -->
     <nav>
@@ -53,24 +65,53 @@
             </div>
 
             <div class="login_profile">
-                <!-- <div class="login_button">
-                    <a href="loginPage.php"><i class='bx bx-log-in'></i>Login</a>
-                </div> -->
-
+                <?php 
+            // Check if user has an image, otherwise use default
+            $profileImage = !empty($row['image']) ? "./image/Memberimages/{$row['image']}" : "./image/Memberimages/avatar1.png";
+            ?>
                 <div class="profile_button">
-                    <a href="Profile.php?id='<?php echo $_SESSION['UsName'] ?>'"><img
-                            src="assets/images/Member images/img-1.jpg" alt="">
-                        <?php echo $_SESSION['UsName'] ?>
+                    <a href="#" onclick="toggleMenu()">
+                        <img src="<?php echo $profileImage; ?>" alt="User Profile">
+                       
                     </a>
                 </div>
-            </div>
 
+                <div class="sub_menu_wrap" id="subMenu">
+                    <div class="sub_menu">
+                        <div class="user_info">
+                            <img src="<?php echo $profileImage; ?>" alt="User Profile">
+                            <h2>
+                                <?php echo htmlspecialchars($_SESSION['UsName']); ?>
+                            </h2>
+                        </div>
+                        <hr>
+
+                        <a href="./profile.php?user=<?php echo urlencode($_SESSION['UsName']); ?>"
+                            class="sub_menu_links">
+                            <img src="./image/profile.png">
+                            <p>Edit Profile</p>
+                            <span>></span>
+                        </a>
+                        <a href="#" class="sub_menu_links">
+                            <img src="./image/setting.png">
+                            <p>Help & Support</p>
+                            <span>></span>
+                        </a>
+                        <a href="./logout.php" class="sub_menu_links">
+                            <img src="./image/profile.png">
+                            <p>Log Out</p>
+                            <span>></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
     <!-- Header End -->
 
     <?php
-     }else{
+    }
+    }else{
         ?>
     <!-- Header Start -->
     <nav>
@@ -107,6 +148,7 @@
     <?php
      }
      ?>
+
 
 
 
