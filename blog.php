@@ -165,7 +165,7 @@ if (isset($_SESSION['UsName'])) {
                 <!-- end of section title -->
                 <div class="section-center projects-center">
                     <!-- single post -->
-                    <a href="detail.html" class="project-1">
+                    <a href="detail.php" class="project-1">
                         <article class="project">
                             <img src="./image/img/blog1.jpg" alt="" class="project-img" />
                             <div class="project-info">
@@ -176,7 +176,7 @@ if (isset($_SESSION['UsName'])) {
                     </a>
                     <!-- end of single post -->
                     <!-- single post -->
-                    <a href="detail.html" class="project-2">
+                    <a href="detail.php" class="project-2">
                         <article class="project">
                             <img src="./image/img/blog2.jpg" alt="" class="project-img" />
                             <div class="project-info">
@@ -187,7 +187,7 @@ if (isset($_SESSION['UsName'])) {
                     </a>
                     <!-- end of single post -->
                     <!-- single post -->
-                    <a href="detail.html" class="project-3">
+                    <a href="detail.php" class="project-3">
                         <article class="project">
                             <img src="./image/img/slide1.jpg" alt="" class="project-img" />
                             <div class="project-info">
@@ -198,7 +198,7 @@ if (isset($_SESSION['UsName'])) {
                     </a>
                     <!-- end of single project -->
                     <!-- single project -->
-                    <a href="detail.html" class="project-4">
+                    <a href="detail.php" class="project-4">
                         <article class="project">
                             <img src="./image/img/blog3.jpg" alt="" class="project-img" />
                             <div class="project-info">

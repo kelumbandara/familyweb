@@ -20,6 +20,8 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="./css/style.css">
+
 </head>
 
 <body id="page-top">
@@ -58,7 +60,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-target="#collapseTwo" aria-expanded="true"
+                <a class="nav-link collapsed" href="blog_enter.php" data-target="#collapseTwo" aria-expanded="true"
                     aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Add News
@@ -75,7 +77,7 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="#" data-target="#collapseUtilities" aria-expanded="true"
+                <a class="nav-link" href="add_gallery.php" data-target="#collapseUtilities" aria-expanded="true"
                     aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Add Gallery</span>
@@ -112,7 +114,8 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
                                 aria-label="Search" aria-describedby="basic-addon2">
@@ -157,8 +160,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -184,11 +186,85 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Add News</h1>
+                    <h1 class="mb-5">News & Blogger Submission Form</h1>
 
                     <div class="row">
 
+                        <div class="col-lg-6 mb-4">
+                            <div class="container_drop">
+                                <!-- Drag & Drop Area -->
+                                <div class="drop-area">
+                                    <i class='bx bxs-cloud-upload icon'></i>
+                                    <h3>Drag and drop or click here to select images</h3>
+                                    <p>Image size must be less than <span>2MB</span></p>
+                                    <input type="file" accept="image/*" id="input-file" hidden multiple>
+                                </div>
                         
+                                <!-- Clear Button Area (Initially Hidden) -->
+                                <div class="clear-area">
+                                    <button id="clear-btn" class="clear-btn" style="display: none;">Clear Images</button>
+                                </div>
+                            </div>
+
+
+                            
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-container">
+                                <form id="submission-form">
+                                    <div class="form-group">
+                                        <label for="title">Title</label>
+                                        <input type="text" id="title" name="title" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="author">Author</label>
+                                        <input type="text" id="author" name="author" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="category">Category</label>
+                                        <select id="category" name="category" required>
+                                            <option value="news">News</option>
+                                            <option value="blog">Blog</option>
+                                            <option value="opinion">Opinion</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="content">Content</label>
+                                        <textarea id="content" name="content" rows="5" required></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="date-published">Date Published</label>
+                                        <input type="date" id="date-published" name="date-published" required>
+                                    </div>
+
+                                    <!-- <div class="form-group">
+                                        <label for="source">Source/Reference (Optional)</label>
+                                        <input type="text" id="source" name="source">
+                                    </div> -->
+
+                                    <button type="submit">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="container_img">
+                            <input type="file" id="file-input" accept="image/png, image/jpeg" onchange="preview()" multiple>
+                            <label class="label_photo" for="file-input">
+                                <i class="fas fa-upload"></i> &nbsp; Choose A Photo
+                            </label>
+                            <button id="clear-btn2" onclick="clearImages()">Clear</button>
+                            <p id="num-of-files">No Files Chosen</p>
+                            <div id="images"></div>
+                            
+                        </div>
                     </div>
 
                 </div>
@@ -247,6 +323,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <script src="./js/script.js"></script>
 
 </body>
 

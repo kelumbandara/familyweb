@@ -165,7 +165,7 @@
                             </div>
                         </div>
 
-                        <div class="comment mt-5 p-5">
+                        <!-- <div class="comment mt-5 p-5">
                             <h3>Get Comment!</h3>
                             <form class="mt-4" action="" method="post">
                                 <div class="row">
@@ -187,14 +187,14 @@
                         </div>
 
                         <div class="comment-area mt-5">
-                            <!-- Comment Area Start -->
+                        
                             <div class="comment_area clearfix mt-70">
                                 <ul>
-                                    <!-- Single Comment Area -->
+                             
                                     <li class="single_comment_area">
-                                        <!-- Comment Content -->
+                                
                                         <div class="comment-content">
-                                            <!-- Comment Meta -->
+                                     
                                             <div class="comment-meta d-flex align-items-center justify-content-between">
                                                 <p>
                                                     <i class="fas fa-user pr-2"></i> <a class="profile" href="#">
@@ -210,9 +210,9 @@
                                         </div>
                                         <ul class="children">
                                             <li class="single_comment_area">
-                                                <!-- Comment Content -->
+                                          
                                                 <div class="comment-content">
-                                                    <!-- Comment Meta -->
+                                                  
                                                     <div
                                                         class="comment-meta d-flex align-items-center justify-content-between">
                                                         <p>
@@ -234,11 +234,11 @@
                                         </ul>
                                     </li>
 
-                                    <!-- Single Comment Area -->
+                                
                                     <li class="single_comment_area">
-                                        <!-- Comment Content -->
+                                      
                                         <div class="comment-content">
-                                            <!-- Comment Meta -->
+                                  
                                             <div class="comment-meta d-flex align-items-center justify-content-between">
                                                 <p>
                                                     <i class="fas fa-user pr-2"></i> <a class="profile" href="#">
@@ -257,9 +257,9 @@
 
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
                     </section>
-                    <!-- end of featured Detail -->
+                  
                 </div>
 
                 <div class="col-lg-4">
