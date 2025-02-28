@@ -194,7 +194,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                       
+
                     </div>
 
 
@@ -205,185 +205,161 @@
                         <!-- Content Column -->
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
-                                
-                            </div>
-
-                            <div class="gallery">
                                 <div class="container">
-
                                     <h1 class="heading">Our Posts</h1>
-
+                                
                                     <div class="box-container">
-
                                         <?php
                                             include '../backEnd/connection.php';
                                             $sql = "SELECT * FROM blogs";
                                             $result = mysqli_query($con, $sql);
-                                            while ($row = mysqli_fetch_assoc($result)) { ?>
-
+                                            while ($row = mysqli_fetch_assoc($result)) { 
+                                        ?>
                                         <article class="box">
                                             <div class="article-wrapper">
                                                 <figure>
                                                     <img src="<?php echo $row['image'] ?>" alt="">
                                                 </figure>
-                                                
-                                                <div class="article-body" >
-                                                    <a href="#" style="text-decoration: none;"><h2>
-                                                        <?php echo $row['heading'] ?>
-                                                    </h2></a>
+                                                <div class="article-body">
+                                                    <a href="#" style="text-decoration: none;">
+                                                        <h2><?php echo $row['heading'] ?></h2>
+                                                    </a>
                                                     <p class="content-text">
                                                         <?php
-                                                    // Limit the content to the first 20 words
-                                                    $content = $row['content'];
-                                                    $contentArray = explode(' ', $content);
-                                                    if (count($contentArray) > 25) {
-                                                        echo implode(' ', array_slice($contentArray, 0, 20)) . '...';
-                                                    } else {
-                                                        echo $content;
-                                                    }
-                                                    ?>
+                                                            // Limit content to first 20 words
+                                                            $content = $row['content'];
+                                                            $contentArray = explode(' ', $content);
+                                                            echo (count($contentArray) > 25) 
+                                                                ? implode(' ', array_slice($contentArray, 0, 20)) . '...' 
+                                                                : $content;
+                                                        ?>
                                                     </p>
-
                                                     <div class="row">
                                                         <div class="col-lg-6" style="position: absolute; bottom: 10px; left: 0px;">
                                                             <a href="#" class="link"><span class="text">Edit More</span></a>
                                                         </div>
-
-
                                                         <div class="col-lg-6" style="position: absolute; bottom: 10px; right: 0px;">
                                                             <?php if (count($contentArray) > 25) { ?>
-                                                            <!-- Redirect to the full content page (e.g., blog_detail.php) -->
-                                                            <a href="blog_enter.php?id=<?php echo $row['id']; ?>"
-                                                                class="read-more-btn">Read more <svg
-                                                                    xmlns="http://www.w3.org/2000/svg" class="icon"
-                                                                    viewBox="0 0 20 20" fill="currentColor">
-                                                                    <path fill-rule="evenodd"
-                                                                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                                                                        clip-rule="evenodd" />
-                                                                </svg>
-                                                            </a>
-                                                            <?php 
-                                                                    } 
-                                                                ?>
+                                                            <a href="blog_enter.php?id=<?php echo $row['id']; ?>" class="read-more-btn">Read more</a>
+                                                            <?php } ?>
                                                         </div>
-
-
-
                                                     </div>
-
-
-
-
-
                                                 </div>
                                             </div>
-
-
                                         </article>
-
                                         <?php } ?>
                                     </div>
-
-                                    <div id="load-more"> load more </div>
-
-
+                                
+                                    <div class="buttons">
+                                        <div id="load-more">Load More</div>
+                                        <div id="show-less" style="display: none;">Show Less</div>
+                                    </div>
                                 </div>
+                                
+
                             </div>
+
+
+                        </div>
+
+                    </div>
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Your Website 2021</span>
                         </div>
                     </div>
-
-                </div>
-                <!-- /.container-fluid -->
+                </footer>
+                <!-- End of Footer -->
 
             </div>
-            <!-- End of Main Content -->
+            <!-- End of Content Wrapper -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
                     </div>
                 </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+        <!-- Page level plugins -->
+        <script src="vendor/chart.js/Chart.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+        <!-- Page level custom scripts -->
+        <script src="js/demo/chart-area-demo.js"></script>
+        <script src="js/demo/chart-pie-demo.js"></script>
 
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Load More functionality
-            let loadMoreBtn = document.querySelector('#load-more');
-            let boxes = [...document.querySelectorAll('.container .box-container .box')];
-            let currentItem = 3;
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                let loadMoreBtn = document.querySelector('#load-more');
+                let showLessBtn = document.querySelector('#show-less');
+                let boxes = [...document.querySelectorAll('.container .box-container .box')];
+                let currentItem = 3;
+                let minVisible = 3; // Minimum number of items to keep visible
 
-            // Show "Load More" button only if there are more than 3 cards
-            if (boxes.length > 3) {
-                loadMoreBtn.style.display = 'block';
-            }
+                function updateButtons() {
+                    loadMoreBtn.style.display = currentItem < boxes.length ? 'block' : 'none';
+                    showLessBtn.style.display = currentItem > minVisible ? 'block' : 'none';
+                }
 
-            loadMoreBtn.onclick = () => {
-                for (var i = currentItem; i < currentItem + 3; i++) {
-                    if (boxes[i]) {
-                        boxes[i].style.display = 'inline-block';
+                loadMoreBtn.addEventListener('click', () => {
+                    for (let i = currentItem; i < currentItem + 3 && i < boxes.length; i++) {
+                        boxes[i].style.display = 'flex';
                     }
-                }
-                currentItem += 3;
+                    currentItem += 3;
+                    updateButtons();
+                });
 
-                // Hide the button when all cards are shown
-                if (currentItem >= boxes.length) {
-                    loadMoreBtn.style.display = 'none';
-                }
-            };
-        });
-    </script>
+                showLessBtn.addEventListener('click', () => {
+                    if (currentItem > minVisible) {
+                        for (let i = currentItem - 1; i >= currentItem - 3 && i >= minVisible; i--) {
+                            boxes[i].style.display = 'none';
+                        }
+                        currentItem -= 3;
+                    }
+                    updateButtons();
+                });
+
+                updateButtons(); // Initial check
+            });
+
+
+        </script>
 
 
 </body>

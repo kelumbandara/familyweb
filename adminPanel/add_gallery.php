@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>SB Admin 2 - Buttons</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -77,7 +77,7 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="#" data-target="#collapseUtilities" aria-expanded="true"
+                <a class="nav-link" href="add_gallery.php" data-target="#collapseUtilities" aria-expanded="true"
                     aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Add Gallery</span>
@@ -97,6 +97,7 @@
 
         </ul>
         <!-- End of Sidebar -->
+
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -152,121 +153,6 @@
                                 </form>
                             </div>
                         </li>
-
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
-
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -282,14 +168,6 @@
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -308,104 +186,91 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                    </div>
+                    <h1 class="mb-5">News & Blogger Submission Form</h1>
 
 
 
+                    <form id="image-form" action="./include/imageGalleryBack.php" method="POST"
+                        enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="container_img">
+                                <!-- File input for image selection -->
+                                <input type="file" id="file-input" name="images[]" multiple
+                                    accept="image/png, image/jpeg" onchange="preview()" multiple>
+                                <label class="label_photo" for="file-input">
+                                    <i class="fas fa-upload"></i> &nbsp; Choose A Photo
+                                </label>
+                                <button type="submit" name="img_submit" id="submit-btn"
+                                    class="btn btn-primary">Submit</button>
+                                <button id="clear-btn2" onclick="clearImages()">Clear</button>
+                                <p id="num-of-files">No Files Chosen</p>
 
-                    <!-- Content Row -->
-                    <div class="row">
-                        <!-- Content Column -->
-                        <div class="col-lg-12 mb-4">
-                            <div class="card shadow mb-4">
-                                
+                                <!-- Image Preview Container -->
+                                <div id="images"></div>
                             </div>
 
-                            <div class="gallery">
-                                <div class="container">
+                            <!-- Submit Button (Initially Hidden) -->
+                        </div>
+                    </form>
 
-                                    <h1 class="heading">Our Posts</h1>
 
-                                    <div class="box-container">
 
-                                        <?php
-                                            include '../backEnd/connection.php';
-                                            $sql = "SELECT * FROM blogs";
-                                            $result = mysqli_query($con, $sql);
-                                            while ($row = mysqli_fetch_assoc($result)) { ?>
 
-                                        <article class="box">
-                                            <div class="article-wrapper">
-                                                <figure>
-                                                    <img src="<?php echo $row['image'] ?>" alt="">
-                                                </figure>
+                    <div class="row">
+                        <div class="container-fluid">
+
+                            <!-- DataTales Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Image</th>
+                                                    <th>Enterd date</th>
+                                                    <th>Edit</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <?php
+                                            include './include/connection.php';
+
+                                            $sql="SELECT * FROM image_gallery";
+                                            $result=mysqli_query($con,$sql);
+
+                                            while($row=mysqli_fetch_assoc($result)){
+                                                ?>
                                                 
-                                                <div class="article-body" >
-                                                    <a href="#" style="text-decoration: none;"><h2>
-                                                        <?php echo $row['heading'] ?>
-                                                    </h2></a>
-                                                    <p class="content-text">
-                                                        <?php
-                                                    // Limit the content to the first 20 words
-                                                    $content = $row['content'];
-                                                    $contentArray = explode(' ', $content);
-                                                    if (count($contentArray) > 25) {
-                                                        echo implode(' ', array_slice($contentArray, 0, 20)) . '...';
-                                                    } else {
-                                                        echo $content;
-                                                    }
-                                                    ?>
-                                                    </p>
-
-                                                    <div class="row">
-                                                        <div class="col-lg-6" style="position: absolute; bottom: 10px; left: 0px;">
-                                                            <a href="#" class="link"><span class="text">Edit More</span></a>
-                                                        </div>
-
-
-                                                        <div class="col-lg-6" style="position: absolute; bottom: 10px; right: 0px;">
-                                                            <?php if (count($contentArray) > 25) { ?>
-                                                            <!-- Redirect to the full content page (e.g., blog_detail.php) -->
-                                                            <a href="blog_enter.php?id=<?php echo $row['id']; ?>"
-                                                                class="read-more-btn">Read more <svg
-                                                                    xmlns="http://www.w3.org/2000/svg" class="icon"
-                                                                    viewBox="0 0 20 20" fill="currentColor">
-                                                                    <path fill-rule="evenodd"
-                                                                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                                                                        clip-rule="evenodd" />
-                                                                </svg>
-                                                            </a>
-                                                            <?php 
-                                                                    } 
-                                                                ?>
-                                                        </div>
+                                                <tr>
+                                                    <td class="tb_data">
+                                                        <img class="table_image"
+                                                            src="./imagesLibrary/<?php echo $row['image']?>">
+                                                    </td>
+                                                    <td>2011/04/25</td>
+                                                    <td><a class="table_delete_btn" href="./include/imageGalleryBack.php?img_id=<?php echo $row['id']?>"> Delete</a>
+                                                    </td>
+                                                </tr>
 
 
 
-                                                    </div>
+                                                <?php
+                                            }
+                                        
+                                        ?>
 
 
 
 
-
-                                                </div>
-                                            </div>
-
-
-                                        </article>
-
-                                        <?php } ?>
+                                            </tbody>
+                                        </table>
                                     </div>
-
-                                    <div id="load-more"> load more </div>
-
-
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -419,7 +284,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Your Website 2020</span>
                     </div>
                 </div>
             </footer>
@@ -467,40 +332,13 @@
     <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/demo/datatables-demo.js"></script>
 
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Load More functionality
-            let loadMoreBtn = document.querySelector('#load-more');
-            let boxes = [...document.querySelectorAll('.container .box-container .box')];
-            let currentItem = 3;
-
-            // Show "Load More" button only if there are more than 3 cards
-            if (boxes.length > 3) {
-                loadMoreBtn.style.display = 'block';
-            }
-
-            loadMoreBtn.onclick = () => {
-                for (var i = currentItem; i < currentItem + 3; i++) {
-                    if (boxes[i]) {
-                        boxes[i].style.display = 'inline-block';
-                    }
-                }
-                currentItem += 3;
-
-                // Hide the button when all cards are shown
-                if (currentItem >= boxes.length) {
-                    loadMoreBtn.style.display = 'none';
-                }
-            };
-        });
-    </script>
+    <script src="./js/multipleImg.js"></script>
 
 
 </body>

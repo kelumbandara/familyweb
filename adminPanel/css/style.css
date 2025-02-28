@@ -1,114 +1,49 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap'); */
-
-/* *{
-   font-family: 'Montserrat', sans-serif;
-   margin:0; padding:0;
-   box-sizing: border-box;
-   outline: none; border:none;
-   text-decoration: none;
-   text-transform: capitalize;
-   transition: all .2s linear;
-} */
-
-/* body{
- background-color: #dc143c22; 
-} */
-
-.container{
+.container {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-  padding:25px 20px;
+  padding: 25px 20px;
 }
 
-.container .heading{
+.container .heading {
   font-size: 40px;
   margin-bottom: 20px;
-  color:#334;
+  color: #334;
 }
 
-.container .box-container{
+.container .box-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap:20px;
+  gap: 20px;
 }
 
 .box {
   display: none; /* Hide all boxes initially */
 }
 
-.box:nth-child(-n+3) {
-  display: inline-block; /* Show the first 3 cards */
+.box-container .box:nth-child(-n+3) {
+  display: flex; /* Show first 3 */
 }
 
-.container .box-container .box{
-  background-color: #fff;
-  padding:20px;
-  border-radius: 5px;
-  box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  display: none;
-}
-
-.container .box-container .box:nth-child(1),
-.container .box-container .box:nth-child(2),
-.container .box-container .box:nth-child(3){
-  display: inline-block;
-}
-
-
-
-/* #load-more{
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
   margin-top: 20px;
-  display: inline-block;
-  padding:13px 30px;
-  border:1px solid #334;
-  color:#334;
-  font-size: 16px;
-  background-color: #fff;
-  cursor: pointer;
-} */
+}
 
-#load-more {
-  display: none; /* Hide initially */
+#load-more, #show-less {
   cursor: pointer;
   padding: 10px 20px;
   background: #333;
   color: white;
   text-align: center;
-  margin: 20px auto;
-  width: fit-content;
   border-radius: 5px;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
-#load-more:hover{
+#load-more:hover, #show-less:hover {
   background-color: rgb(20, 90, 220);
-  border-color: rgb(20, 73, 220);
-  color:#fff;
-}
-
-@media (max-width:450px){
-
-  .container .heading{
-    font-size: 25px;
-  }
-
-  .container .box-container{
-    grid-template-columns: 1fr;
-  }
-
-  .container .box-container .box .image{
-    height: 200px;
-  }
-
-  .container .box-container .box .content p{
-    font-size: 12px;
-  }
-
-  .container .box-container .box .content .icons span{
-    font-size: 12px;
-  }
-
 }
 
 article {
@@ -205,9 +140,6 @@ article:has(:hover, :focus) {
   color: #28666e;
 }
 
-/************************ 
-Generic layout (demo looks)
-**************************/
 .articles {
   display: grid;
   max-width: 1200px;
@@ -287,15 +219,7 @@ Generic layout (demo looks)
   width: 1px;
 }
 
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body {
-  font-family: "Inter", sans-serif;
-} */
+
 .formbold-main-wrapper {
   display: flex;
   align-items: center;
@@ -601,22 +525,28 @@ button:hover {
 
 
 /* multiple image select */
+.row{
+  width: 100%;
+}
 
 
-.container_img{
-  /* background-color: #ffffff; */
-  width:100%;
-  /* min-width: 450px; */
+.container_img {
+  width: 100%;
   position: relative;
-  margin:  50px auto;
+  margin: 50px auto;
   padding: 50px 20px;
   border-radius: 7px;
-  /* box-shadow: 0 20px 35px rgba(0,0,0,0.05); */
+  background-color: #f9f9f9;
+  align-items: center;
 }
-input[type="file"]{
+
+/* Hide default file input */
+input[type="file"] {
   display: none;
 }
-.label_photo{
+
+/* Label Button Style for File Input */
+.label_photo {
   display: block;
   position: relative;
   background-color: #025bee;
@@ -629,11 +559,15 @@ input[type="file"]{
   border-radius: 5px;
   cursor: pointer;
 }
-.container_img p{
+
+/* Text styling */
+.container_img p {
   text-align: center;
   margin: 20px 0 30px 0;
 }
-#images{
+
+/* Image Preview Container */
+#images {
   width: 90%;
   position: relative;
   margin: auto;
@@ -642,22 +576,31 @@ input[type="file"]{
   gap: 20px;
   flex-wrap: wrap;
 }
-figure{
-  width: 45vh;
-  height: 35vh;
+
+/* Styling for image figures */
+figure {
+  width: 25vh;
+  height: 25vh;
   overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-figure img{
+
+/* Image styling */
+figure img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  
 }
-figcaption{
+
+/* Caption styling */
+figcaption {
   text-align: center;
   font-size: 2.4vmin;
   margin-top: 0.5vmin;
 }
+
+/* Clear Button Styling */
 #clear-btn2 {
   display: none;
   background-color: red;
@@ -671,6 +614,47 @@ figcaption{
   border-radius: 5px;
   cursor: pointer;
 }
+
 #clear-btn2:hover {
   background-color: darkred;
+}
+
+
+#submit-btn {
+  display: none;
+  background-color: #025bee;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  width: 150px;
+  padding: 12px;
+  margin: 20px auto 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#submit-btn:focus {
+  outline: none;
+}
+
+#submit-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+
+.tb_data {
+  width: 15vh;
+  height: 15vh;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.table_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

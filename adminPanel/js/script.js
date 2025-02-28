@@ -80,67 +80,6 @@ clearButton.addEventListener('click', function () {
 });
 
 
-// this is for the form 
 
-document.getElementById('submission-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    // Collecting form data
-    const formData = {
-        title: document.getElementById('title').value,
-        author: document.getElementById('author').value,
-        category: document.getElementById('category').value,
-        content: document.getElementById('content').value,
-        datePublished: document.getElementById('date-published').value,
-        source: document.getElementById('source').value
-    };
 
-    // Displaying data in the console (you can replace this with an API call)
-    console.log('Form Data Submitted:', formData);
-    
-    // Clear form fields after submission
-    document.getElementById('submission-form').reset();
-});
 
-// multiple images script
-
-let fileInput = document.getElementById("file-input");
-let imageContainer = document.getElementById("images");
-let numOfFiles = document.getElementById("num-of-files");
-let clearBtn = document.getElementById("clear-btn2");
-
-clearBtn.style.display = "none"; // Hide the button initially
-
-function preview() {
-    imageContainer.innerHTML = "";
-    let filesCount = fileInput.files.length;
-    
-    if (filesCount > 0) {
-        numOfFiles.textContent = `${filesCount} File${filesCount > 1 ? "s" : ""} Selected`;
-        clearBtn.style.display = "block"; // Show the button when images are added
-    } else {
-        numOfFiles.textContent = "No Files Chosen";
-        clearBtn.style.display = "none"; // Hide the button if no files are selected
-    }
-
-    for (let i of fileInput.files) {
-        let reader = new FileReader();
-        let figure = document.createElement("figure");
-        let figCap = document.createElement("figcaption");
-        figure.appendChild(figCap);
-        reader.onload = () => {
-            let img = document.createElement("img");
-            img.setAttribute("src", reader.result);
-            figure.insertBefore(img, figCap);
-        };
-        imageContainer.appendChild(figure);
-        reader.readAsDataURL(i);
-    }
-}
-
-function clearImages() {
-    fileInput.value = ""; // Reset the file input
-    imageContainer.innerHTML = ""; // Clear image preview
-    numOfFiles.textContent = "No Files Chosen"; // Reset file count message
-    clearBtn.style.display = "none"; // Hide the clear button when images are removed
-}
