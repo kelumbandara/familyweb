@@ -33,95 +33,140 @@
 <body>
 <?php
 session_start();
-include 'backEnd/connection.php';
+include './backEnd/connection.php';
 
-// Check if the user is logged in
-if (isset($_SESSION['UsName'])) {
-    $user = $_SESSION["UsName"];
+// Default profile image
+$profileImage = "./image/Memberimages/avatar1.png";
 
-    // Securely fetch user data using prepared statements
-    $query = "SELECT * FROM register WHERE user_name = ?";
-    if ($stmt = mysqli_prepare($con, $query)) {
+// Check if the user is logged in (employee or admin)
+if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
+    // Determine if the user is an employee or admin
+    if (isset($_SESSION['UsName'])) {
+        // Employee session
+        $user = $_SESSION["UsName"];
+        $role = 'employee'; // Employee role
+
+        // Securely fetch user data using prepared statements
+        $query = "SELECT * FROM register WHERE user_name = ?";
+        $stmt = mysqli_prepare($con, $query);
         mysqli_stmt_bind_param($stmt, "s", $user);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
 
         if ($row = mysqli_fetch_assoc($result)) {
-            $profileImage = !empty($row['image']) ? "./image/Memberimages/{$row['image']}" : "./image/Memberimages/avatar1.png";
+            $profileImage = !empty($row['image']) ? "./image/Memberimages/{$row['image']}" : $profileImage;
         } else {
-            // If no user is found, redirect to login
             header("Location: loginPage.php");
             exit();
         }
-    } else {
-        die("Database query failed: " . mysqli_error($con));
+
+    } elseif (isset($_SESSION['adminId'])) {
+        // Admin session
+        $user = $_SESSION["adminName"];
+        $role = 'admin'; // Admin role
+        $profileImage = "./image/Memberimages/avatar1.png"; // Custom admin image, change as needed
+
+        // Securely fetch admin data using prepared statements
+        $query = "SELECT * FROM admin_login WHERE user_name = ?";
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "s", $user);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if ($row = mysqli_fetch_assoc($result)) {
+            // Profile image for admin if any, else default image
+            $profileImage = !empty($row['image']) ? "./image/Memberimages/{$row['image']}" : $profileImage;
+        } else {
+            header("Location: loginPage.php");
+            exit();
+        }
     }
-} else {
-    $profileImage = "./image/Memberimages/avatar1.png"; // Default profile image for non-logged-in users
-}
-?>
 
-<!-- Header Start -->
-<nav>
-    <div class="nav_bar">
-        <i class='bx bx-menu sideBarOpen'></i>
-        <span class="logo"><a href="#">Skynet</a></span>
+    // Render the navigation bar based on role
+    ?>
+    <nav>
+        <div class="nav_bar">
+            <i class='bx bx-menu sideBarOpen'></i>
+            <span class="logo"><a href="#">Skynet</a></span>
 
-        <div class="menu">
-            <div class="logo_toggle">
-                <span class="logo"><a href="#">Skynet</a></span>
-                <i class='bx bx-x sidebarClose'></i>
+            <div class="menu">
+                <div class="logo_toggle">
+                    <span class="logo"><a href="#">Skynet</a></span>
+                    <i class='bx bx-x sidebarClose'></i>
+                </div>
+
+                <ul class="nav_links">
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="#">Family Tree</a></li>
+                    <li><a href="blog.php">News & Updates</a></li>
+                    <?php if ($role == 'admin'): ?>
+                        <li><a href="admin_panel.php">Admin Panel</a></li>
+                    <?php endif; ?>
+                </ul>
             </div>
 
-            <ul class="nav_links">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="#">Family Tree</a></li>
-                <li><a href="blog.php">News & Updates</a></li>
-            </ul>
-        </div>
-
-        <div class="login_profile">
-            <?php if (isset($_SESSION['UsName'])): ?>
-                <div class="profile_button">
-                    <a href="#" onclick="toggleMenu()">
-                        <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
-                        
-                    </a>
-                </div>
-
-                <div class="sub_menu_wrap" id="subMenu">
-                    <div class="sub_menu">
-                        <div class="user_info">
+            <div class="login_profile">
+                <?php if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])): ?>
+                    <div class="profile_button">
+                        <a href="#" onclick="toggleMenu()">
                             <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
-                            <?php echo htmlspecialchars($_SESSION['UsName']); ?>
-                        </div>
-                        <hr>
-                        <a href="./profile.php?user=<?php echo urlencode($_SESSION['UsName']); ?>" class="sub_menu_links">
-                            <img src="./image/profile.png">
-                            <p>Edit Profile</p>
-                            <span>></span>
-                        </a>
-                        <a href="#" class="sub_menu_links">
-                            <img src="./image/setting.png">
-                            <p>Help & Support</p>
-                            <span>></span>
-                        </a>
-                        <a href="./logout.php" class="sub_menu_links">
-                            <img src="./image/profile.png">
-                            <p>Log Out</p>
-                            <span>></span>
                         </a>
                     </div>
-                </div>
-            <?php else: ?>
-                <div class="login_button">
-                    <a href="loginPage.php"><i class='bx bx-log-in'></i>Login</a>
-                </div>
-            <?php endif; ?>
+
+                    <div class="sub_menu_wrap" id="subMenu">
+                        <div class="sub_menu">
+                            <div class="user_info">
+                                <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
+                                <?php echo htmlspecialchars($user); ?>
+                            </div>
+                            <hr>
+                            <a href="./profile.php?user=<?php echo urlencode($user); ?>" class="sub_menu_links">
+                                <img src="./image/profile.png">
+                                <p>Edit Profile</p>
+                                <span>></span>
+                            </a>
+                            <!-- <a href="#" class="sub_menu_links">
+                                <img src="./image/setting.png">
+                                <p>Help & Support</p>
+                                <span>></span>
+                            </a> -->
+                            <?php if ($role == 'admin'): ?>
+                                <a href="./adminPanel/index.php" class="sub_menu_links">
+                                    <img src="./image/setting.png">
+                                    <p>Admin Panel</p>
+                                    <span>></span>
+                                </a>
+                            <?php endif; ?>
+                            <a href="./logout.php" class="sub_menu_links">
+                                <img src="./image/profile.png">
+                                <p>Log Out</p>
+                                <span>></span>
+                            </a>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="login_button">
+                        <a href="loginPage.php"><i class='bx bx-log-in'></i> Login</a>
+                    </div>
+                <?php endif; ?>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+    <?php
+} else {
+    // Redirect to login if the user is not logged in
+    header("Location: loginPage.php");
+    exit();
+}
+
+?>
+
+
+
+<!-- Header Start -->
+
 <!-- Header End -->
+
 
 
     <!-- Hero Section Start -->

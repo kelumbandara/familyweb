@@ -22,12 +22,13 @@ if (isset($_REQUEST["register"])) {
     $result = mysqli_stmt_get_result($stmt);
 
     if (mysqli_num_rows($result) > 0) {
+        // Redirect to loginPage.php with error (username exists)
         header("Location: ../loginPage.php?error=duplicate");
         exit();
     }
 
     // Hash password securely
-    $hashedPassword = md5($password);
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Insert user (Using Prepared Statement)
     $sql2 = "INSERT INTO register (user_name, email, password) VALUES (?, ?, ?)";
@@ -36,13 +37,15 @@ if (isset($_REQUEST["register"])) {
     $result2 = mysqli_stmt_execute($stmt2);
 
     if ($result2) {
-        $_SESSION['regid'] = mysqli_insert_id($con); // Get the last inserted user ID
+        // Store the new user ID in session
+        $_SESSION['regid'] = mysqli_insert_id($con);
         $_SESSION['UsName'] = $username;
 
         // Redirect to the homepage with the username
         header("Location: ../index.php?user=" . urlencode($_SESSION['UsName']));
         exit();
     } else {
+        // Handle database error and display an error message
         echo "Error: " . mysqli_error($con);
     }
 

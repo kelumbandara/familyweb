@@ -20,7 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/addBlog.css">
 
 </head>
 
@@ -32,8 +32,8 @@
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+           <!-- Sidebar - Brand -->
+           <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <!-- <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div> -->
@@ -190,28 +190,27 @@
 
 
 
-                    <form id="image-form" action="./include/imageGalleryBack.php" method="POST"
-                        enctype="multipart/form-data">
-                        <div class="row">
-                            <div class="container_img">
-                                <!-- File input for image selection -->
-                                <input type="file" id="file-input" name="images[]" multiple
-                                    accept="image/png, image/jpeg" onchange="preview()" multiple>
-                                <label class="label_photo" for="file-input">
-                                    <i class="fas fa-upload"></i> &nbsp; Choose A Photo
-                                </label>
-                                <button type="submit" name="img_submit" id="submit-btn"
-                                    class="btn btn-primary">Submit</button>
-                                <button id="clear-btn2" onclick="clearImages()">Clear</button>
-                                <p id="num-of-files">No Files Chosen</p>
+                    <div class="row">
+                        <div class="container_img">
+                            <!-- File input for image selection -->
+                            <form id="image-form" action="./include/imageGalleryBack.php" method="POST"
+                            enctype="multipart/form-data">
+                            <input type="file" id="file-input" name="images[]" multiple
+                                accept="image/png, image/jpeg" onchange="preview()" multiple>
+                            <label class="label_photo" for="file-input">
+                                <i class="fas fa-upload"></i> &nbsp; Choose A Photo
+                            </label>
+                            <button type="submit" name="img_submit" id="submit-btn"
+                                class="btn btn-primary">Submit</button>
+                            </form>
+                            <button id="clear-btn2" onclick="clearImages()">Clear</button>
 
-                                <!-- Image Preview Container -->
-                                <div id="images"></div>
-                            </div>
-
-                            <!-- Submit Button (Initially Hidden) -->
+                            <p id="num-of-files">No Files Chosen</p>
+                            <!-- Image Preview Container -->
+                            <div id="images"></div>
                         </div>
-                    </form>
+                        <!-- Submit Button (Initially Hidden) -->
+                    </div>
 
 
 
@@ -338,7 +337,7 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 
-    <script src="./js/multipleImg.js"></script>
+    <script src="./js/submit_multipleImg.js"></script>
 
 
 </body>

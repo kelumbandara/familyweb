@@ -1,3 +1,5 @@
+<!-- query for image send -->
+
 <?php
 include 'connection.php';
 
@@ -66,6 +68,9 @@ if (isset($_POST['img_submit'])) {
     }
 }
 ?>
+
+
+<!-- query for delete  -->
 
 <?php
 include 'connection.php';

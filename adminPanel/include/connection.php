@@ -1,5 +1,5 @@
 <?php
-
+// connection for databse
 $server="localhost";
 $name="root";
 $pass="";

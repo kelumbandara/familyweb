@@ -1,48 +1,68 @@
 <?php
+session_start();
+include('connection.php'); // Fix the path if needed
+
+// Check if the login form was submitted
 if (isset($_REQUEST['login'])) {
-    session_start();
-    include('connection.php');
-
-    // Trim input to remove unnecessary spaces
     $usName = trim($_REQUEST['login_Username']);
-    $password = md5($_REQUEST['login_Password']);
+    $password = $_REQUEST['login_Password']; // Don't hash the password here
 
-    // Validate empty input
+    // Validate empty input fields
     if (empty($usName) || empty($password)) {
         header('Location: ../loginPage.php?error=emptyFields');
         exit();
     }
 
-    // Use prepared statement to prevent SQL Injection
+    // Check if the user is an admin
+    $query1 = "SELECT * FROM admin_login WHERE user_name = ?";
+    $stmt1 = mysqli_prepare($con, $query1);
+    mysqli_stmt_bind_param($stmt1, "s", $usName);
+    mysqli_stmt_execute($stmt1);
+    $result1 = mysqli_stmt_get_result($stmt1);
+
+    if ($row = mysqli_fetch_assoc($result1)) {
+        // Verify password for admin
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['adminId'] = $row['id'];
+            $_SESSION['adminName'] = $row['user_name'];
+            $_SESSION['role'] = "admin"; // Set role to admin
+
+            header("Location: ../index.php?admin"); // Redirect to the admin home page
+            exit();
+        } else {
+            header('Location: ../loginPage.php?error=wrongPassword');
+            exit();
+        }
+    }
+
+    // Check if the user is an employee
     $query = "SELECT * FROM register WHERE user_name = ?";
     $stmt = mysqli_prepare($con, $query);
     mysqli_stmt_bind_param($stmt, "s", $usName);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
-    // Check if user exists
     if ($row = mysqli_fetch_assoc($result)) {
-        // Verify password using password_verify()
+        // Verify password for employee
         if (password_verify($password, $row['password'])) {
             $_SESSION['userid'] = $row['id'];
             $_SESSION['UsName'] = $row['user_name'];
+            $_SESSION['role'] = "employee"; // Set role to employee
 
-            // Redirect to home page
-            header("Location: ../index.php?user=" . urlencode($_SESSION['UsName']));
+            header("Location: ../index.php?employee"); // Redirect to the employee home page
             exit();
         } else {
             header('Location: ../loginPage.php?error=wrongPassword');
             exit();
         }
     } else {
+        // If user doesn't exist in either table
         header('Location: ../loginPage.php?error=userNotExists');
         exit();
     }
 
-    // Close statement and database connection
-    mysqli_stmt_close($stmt);
-    mysqli_close($con);
 } else {
+    // If login was not submitted, redirect to login page
     header('Location: ../loginPage.php');
     exit();
 }

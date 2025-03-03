@@ -15,9 +15,10 @@
 
 <body>
     <div class="container light-style flex-grow-1 container-p-y">
-         <a href="./index.php" style="color: #000; font-size: 35px;" class="goBack"><i class='bx bx-arrow-back'><span style="margin-left: 20px;">Go Back</span></i></a>
+        <a href="./index.php" style="color: #000; font-size: 35px;" class="goBack"><i class='bx bx-arrow-back'><span
+                    style="margin-left: 20px;">Go Back</span></i></a>
         <h4 class="font-weight-bold py-3 mb-4">
-           
+
             Account settings
         </h4>
         <div class="card overflow-hidden">
@@ -59,19 +60,23 @@
                                     <?php
                                         if($row['image']){
                                     ?>
-                                        <img src="#" id="newImg" onerror="this.src='./image/Memberimages/<?php echo $row['image']?>'" class="d-block ui-w-80">
+                                    <img src="#" id="newImg"
+                                        onerror="this.src='./image/Memberimages/<?php echo $row['image'] ?>'"
+                                        class="d-block ui-w-80">
                                     <?php
                                         }else{
                                     ?>
-                                        <img src="#" id="newImg" onerror="this.src='./image/Memberimages/avatar1.png'" class="d-block ui-w-80">
+                                    <img src="#" id="newImg" onerror="this.src='./image/Memberimages/avatar1.png'"
+                                        class="d-block ui-w-80">
                                     <?php
                                         }
                                     ?>
-                                   
+
                                     <div class="media-body ml-4">
                                         <label class="btn btn-outline-primary">
                                             Upload new photo
-                                            <input type="file" name="ImgFile" id="InpImg" class="account-settings-fileinput">
+                                            <input type="file" name="ImgFile" id="InpImg"
+                                                class="account-settings-fileinput">
                                         </label>
                                         <!-- &nbsp; -->
                                         <button type="button" class="btn btn-default md-btn-flat">Reset</button>
@@ -115,11 +120,11 @@
                             </form>
 
                             <script text="text/javascript">
-                                InpImg.onchange= evt =>{
-                                    const[file]=InpImg.files
-
-                                    if(file){
-                                        newImg.src=URL.createObjectURL(file)
+                                // to prview image
+                                InpImg.onchange = evt => {
+                                    const [file] = InpImg.files
+                                    if (file) {
+                                        newImg.src = URL.createObjectURL(file)
                                     }
                                 }
                             </script>
@@ -131,8 +136,95 @@
                         </div>
 
 
-
+                        <!-- changing the password -->
                         <div class="tab-pane fade" id="account-change-password">
+                            <?php
+                                include 'backEnd/connection.php';
+                                if (isset($_SESSION['UsName'])) {
+                                    $user = $_SESSION["UsName"];
+                                    $query = "SELECT * FROM register WHERE user_name='$user'";
+                                    $result = mysqli_query($con, $query);
+                                    $row = mysqli_fetch_assoc($result);
+
+                                    // Check for 'editPasswordSuccess' parameter and set flag
+                                    if (isset($_GET['editPasswordSuccess'])) {
+                                        $showAlert = true;
+                                    } else {
+                                        $showAlert = false;
+                                    }
+                            ?>
+                            <form action="./backEnd/proUpdate.php" method="post" id="passwordForm">
+                                <div class="card-body pb-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Current password</label>
+                                        <input type="password" class="form-control" id="old_pass" name="oldPassword">
+                                        <input type="hidden" class="form-control" id="hidden_pass" name="hidden_pass"
+                                            value="<?php echo $row["password"] ?>">
+                                        <input type="hidden" class="form-control" name="hidden_id"
+                                            value="<?php echo $row["id"] ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">New password</label>
+                                        <input type="password" class="form-control" name="NewPssword" id="NewPssword">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Repeat new password</label>
+                                        <input type="password" class="form-control" name="ComPassword" id="ComPassword">
+                                    </div>
+
+                                    <div class="text-right mt-3">
+                                        <button type="submit" class="btn btn-primary" name="submitPassword">Save
+                                            changes</button>&nbsp;
+                                        <button type="button" class="btn btn-default">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                <?php if ($showAlert): ?>
+                                    alert('Password has been updated successfully!');
+                                <?php endif; ?>
+
+                                const form = document.getElementById("passwordForm");
+
+                                form.addEventListener("submit", function (event) {
+                                        const oldPass = document.getElementById("old_pass").value.trim();
+                                        const oldConfirmPass = document.getElementById("hidden_pass").value.trim();
+                                        const newPassword = document.getElementById("NewPssword").value.trim();
+                                        const confirmPassword = document.getElementById("ComPassword").value.trim();
+
+                                        // Hash the old password
+                                        const md5Pass = CryptoJS.MD5(oldPass).toString();
+
+                                        if (oldPass === "") {
+                                            alert("The Old password must not be empty!");
+                                            event.preventDefault();
+                                        } else if (newPassword === "") {
+                                            alert("New password cannot be empty!");
+                                            event.preventDefault();
+                                        } else if (newPassword !== confirmPassword) {
+                                            alert("New password and Confirm password do not match!");
+                                            event.preventDefault();
+                                        } else if (newPassword === oldPass) {
+                                            alert("New password and old password should not be the same!");
+                                            event.preventDefault();
+                                        } else if (md5Pass !== oldConfirmPass) {
+                                            alert("Old password is incorrect!");
+                                            event.preventDefault();
+                                        }
+                                    });
+                            });
+                            </script>
+
+                            <?php 
+        } 
+    ?>
+                        </div>
+
+
+
+                        <div class="tab-pane fade" id="account-info">
                             <?php
                             include 'backEnd/connection.php';
                             if(isset($_SESSION['UsName'])){  
@@ -143,73 +235,35 @@
                                 $result=mysqli_query($con,$query);
                                 $row=mysqli_fetch_assoc($result);
                                 ?>
-
-
-                            <form action="backEnd/proUpdate.php" method="post">
+                            <form action="./backEnd/proUpdate.php" method="post">
                                 <div class="card-body pb-2">
                                     <div class="form-group">
-                                        <label class="form-label">Current password</label>
-                                        <input type="password" class="form-control" name="oldPassword">
-                                        <input type="hidden" class="form-control" name="hidden_oldPassword" value="<?php echo $row['password']?>">
+                                        <label class="form-label">Birthday</label>
+                                        <input type="hidden" name="id" value="<?php echo $row['id']?>">
+                                        <input type="date" class="form-control" name="age"
+                                            value="<?php echo $row['age']?>">
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">New password</label>
-                                        <input type="password" class="form-control" name="NewPssword">
+                                        <label class="form-label">Country</label>
+                                        <input type="text" class="form-control" name="country"
+                                            value="<?php echo $row['country']?>">
                                     </div>
+                                </div>
+                                <hr class="border-light m-0">
+                                <div class="card-body pb-2">
+                                    <h6 class="mb-4">Contacts</h6>
                                     <div class="form-group">
-                                        <label class="form-label">Repeat new password</label>
-                                        <input type="password" class="form-control" name="ComPassword">
-                                    </div>
+                                        <label class="form-label">Phone</label>
+                                        <input type="text" class="form-control" name="contact"
+                                            value="<?php echo $row['contact']?>">
 
+                                    </div>
                                     <div class="text-right mt-3">
-                                        <button type="submit" class="btn btn-primary" name="pass">Save
-                                            changes</button>&nbsp;
+                                        <input type="submit" name="bio" class="btn btn-primary"
+                                            value="Submit Changes">&nbsp;
                                         <button type="button" class="btn btn-default">Cancel</button>
                                     </div>
                                 </div>
-                                <?php 
-                            }
-                            ?>
-                        </div>
-
-
-
-                        <div class="tab-pane fade" id="account-info">
-                        <?php
-                            include 'backEnd/connection.php';
-                            if(isset($_SESSION['UsName'])){  
-                                $user=$_SESSION["UsName"];
-
-                                $query = "SELECT * FROM register WHERE user_name='$user'";
-
-                                $result=mysqli_query($con,$query);
-                                $row=mysqli_fetch_assoc($result);
-                                ?>
-                            <form action="./backEnd/proUpdate.php" method="post">
-                            <div class="card-body pb-2">
-                                <div class="form-group">
-                                    <label class="form-label">Birthday</label>
-                                    <input type="hidden" name="id" value="<?php echo $row['id']?>">
-                                    <input type="date" class="form-control" name="age" value="<?php echo $row['age']?>">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Country</label>
-                                    <input type="text" class="form-control" name="country" value="<?php echo $row['country']?>">
-                                </div>
-                            </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body pb-2">
-                                <h6 class="mb-4">Contacts</h6>
-                                <div class="form-group">
-                                    <label class="form-label">Phone</label>
-                                    <input type="text" class="form-control" name="contact" value="<?php echo $row['contact']?>">
-                                   
-                                </div>
-                                <div class="text-right mt-3">
-                                    <input type="submit" name="bio" class="btn btn-primary" value="Submit Changes">&nbsp;
-                                    <button type="button" class="btn btn-default">Cancel</button>
-                                </div>
-                            </div>
                             </form>
 
                             <?php
@@ -262,6 +316,10 @@
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+
     <script>
         function validations() {
             var error = document.getElementById('error');

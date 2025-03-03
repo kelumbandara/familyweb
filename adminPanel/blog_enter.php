@@ -20,7 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/addBlog.css">
 
 </head>
 
@@ -33,7 +33,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <!-- <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div> -->
@@ -187,45 +187,45 @@
 
                     <!-- Page Heading -->
                     <h1 class="mb-5">News & Blogger Submission Form</h1>
+                    <form action="./include/blogAddBack.php" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-lg-6 mb-4">
+                                <div class="container_drop">
+                                    <!-- Drag & Drop Area -->
+                                    <div class="drop-area">
+                                        <i class='bx bxs-cloud-upload icon'></i>
+                                        <h3>Drag and drop or click here to select images</h3>
+                                        <p>Image size must be less than <span>2MB</span></p>
+                                        <input type="file" name="head_img" accept="image/*" id="input-file" hidden multiple>
+                                    </div>
 
-                    <div class="row">
-
-                        <div class="col-lg-6 mb-4">
-                            <div class="container_drop">
-                                <!-- Drag & Drop Area -->
-                                <div class="drop-area">
-                                    <i class='bx bxs-cloud-upload icon'></i>
-                                    <h3>Drag and drop or click here to select images</h3>
-                                    <p>Image size must be less than <span>2MB</span></p>
-                                    <input type="file" accept="image/*" id="input-file" hidden multiple>
-                                </div>
-                        
-                                <!-- Clear Button Area (Initially Hidden) -->
-                                <div class="clear-area">
-                                    <button id="clear-btn" class="clear-btn" style="display: none;">Clear Images</button>
+                                    <!-- Clear Button Area (Initially Hidden) -->
+                                    <div class="clear-area">
+                                        <button id="clear-btn" class="clear-btn" style="display: none;">Clear
+                                            Images</button>
+                                    </div>
                                 </div>
                             </div>
-
-
-                            
-                        </div>
-
-                        <div class="col-lg-6 mb-4">
-                            <div class="form-container">
-                                <form id="submission-form">
+                            <div class="col-lg-6 mb-4">
+                                <div class="form-container">
                                     <div class="form-group">
                                         <label for="title">Title</label>
-                                        <input type="text" id="title" name="title" required>
+                                        <input type="text" id="title" name="title" >
                                     </div>
 
                                     <div class="form-group">
                                         <label for="author">Author</label>
-                                        <input type="text" id="author" name="author" required>
+                                        <input type="text" id="author" name="author" >
+                                    <?php
+                                    
+                                    
+                                    ?>
+                                        <input type="hidden" id="author" name="id_blog" >
                                     </div>
 
                                     <div class="form-group">
                                         <label for="category">Category</label>
-                                        <select id="category" name="category" required>
+                                        <select id="category" name="category" >
                                             <option value="news">News</option>
                                             <option value="blog">Blog</option>
                                             <option value="opinion">Opinion</option>
@@ -235,35 +235,101 @@
 
                                     <div class="form-group">
                                         <label for="content">Content</label>
-                                        <textarea id="content" name="content" rows="5" required></textarea>
+                                        <textarea id="content" name="content" rows="5" ></textarea>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="date-published">Date Published</label>
-                                        <input type="date" id="date-published" name="date-published" required>
-                                    </div>
+                                    
 
                                     <!-- <div class="form-group">
                                         <label for="source">Source/Reference (Optional)</label>
                                         <input type="text" id="source" name="source">
                                     </div> -->
 
-                                    <button type="submit">Submit</button>
-                                </form>
+                                    <button type="submit" name="add_blog">Submit</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="row">
+                            <div class="container_img">
+                                <!-- File input for image selection -->
+                                <input type="file" id="file-input" name="blog_images[]" multiple accept="image/png, image/jpeg" onchange="preview()">
+                                <label class="label_photo" for="file-input">
+                                    <i class="fas fa-upload"></i> &nbsp; Choose A Photo
+                                </label>
+                                <button id="clear-btn2" onclick="clearImages()">Clear</button>
+
+                                <p id="num-of-files">No Files Chosen</p>
+                                <!-- Image Preview Container -->
+                                <div id="images"></div>
+                            </div>
+                        </div>
+                    </form>
 
                     <div class="row">
-                        <div class="container_img">
-                            <input type="file" id="file-input" accept="image/png, image/jpeg" onchange="preview()" multiple>
-                            <label class="label_photo" for="file-input">
-                                <i class="fas fa-upload"></i> &nbsp; Choose A Photo
-                            </label>
-                            <button id="clear-btn2" onclick="clearImages()">Clear</button>
-                            <p id="num-of-files">No Files Chosen</p>
-                            <div id="images"></div>
-                            
+                        <div class="container-fluid">
+
+                            <!-- DataTales Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Blog Head Image</th>
+                                                    <th>Blog Title</th>
+                                                    <th>Blog Date</th>
+                                                    <th>Content</th>
+                                                    <th>Author</th>
+                                                    <th>Category</th>
+                                                    <th>Edit</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <?php
+                                            include './include/connection.php';
+
+                                            $sql="SELECT * FROM blogs";
+                                            $result=mysqli_query($con,$sql);
+
+                                            while($row=mysqli_fetch_assoc($result)){
+                                                ?>
+                                                
+                                                <tr>
+                                                    <td class="tb_data">
+                                                        <img class="table_image"
+                                                            src="./blogImages/blogTitle/<?php echo $row['image']?>">
+                                                    </td>
+                                                    
+                                                    <td><?php echo $row['heading']?></td>
+                                                    <td><?php echo $row['date']?></td>
+                                                    <td><?php echo $row['content']?></td>
+                                                    <td><?php echo $row['Author']?></td>
+                                                    <td><?php echo $row['Category']?></td>
+                                                    <td>
+                                                    <a class="table_delete_btn" href="./include/blogAddBack.php?blog_delete=<?php echo $row["id"] ?>"> Delete</a>
+                                                    </td>
+                                                </tr>
+
+
+
+                                                <?php
+                                            }
+                                        
+                                        ?>
+
+
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -325,7 +391,8 @@
     <script src="js/sb-admin-2.min.js"></script>
 
     <script src="./js/script.js"></script>
-    <script src="./js/multipleImg.js"></script>
+
+    <script src="./js/addBlog_multiimg.js"></script>
 
 
 </body>
