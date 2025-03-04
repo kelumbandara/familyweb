@@ -99,9 +99,6 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                     <li><a href="index.php">Home</a></li>
                     <li><a href="#">Family Tree</a></li>
                     <li><a href="blog.php">News & Updates</a></li>
-                    <?php if ($role == 'admin'): ?>
-                        <li><a href="admin_panel.php">Admin Panel</a></li>
-                    <?php endif; ?>
                 </ul>
             </div>
 
@@ -153,10 +150,63 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
         </div>
     </nav>
     <?php
-} else {
-    // Redirect to login if the user is not logged in
-    header("Location: loginPage.php");
-    exit();
+} else { ?>
+   
+   <nav>
+        <div class="nav_bar">
+            <i class='bx bx-menu sideBarOpen'></i>
+            <span class="logo"><a href="#">Skynet</a></span>
+
+            <div class="menu">
+                <div class="logo_toggle">
+                    <span class="logo"><a href="#">Skynet</a></span>
+                    <i class='bx bx-x sidebarClose'></i>
+                </div>
+
+                <ul class="nav_links">
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="#">Family Tree</a></li>
+                    <li><a href="blog.php">News & Updates</a></li>
+                </ul>
+            </div>
+
+            <div class="login_profile">
+                    <!-- <div class="profile_button">
+                        <a href="#" onclick="toggleMenu()">
+                            <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
+                        </a>
+                    </div> -->
+                    <!-- <div class="sub_menu_wrap" id="subMenu">
+                        <div class="sub_menu">
+                            <div class="user_info">
+                                <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
+                                <?php echo htmlspecialchars($user); ?>
+                            </div>
+                            <hr>
+                            <a href="./profile.php?user=<?php echo urlencode($user); ?>" class="sub_menu_links">
+                                <img src="./image/profile.png">
+                                <p>Edit Profile</p>
+                                <span>></span>
+                            </a>
+                            <a href="#" class="sub_menu_links">
+                                <img src="./image/setting.png">
+                                <p>Help & Support</p>
+                                <span>></span>
+                            </a>
+                            <a href="./logout.php" class="sub_menu_links">
+                                <img src="./image/profile.png">
+                                <p>Log Out</p>
+                                <span>></span>
+                            </a>
+                        </div>
+                    </div> -->
+                    <div class="login_button">
+                        <a href="loginPage.php"><i class='bx bx-log-in'></i> Login</a>
+                    </div>
+            </div>
+        </div>
+    </nav>
+   <?php
 }
 
 ?>

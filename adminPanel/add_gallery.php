@@ -18,9 +18,9 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="./assets/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="./css/addBlog.css">
+    <link rel="stylesheet" href="./assets/css/addBlog.css">
 
 </head>
 
@@ -186,7 +186,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="mb-5">News & Blogger Submission Form</h1>
+                    <h1 class="mb-5">Add Images To gallery</h1>
 
 
 
@@ -335,9 +335,9 @@
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
+    <script src="./assets/js/demo/datatables-demo.js"></script>
 
-    <script src="./js/submit_multipleImg.js"></script>
+    <script src="./assets/js/submit_multipleImg.js"></script>
 
 
 </body>

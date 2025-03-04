@@ -6,11 +6,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    
+
+
+
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/blog_style.css">
+
     <title>Home - Darisset</title>
 
 
@@ -22,30 +25,153 @@
 
     <!-- ________________Boxicons________________ -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+
+    <style>
+        .gallery_body {
+            font-family: Lato, sans-serif;
+            margin: 0;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .figure_img {
+            width: 100%;
+            display: block;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            transition: transform 1000ms;
+        }
+
+        .figure_ul {
+            list-style: none;
+            margin: 0 0 0 50px;
+            padding: 0;
+            display: grid;
+            gap: 0.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+            max-width: 100%;
+            width: 70rem;
+        }
+
+        .gallery_figure {
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery_figure::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(0, 0, 0, 0.5);
+            transform-origin: center;
+            opacity: 0;
+            transform: scale(2);
+            transition: opacity 300ms;
+        }
+
+
+        a:is(:hover, :focus) {
+            opacity: 1;
+        }
+
+        a:is(:hover, :focus) {
+            opacity: 1;
+            transition: opacity 600ms;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+
+
+            .gallery_figure::after {
+                border-radius: 50%;
+                opacity: 1;
+                transform: scale(0);
+                transition: transform 900ms;
+            }
+
+            a:is(:hover, :focus) .gallery_figure::after {
+                transform: scale(2.5);
+            }
+
+            a:is(:hover, :focus) .figure_title {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+                transition: opacity 600ms 400ms, transform 600ms 400ms;
+            }
+
+            a:is(:hover, :focus) img {
+                transform: scale(1.2);
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 
-<?php
+    <?php
 session_start();
-include 'backEnd/connection.php';
+include './backEnd/connection.php';
 
-// Check if the user is logged in
-if (isset($_SESSION['UsName'])) {
-    $user = $_SESSION["UsName"];
+// Default profile image
+$profileImage = "./image/Memberimages/avatar1.png";
 
-    // Securely fetch user data using prepared statement
-    $query = "SELECT * FROM register WHERE user_name = ?";
-    $stmt = mysqli_prepare($con, $query);
-    mysqli_stmt_bind_param($stmt, "s", $user);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+// Check if the user is logged in (employee or admin)
+if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
+    // Determine if the user is an employee or admin
+    if (isset($_SESSION['UsName'])) {
+        // Employee session
+        $user = $_SESSION["UsName"];
+        $role = 'employee'; // Employee role
 
-    if ($row = mysqli_fetch_assoc($result)) {
-?>
+        // Securely fetch user data using prepared statements
+        $query = "SELECT * FROM register WHERE user_name = ?";
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "s", $user);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
 
-    <!-- Header Start -->
+        if ($row = mysqli_fetch_assoc($result)) {
+            $profileImage = !empty($row['image']) ? "./image/Memberimages/{$row['image']}" : $profileImage;
+        } else {
+            header("Location: loginPage.php");
+            exit();
+        }
+
+    } elseif (isset($_SESSION['adminId'])) {
+        // Admin session
+        $user = $_SESSION["adminName"];
+        $role = 'admin'; // Admin role
+        $profileImage = "./image/Memberimages/avatar1.png"; // Custom admin image, change as needed
+
+        // Securely fetch admin data using prepared statements
+        $query = "SELECT * FROM admin_login WHERE user_name = ?";
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "s", $user);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if ($row = mysqli_fetch_assoc($result)) {
+            // Profile image for admin if any, else default image
+            $profileImage = !empty($row['image']) ? "./image/Memberimages/{$row['image']}" : $profileImage;
+        } else {
+            header("Location: loginPage.php");
+            exit();
+        }
+    }
+
+    // Render the navigation bar based on role
+    ?>
     <nav>
         <div class="nav_bar">
             <i class='bx bx-menu sideBarOpen'></i>
@@ -65,38 +191,37 @@ if (isset($_SESSION['UsName'])) {
             </div>
 
             <div class="login_profile">
-                <?php 
-            // Check if user has an image, otherwise use default
-            $profileImage = !empty($row['image']) ? "./image/Memberimages/{$row['image']}" : "./image/Memberimages/avatar1.png";
-            ?>
+                <?php if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])): ?>
                 <div class="profile_button">
                     <a href="#" onclick="toggleMenu()">
-                        <img src="<?php echo $profileImage; ?>" alt="User Profile">
-                       
+                        <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
                     </a>
                 </div>
 
                 <div class="sub_menu_wrap" id="subMenu">
                     <div class="sub_menu">
                         <div class="user_info">
-                            <img src="<?php echo $profileImage; ?>" alt="User Profile">
-                            <h2>
-                                <?php echo htmlspecialchars($_SESSION['UsName']); ?>
-                            </h2>
+                            <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
+                            <?php echo htmlspecialchars($user); ?>
                         </div>
                         <hr>
-
-                        <a href="./profile.php?user=<?php echo urlencode($_SESSION['UsName']); ?>"
-                            class="sub_menu_links">
+                        <a href="./profile.php?user=<?php echo urlencode($user); ?>" class="sub_menu_links">
                             <img src="./image/profile.png">
                             <p>Edit Profile</p>
                             <span>></span>
                         </a>
-                        <a href="#" class="sub_menu_links">
+                        <!-- <a href="#" class="sub_menu_links">
+                                <img src="./image/setting.png">
+                                <p>Help & Support</p>
+                                <span>></span>
+                            </a> -->
+                        <?php if ($role == 'admin'): ?>
+                        <a href="./adminPanel/index.php" class="sub_menu_links">
                             <img src="./image/setting.png">
-                            <p>Help & Support</p>
+                            <p>Admin Panel</p>
                             <span>></span>
                         </a>
+                        <?php endif; ?>
                         <a href="./logout.php" class="sub_menu_links">
                             <img src="./image/profile.png">
                             <p>Log Out</p>
@@ -104,16 +229,17 @@ if (isset($_SESSION['UsName'])) {
                         </a>
                     </div>
                 </div>
+                <?php else: ?>
+                <div class="login_button">
+                    <a href="loginPage.php"><i class='bx bx-log-in'></i> Login</a>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </nav>
-    <!-- Header End -->
-
     <?php
-    }
-    }else{
-        ?>
-    <!-- Header Start -->
+} else { ?>
+
     <nav>
         <div class="nav_bar">
             <i class='bx bx-menu sideBarOpen'></i>
@@ -134,603 +260,117 @@ if (isset($_SESSION['UsName'])) {
 
             <div class="login_profile">
                 <div class="login_button">
-                    <a href="loginPage.php"><i class='bx bx-log-in'></i>Login</a>
+                    <a href="loginPage.php"><i class='bx bx-log-in'></i> Login</a>
                 </div>
-
-                <!-- <div class="profile_button">
-                    <a href="Profile.php"><img src="assets/images/Member images/img-2.jpg" alt="">Hello</a>
-                </div> -->
             </div>
-
         </div>
     </nav>
-    <!-- Header End -->
     <?php
-     }
-     ?>
+}
+
+?>
 
 
 
 
-    <!-- popular post -->
-    <div class="popular-post">
-        <div class="container">
-            <!-- popular post -->
-            <section class="section projects">
-                <!-- section title -->
-                <div class="section-title">
-                    <h2>Blog page</h2>
-                    <div class="underline"></div>
-                </div>
-                <!-- end of section title -->
-                <div class="section-center projects-center">
-                    <!-- single post -->
-                    <a href="detail.php" class="project-1">
-                        <article class="project">
-                            <img src="./image/img/blog1.jpg" alt="" class="project-img" />
-                            <div class="project-info">
-                                <h4>How to learning python?</h4>
-                                <p>Python</p>
-                            </div>
-                        </article>
-                    </a>
-                    <!-- end of single post -->
-                    <!-- single post -->
-                    <a href="detail.php" class="project-2">
-                        <article class="project">
-                            <img src="./image/img/blog2.jpg" alt="" class="project-img" />
-                            <div class="project-info">
-                                <h4>Nothing is impossible</h4>
-                                <p>Journal</p>
-                            </div>
-                        </article>
-                    </a>
-                    <!-- end of single post -->
-                    <!-- single post -->
-                    <a href="detail.php" class="project-3">
-                        <article class="project">
-                            <img src="./image/img/slide1.jpg" alt="" class="project-img" />
-                            <div class="project-info">
-                                <h4>Lorem ipsum dolor sit.</h4>
-                                <p>Life Style</p>
-                            </div>
-                        </article>
-                    </a>
-                    <!-- end of single project -->
-                    <!-- single project -->
-                    <a href="detail.php" class="project-4">
-                        <article class="project">
-                            <img src="./image/img/blog3.jpg" alt="" class="project-img" />
-                            <div class="project-info">
-                                <h4>Lorem ipsum dolor sit.</h4>
-                                <p>Education</p>
-                            </div>
-                        </article>
-                    </a>
-                    <!-- end of single project -->
-                </div>
-            </section>
-            <!-- endo of projects -->
-        </div>
-    </div>
-    <!-- popular post -->
 
-    <!-- Banner -->
-    <div class="banner">
-        <div class="container">
-            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <section>
-                            <div class="section-center clearfix">
-                                <!-- banner-img -->
-                                <article class="banner-img">
-                                    <div class="banner-picture-container">
-                                        <img src="./image/img/slide1.jpg" alt="tea kettle" class="banner-picture" />
-                                    </div>
-                                </article>
-                                <!-- banner-info -->
-                                <article class="banner-info">
-                                    <!-- section title -->
-                                    <div class="">
-                                        <h3>Banner our ?</h3>
-                                        <h2>My Journal</h2>
-                                    </div>
-                                    <!-- end of section title -->
-                                    <p class="banner-text">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
-                                        repellendus reprehenderit iure, vero nobis dolore!
-                                    </p>
-                                    <p class="banner-text">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
-                                        repellendus reprehenderit iure, vero nobis dolore!
-                                    </p>
-                                    <a href="detail.html" class="btn">learn more</a>
-                                </article>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="carousel-item">
-                        <section>
-                            <div class="section-center clearfix">
-                                <!-- banner-img -->
-                                <article class="banner-img">
-                                    <div class="banner-picture-container">
-                                        <img src="./image/img/slide2.jpg" alt="tea kettle" class="banner-picture" />
-                                    </div>
-                                </article>
-                                <!-- banner-info -->
-                                <article class="banner-info">
-                                    <!-- section title -->
-                                    <div class="">
-                                        <h3>Haw learn python?</h3>
-                                        <h2>Pyhton Beginners</h2>
-                                    </div>
-                                    <!-- end of section title -->
-                                    <p class="banner-text">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
-                                        repellendus reprehenderit iure, vero nobis dolore!
-                                    </p>
-                                    <p class="banner-text">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
-                                        repellendus reprehenderit iure, vero nobis dolore!
-                                    </p>
-                                    <a href="detail.html" class="btn">learn more</a>
-                                </article>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="carousel-item">
-                        <section>
-                            <div class="section-center clearfix">
-                                <!-- banner-img -->
-                                <article class="banner-img">
-                                    <div class="banner-picture-container">
-                                        <img src="./image/img/slide3.jpg" alt="tea kettle" class="banner-picture" />
-                                    </div>
-                                </article>
-                                <!-- banner-info -->
-                                <article class="banner-info">
-                                    <!-- section title -->
-                                    <div class="">
-                                        <h3>What happened..?</h3>
-                                        <h2>Django </h2>
-                                    </div>
-                                    <!-- end of section title -->
-                                    <p class="banner-text">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
-                                        repellendus reprehenderit iure, vero nobis dolore!
-                                    </p>
-                                    <p class="banner-text">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
-                                        repellendus reprehenderit iure, vero nobis dolore!
-                                    </p>
-                                    <a href="detail.html" class="btn">learn more</a>
-                                </article>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+
+
+
+
+    <section id="hero">
+        <div class="container_hero">
+            <div class="info">
+                <h1>Welcome to our bolg page</h1>
             </div>
         </div>
-    </div>
-    <!-- end banner -->
+    </section>
 
 
-    <!-- Categori list -->
-    <div class="categori-list">
-        <div class="container">
-            <section class="section bg-grey">
-                <div class="section-title mt-5">
-                    <h2>Categories</h2>
-                    <div class="underline"></div>
-                </div>
-                <div class="section-center services-center">
-                    <!-- single  service category-->
-                    <article class="service">
-                        <a href="category.html">
-                            <i class="fas fa-journal-whills ser-icon"></i>
-                            <h4>Joural</h4>
-                            <div class="underline"></div>
-                            <p>
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique
-                                at repellendus eius omnis asperiores laborum reprehenderit quis
-                                pariatur quidem placeat.
-                            </p>
-                        </a>
-                    </article>
-                    <!-- end of single service category -->
-                    <!-- single  service category -->
-                    <article class="service">
-                        <a href="category.html">
-                            <!-- fa -->
-                            <i class="fa fa-heart ser-icon" aria-hidden="true"></i>
-                            <h4>Life Style</h4>
-                            <div class="underline"></div>
-                            <p>
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique
-                                at repellendus eius omnis asperiores laborum reprehenderit quis
-                                pariatur quidem placeat.
-                            </p>
-                        </a>
-                    </article>
-                    <!-- end of single service category -->
-                    <!-- single  service category -->
-                    <article class="service">
-                        <a href="category.html">
-                            <!-- fab -->
-                            <i class="fa fa-graduation-cap ser-icon"></i>
-                            <h4> Education</h4>
-                            <div class="underline"></div>
-                            <p>
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique
-                                at repellendus eius omnis asperiores laborum reprehenderit quis
-                                pariatur quidem placeat.
-                            </p>
-                        </a>
-                    </article>
-                    <!-- end of single service category -->
-                </div>
 
 
-            </section>
-            <!-- end of services category -->
-        </div>
-    </div>
-    <!-- end categori list -->
 
     <!-- Blog -->
+    <link rel="stylesheet" href="./adminPanel/assets/css/style.css">
     <div class="blog">
-        <div class="container ">
+        <div class="container">
             <div class="row">
                 <div class="section-title mt-5">
                     <h2>All Post</h2>
                     <div class="underline"></div>
                 </div>
-                <div class=" mb-5">
-                    <!-- featured blogs -->
-                    <section class="section" id="featured">
-                        <!-- featured-center -->
-                        <div class="section-center featured-center ">
-                            <div class="row justify-content-start">
-                                <div class="col-lg-6">
-                                    <!-- single blog -->
-                                    <article class="blog-card">
-                                        <div class="blog-img-container">
-                                            <a href="#"><img src="./image/img/blog1.jpg" class="blog-img" alt="" /></a>
-                                            <p class="blog-date">august 26th, 2020</p>
-                                        </div>
-                                        <!-- blog info -->
-                                        <div class="blog-info">
-                                            <div class="blog-title">
-                                                <a href="detail.html">
-                                                    <h4>Tibet Adventure Lorem ipsum dolor</h4>
+                <div class="row">
+                    <!-- Content Column -->
+                    <div class="col-lg-12 mb-4">
+                        <div class="mb-4">
+                            <div class="load_more_container">
+                                <div class="box-container">
+                                    <?php
+                        include './backEnd/connection.php';
+                        $sql = "SELECT * FROM blogs";
+                        $result = mysqli_query($con, $sql);
+                        $count = 0; // Track the number of posts
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $count++;
+                    ?>
+                                    <article class="box">
+                                        <div class="article-wrapper">
+                                            <figure>
+                                                <img src="./adminPanel/blogImages/blogTitle/<?php echo $row['image']; ?>"
+                                                    alt="">
+                                            </figure>
+                                            <div class="article-body">
+                                                <a href="./adminPanel/viewBlogs.php?blog_id=<?php echo $row['id']; ?>"
+                                                    style="text-decoration: none;">
+                                                    <h2>
+                                                        <?php echo $row['heading']; ?>
+                                                    </h2>
                                                 </a>
-                                                <a href="category.html">
-                                                    <p>Education</p>
-                                                </a>
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                                vitae tempore voluptatum maxime reprehenderit eum quod
-                                                exercitationem fugit, qui corporis.
-                                            </p>
-                                            <!-- blog footer -->
-                                            <div class="blog-footer">
-                                                <a href="">
-                                                    <p>
-                                                        <span><i class="fas fa-user"></i></span> Darisset
-                                                    </p>
-                                                </a>
-                                                <a href="detail.html">
-                                                    <p>Read More...</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    <!-- end of single blog -->
-                                </div>
-                                <div class="col-lg-6">
-                                    <!-- single blog -->
-                                    <article class="blog-card">
-                                        <div class="blog-img-container">
-                                            <a href="#"><img src="./image/img/blog2.jpg" class="blog-img" alt="" /></a>
-                                            <p class="blog-date">august 26th, 2020</p>
-                                        </div>
-                                        <!-- blog info -->
-                                        <div class="blog-info">
-                                            <div class="blog-title">
-                                                <a href="detail.html">
-                                                    <h4>Tibet Adventure</h4>
-                                                </a>
-                                                <a href="category.html">
-                                                    <p>Life Style</p>
-                                                </a>
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                                vitae tempore voluptatum maxime reprehenderit eum quod
-                                                exercitationem fugit, qui corporis.
-                                            </p>
-                                            <!-- blog footer -->
-                                            <div class="blog-footer">
-                                                <a href="">
-                                                    <p>
-                                                        <span><i class="fas fa-user"></i></span> Darisset
-                                                    </p>
-                                                </a>
-                                                <a href="detail.html">
-                                                    <p>Read More...</p>
-                                                </a>
+                                                <p class="content-text">
+                                                    <?php
+                                        // Limit content to first 20 words
+                                        $content = $row['content'];
+                                        $contentArray = explode(' ', $content);
+                                        echo (count($contentArray) > 25) 
+                                            ? implode(' ', array_slice($contentArray, 0, 20)) . '...' 
+                                            : $content;
+                                    ?>
+                                                </p>
+                                                <div class="row">
+                                                    <div class="col-lg-6"
+                                                        style="position: absolute; bottom: 10px; left: 0px;">
+                                                        <a href="#" class="link"><span class="text">Edit More</span></a>
+                                                    </div>
+                                                    <div class="col-lg-6"
+                                                        style="position: absolute; bottom: 10px; right: 0px;">
+                                                        <?php if (count($contentArray) > 25) { ?>
+                                                        <a href="viewBlog.php?blog_id=<?php echo $row['id']; ?>"
+                                                            class="read-more-btn">Read more</a>
+                                                        <?php } ?>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </article>
-                                    <!-- end of single blog -->
-                                </div>
-                                <div class="col-lg-6">
-                                    <!-- single blog -->
-                                    <article class="blog-card">
-                                        <div class="blog-img-container">
-                                            <a href="#"><img src="./image/img/blog3.jpg" class="blog-img" alt="" /></a>
-                                            <p class="blog-date">august 26th, 2020</p>
-                                        </div>
-                                        <!-- blog info -->
-                                        <div class="blog-info">
-                                            <div class="blog-title">
-                                                <a href="detail.html">
-                                                    <h4>Tibet Adventure</h4>
-                                                </a>
-                                                <a href="category.html">
-                                                    <p>Journal</p>
-                                                </a>
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                                vitae tempore voluptatum maxime reprehenderit eum quod
-                                                exercitationem fugit, qui corporis.
-                                            </p>
-                                            <!-- blog footer -->
-                                            <div class="blog-footer">
-                                                <a href="">
-                                                    <p>
-                                                        <span><i class="fas fa-user"></i></span> Darisset
-                                                    </p>
-                                                </a>
-                                                <a href="detail.html">
-                                                    <p>Read More...</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    <!-- end of single blog -->
-                                </div>
-                                <div class="col-lg-6">
-                                    <!-- single blog -->
-                                    <article class="blog-card">
-                                        <div class="blog-img-container">
-                                            <a href="#"><img src="./image/img/blog3.jpg" class="blog-img" alt="" /></a>
-                                            <p class="blog-date">august 26th, 2020</p>
-                                        </div>
-                                        <!-- blog info -->
-                                        <div class="blog-info">
-                                            <div class="blog-title">
-                                                <a href="detail.html">
-                                                    <h4>Tibet Adventure</h4>
-                                                </a>
-                                                <a href="category.html">
-                                                    <p>Journal</p>
-                                                </a>
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                                vitae tempore voluptatum maxime reprehenderit eum quod
-                                                exercitationem fugit, qui corporis.
-                                            </p>
-                                            <!-- blog footer -->
-                                            <div class="blog-footer">
-                                                <a href="">
-                                                    <p>
-                                                        <span><i class="fas fa-user"></i></span> Darisset
-                                                    </p>
-                                                </a>
-                                                <a href="detail.html">
-                                                    <p>Read More...</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    <!-- end of single blog -->
+                                    <?php } ?>
                                 </div>
 
+                                <div class="buttons">
+                                    <div id="load-more">Load More</div>
+                                    <div id="show-less" style="display: none;">Show Less</div>
+                                </div>
                             </div>
                         </div>
-                        <!-- end of blogs center -->
-                        <div class="blog-btn mt-5">
-                            <a href="blog.html" class="btn">all post</a>
-                        </div>
-                    </section>
-                    <!-- end of featured blogs -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- end blog -->
 
-    <div class="container mb-5">
-        <div class="section-title mt-5">
-            <h2>Recent Posts</h2>
-            <div class="underline"></div>
-        </div>
-        <section class="section" id="featured">
-            <!-- featured-center -->
-            <div class="section-center featured-center ">
-                <div class="row justify-content-start">
-                    <div class="col-lg-6">
-                        <!-- single blog -->
-                        <article class="blog-card">
-                            <!-- blog info -->
-                            <div class="blog-info">
-                                <div class="blog-title">
-                                    <a href="detail.html">
-                                        <h4>Tibet Lorem ?</h4>
-                                    </a>
-                                    <a href="category.html">
-                                        <p>Education</p>
-                                    </a>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                    vitae tempore voluptatum maxime reprehenderit eum quod
-                                    exercitationem fugit, qui corporis.
-                                </p>
-                                <!-- blog footer -->
-                                <div class="blog-footer">
-                                    <a href="">
-                                        <p>
-                                            <span><i class="fas fa-user"></i></span> Darisset
-                                        </p>
-                                    </a>
-                                    <a href="detail.html">
-                                        <p>Read More...</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </article>
-                        <!-- end of single blog -->
-                    </div>
-                    <div class="col-lg-6">
-                        <!-- single blog -->
-                        <article class="blog-card">
-                            <!-- blog info -->
-                            <div class="blog-info">
-                                <div class="blog-title">
-                                    <a href="detail.html">
-                                        <h4>Tibet Adventure</h4>
-                                    </a>
-                                    <a href="category.html">
-                                        <p>Life Style</p>
-                                    </a>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                    vitae tempore voluptatum maxime reprehenderit eum quod
-                                    exercitationem fugit, qui corporis.
-                                </p>
-                                <!-- blog footer -->
-                                <div class="blog-footer">
-                                    <a href="">
-                                        <p>
-                                            <span><i class="fas fa-user"></i></span> Darisset
-                                        </p>
-                                    </a>
-                                    <a href="detail.html">
-                                        <p>Read More...</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </article>
-                        <!-- end of single blog -->
-                    </div>
-                    <div class="col-lg-6">
-                        <!-- single blog -->
-                        <article class="blog-card">
-                            <!-- blog info -->
-                            <div class="blog-info">
-                                <div class="blog-title">
-                                    <a href="detail.html">
-                                        <h4>Tibet Adventure</h4>
-                                    </a>
-                                    <a href="category.html">
-                                        <p>Journal</p>
-                                    </a>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                    vitae tempore voluptatum maxime reprehenderit eum quod
-                                    exercitationem fugit, qui corporis.
-                                </p>
-                                <!-- blog footer -->
-                                <div class="blog-footer">
-                                    <a href="">
-                                        <p>
-                                            <span><i class="fas fa-user"></i></span> Darisset
-                                        </p>
-                                    </a>
-                                    <a href="detail.html">
-                                        <p>Read More...</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </article>
-                        <!-- end of single blog detail-->
-                    </div>
-                    <div class="col-lg-6">
-                        <!-- single blog -->
-                        <article class="blog-card">
-                            <!-- blog detail info -->
-                            <div class="blog-info">
-                                <div class="blog-title">
-                                    <a href="detail.html">
-                                        <h4>Tibet Adventure</h4>
-                                    </a>
-                                    <a href="category.html">
-                                        <p>Journal</p>
-                                    </a>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                    vitae tempore voluptatum maxime reprehenderit eum quod
-                                    exercitationem fugit, qui corporis.
-                                </p>
-                                <!-- detail footer -->
-                                <div class="blog-footer">
-                                    <a href="">
-                                        <p>
-                                            <span><i class="fas fa-user"></i></span> Darisset
-                                        </p>
-                                    </a>
-                                    <a href="detail.html">
-                                        <p>Read More...</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </article>
-                        <!-- end of single detail -->
-                    </div>
-
-                </div>
-            </div>
-        </section>
-    </div>
 
 
-    <!-- newsletter -->
-    <section class="section newsletter" id="newsletter">
-        <div class="container section-center newsletter-center">
-            <div class="newsletter-title">
-                <h3>want latest post info and updates?</h3>
-                <p>Sign up for newsletter and stay up to date</p>
-            </div>
-            <form class="newsletter-form">
-                <input type="email" class="form-control" placeholder="your email" />
-                <button type="submit" class="btn-submit">submit</button>
-            </form>
-        </div>
-    </section>
-    <!-- end of newsletter -->
+
 
     <footer>
         <section class="footer_sec">
@@ -795,7 +435,9 @@ if (isset($_SESSION['UsName'])) {
     <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="./assets/js/script.js"></script>
 
-    <script src="assets/js/header.js"></script>
+    <script src="./assets/js/header.js"></script>
+    <script src="./adminPanel/assets/js/load_more.js"></script>
+
 
 </body>
 
