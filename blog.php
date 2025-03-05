@@ -320,7 +320,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                                                     alt="">
                                             </figure>
                                             <div class="article-body">
-                                                <a href="./adminPanel/viewBlogs.php?blog_id=<?php echo $row['id']; ?>"
+                                                <a href="detail.php?blog_id=<?php echo $row['id']; ?>"
                                                     style="text-decoration: none;">
                                                     <h2>
                                                         <?php echo $row['heading']; ?>
@@ -339,12 +339,11 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                                                 <div class="row">
                                                     <div class="col-lg-6"
                                                         style="position: absolute; bottom: 10px; left: 0px;">
-                                                        <a href="#" class="link"><span class="text">Edit More</span></a>
                                                     </div>
                                                     <div class="col-lg-6"
                                                         style="position: absolute; bottom: 10px; right: 0px;">
                                                         <?php if (count($contentArray) > 25) { ?>
-                                                        <a href="viewBlog.php?blog_id=<?php echo $row['id']; ?>"
+                                                        <a href="detail.php?blog_id=<?php echo $row['id']; ?>"
                                                             class="read-more-btn">Read more</a>
                                                         <?php } ?>
                                                     </div>

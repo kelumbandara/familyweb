@@ -42,7 +42,7 @@
             transition: transform 1000ms;
         }
 
-        ul {
+        .figure_ul {
             list-style: none;
             margin: 0;
             padding: 0;
@@ -117,30 +117,30 @@
 session_start();
 include './backEnd/connection.php';
 
-// Default profile image
-$profileImage = "./image/Memberimages/avatar1.png";
+        // Default profile image
+        $profileImage = "./image/Memberimages/avatar1.png";
 
-// Check if the user is logged in (employee or admin)
-if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
-    // Determine if the user is an employee or admin
-    if (isset($_SESSION['UsName'])) {
-        // Employee session
-        $user = $_SESSION["UsName"];
-        $role = 'employee'; // Employee role
+        // Check if the user is logged in (employee or admin)
+        if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
+            // Determine if the user is an employee or admin
+            if (isset($_SESSION['UsName'])) {
+                // Employee session
+                $user = $_SESSION["UsName"];
+                $role = 'employee'; // Employee role
 
-        // Securely fetch user data using prepared statements
-        $query = "SELECT * FROM register WHERE user_name = ?";
-        $stmt = mysqli_prepare($con, $query);
-        mysqli_stmt_bind_param($stmt, "s", $user);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+            // Securely fetch user data using prepared statements
+            $query = "SELECT * FROM register WHERE user_name = ?";
+            $stmt = mysqli_prepare($con, $query);
+            mysqli_stmt_bind_param($stmt, "s", $user);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
 
-        if ($row = mysqli_fetch_assoc($result)) {
-            $profileImage = !empty($row['image']) ? "./image/Memberimages/{$row['image']}" : $profileImage;
-        } else {
-            header("Location: loginPage.php");
-            exit();
-        }
+            if ($row = mysqli_fetch_assoc($result)) {
+                $profileImage = !empty($row['image']) ? "./image/Memberimages/{$row['image']}" : $profileImage;
+            } else {
+                header("Location: loginPage.php");
+                exit();
+            }
 
     } elseif (isset($_SESSION['adminId'])) {
         // Admin session
@@ -253,35 +253,6 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
             </div>
 
             <div class="login_profile">
-                    <!-- <div class="profile_button">
-                        <a href="#" onclick="toggleMenu()">
-                            <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
-                        </a>
-                    </div> -->
-                    <!-- <div class="sub_menu_wrap" id="subMenu">
-                        <div class="sub_menu">
-                            <div class="user_info">
-                                <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
-                                <?php echo htmlspecialchars($user); ?>
-                            </div>
-                            <hr>
-                            <a href="./profile.php?user=<?php echo urlencode($user); ?>" class="sub_menu_links">
-                                <img src="./image/profile.png">
-                                <p>Edit Profile</p>
-                                <span>></span>
-                            </a>
-                            <a href="#" class="sub_menu_links">
-                                <img src="./image/setting.png">
-                                <p>Help & Support</p>
-                                <span>></span>
-                            </a>
-                            <a href="./logout.php" class="sub_menu_links">
-                                <img src="./image/profile.png">
-                                <p>Log Out</p>
-                                <span>></span>
-                            </a>
-                        </div>
-                    </div> -->
                     <div class="login_button">
                         <a href="loginPage.php"><i class='bx bx-log-in'></i> Login</a>
                     </div>
@@ -304,7 +275,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                     if (isset($_REQUEST['blog_id'])) {
                         $id = $_REQUEST['blog_id'];
 
-                        include './include/connection.php';
+                        include './backEnd/connection.php';
 
                         // Query to fetch blog details along with all images
                         $blog_sql = "SELECT * FROM blogs b JOIN blog_images bi ON b.id = bi.blog_id WHERE b.id = $id";
@@ -323,7 +294,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                                         <!-- featured Details -->
                                         <section class="section" id="featured">
                                             <div class="detail">
-                                                <img src="./blogImages/blogTitle/<?php echo $blog_row['image']; ?>"
+                                                <img src="./adminPanel/blogImages/blogTitle/<?php echo $blog_row['image']; ?>"
                                                     style="width: 500px; height: 300px; object-fit: cover;"
                                                     class="img-fluid" alt="...">
                                                 <div class="post-cat mt-5">
@@ -342,13 +313,13 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                                                     </h1>
 
                                                     <?php
-                                        // Get the content from the database
-                                        $content = $blog_row['content']; // Replace 'content_column' with the actual column name from your database
+                                       
+                                        $content = $blog_row['content']; 
 
-                                        // Split the content into paragraphs by period (or use any delimiter you want)
-                                        $paragraphs = explode('.', $content); // This will split the content at each period
+                                        
+                                        $paragraphs = explode('.', $content);
 
-                                        // Loop through the paragraphs and display them
+                                        
                                         foreach ($paragraphs as $paragraph) {
                                             if (!empty(trim($paragraph))) {
                                                 echo '<p>' . htmlspecialchars(trim($paragraph)) . '.</p>';
@@ -372,17 +343,17 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                         <!-- Gallery Section -->
                         <div class="row">
                             <section class="gallery_body">
-                                <ul>
+                                <ul class="figure_ul">
                                 <?php
-                                // Move the pointer back to the first row for images
-                                mysqli_data_seek($blog_result, 0); // Reset the pointer to the beginning of the result set
+                              
+                                mysqli_data_seek($blog_result, 0); 
                                 while ($image_row = mysqli_fetch_assoc($blog_result)) {
                                         ?>
                                                 <li>
                                                     <a href="">
                                                         <figure class="gallery_figure">
                                                             <img class="figure_img"
-                                                                src='./blogImages/blogGalleries/<?php echo $image_row['blog_images']; ?>'>
+                                                                src='./adminPanel/blogImages/blogGalleries/<?php echo $image_row['blog_images']; ?>'>
 
                                                         </figure>
                                                     </a>
@@ -398,7 +369,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
 
                     <?php
                         } else {
-                         echo "Error: " . mysqli_error($con);  // For debugging
+                         echo "Error: " . mysqli_error($con); 
                         }
                      }
                         ?>

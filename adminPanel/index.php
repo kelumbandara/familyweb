@@ -213,7 +213,7 @@
                                                                     alt="">
                                                             </figure>
                                                             <div class="article-body">
-                                                                <a href="./viewBlogs.php?blog_id=<?php echo $row['id']; ?>"
+                                                                <a href="viewBlogs.php?blog_id=<?php echo $row['id']; ?>"
                                                                     style="text-decoration: none;">
                                                                     <h2>
                                                                         <?php echo $row['heading']; ?>
