@@ -12,14 +12,6 @@
     <!-- ________________Boxicons________________ -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <!-- ________________Bootstrap________________ -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script> -->
-
     <!-- ________________Family Members CSS________________ -->
     <link rel="stylesheet" href="assets/css/memberSlider.css">
 
@@ -171,35 +163,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
             </div>
 
             <div class="login_profile">
-                    <!-- <div class="profile_button">
-                        <a href="#" onclick="toggleMenu()">
-                            <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
-                        </a>
-                    </div> -->
-                    <!-- <div class="sub_menu_wrap" id="subMenu">
-                        <div class="sub_menu">
-                            <div class="user_info">
-                                <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
-                                <?php echo htmlspecialchars($user); ?>
-                            </div>
-                            <hr>
-                            <a href="./profile.php?user=<?php echo urlencode($user); ?>" class="sub_menu_links">
-                                <img src="./image/profile.png">
-                                <p>Edit Profile</p>
-                                <span>></span>
-                            </a>
-                            <a href="#" class="sub_menu_links">
-                                <img src="./image/setting.png">
-                                <p>Help & Support</p>
-                                <span>></span>
-                            </a>
-                            <a href="./logout.php" class="sub_menu_links">
-                                <img src="./image/profile.png">
-                                <p>Log Out</p>
-                                <span>></span>
-                            </a>
-                        </div>
-                    </div> -->
+                    
                     <div class="login_button">
                         <a href="loginPage.php"><i class='bx bx-log-in'></i> Login</a>
                     </div>

@@ -1,125 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css" integrity="sha512-HHsOC+h3najWR7OKiGZtfhFIEzg5VRIPde0kB0bG2QRidTQqf+sbfcxCTB16AcFB93xMjnBIKE29/MjdzXE+qw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./assets/css/blog.css">
+    <title>News Website</title>
 
+    <link rel="stylesheet" href="assets/css/homePage.css">
 
+     <!-- ________________Family Members CSS________________ -->
+     <link rel="stylesheet" href="assets/css/memberSlider.css">
 
-
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/blog_style.css">
-
-    <title>Home - Darisset</title>
-
-
-    <!-- ________________Font Awesome icons________________ -->
+     <!-- ________________Font Awesome icons________________ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <!-- ________________Footer CSS________________ -->
-    <link rel="stylesheet" href="./assets/css/homePage.css">
-
-    <!-- ________________Boxicons________________ -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-    <link rel="stylesheet" href="./assets/css/style.css">
-
-
-    <style>
-        .gallery_body {
-            font-family: Lato, sans-serif;
-            margin: 0;
-            padding: 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .figure_img {
-            width: 100%;
-            display: block;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            transition: transform 1000ms;
-        }
-
-        .figure_ul {
-            list-style: none;
-            margin: 0 0 0 50px;
-            padding: 0;
-            display: grid;
-            gap: 0.5rem;
-            grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-            max-width: 100%;
-            width: 70rem;
-        }
-
-        .gallery_figure {
-            margin: 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .gallery_figure::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(0, 0, 0, 0.5);
-            transform-origin: center;
-            opacity: 0;
-            transform: scale(2);
-            transition: opacity 300ms;
-        }
-
-
-        a:is(:hover, :focus) {
-            opacity: 1;
-        }
-
-        a:is(:hover, :focus) {
-            opacity: 1;
-            transition: opacity 600ms;
-        }
-
-        @media (prefers-reduced-motion: no-preference) {
-
-
-            .gallery_figure::after {
-                border-radius: 50%;
-                opacity: 1;
-                transform: scale(0);
-                transition: transform 900ms;
-            }
-
-            a:is(:hover, :focus) .gallery_figure::after {
-                transform: scale(2.5);
-            }
-
-            a:is(:hover, :focus) .figure_title {
-                opacity: 1;
-                transform: translate3d(0, 0, 0);
-                transition: opacity 600ms 400ms, transform 600ms 400ms;
-            }
-
-            a:is(:hover, :focus) img {
-                transform: scale(1.2);
-            }
-        }
-    </style>
+<!-- ________________Footer CSS________________ -->
+<link rel="stylesheet" href="assets/css/footer.css">
 </head>
-
 <body>
 
-
-    <?php
+<?php
 session_start();
 include './backEnd/connection.php';
 
@@ -192,55 +94,55 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
 
             <div class="login_profile">
                 <?php if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])): ?>
-                <div class="profile_button">
-                    <a href="#" onclick="toggleMenu()">
-                        <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
-                    </a>
-                </div>
-
-                <div class="sub_menu_wrap" id="subMenu">
-                    <div class="sub_menu">
-                        <div class="user_info">
+                    <div class="profile_button">
+                        <a href="#" onclick="toggleMenu()">
                             <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
-                            <?php echo htmlspecialchars($user); ?>
-                        </div>
-                        <hr>
-                        <a href="./profile.php?user=<?php echo urlencode($user); ?>" class="sub_menu_links">
-                            <img src="./image/profile.png">
-                            <p>Edit Profile</p>
-                            <span>></span>
                         </a>
-                        <!-- <a href="#" class="sub_menu_links">
+                    </div>
+
+                    <div class="sub_menu_wrap" id="subMenu">
+                        <div class="sub_menu">
+                            <div class="user_info">
+                                <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
+                                <?php echo htmlspecialchars($user); ?>
+                            </div>
+                            <hr>
+                            <a href="./profile.php?user=<?php echo urlencode($user); ?>" class="sub_menu_links">
+                                <img src="./image/profile.png">
+                                <p>Edit Profile</p>
+                                <span>></span>
+                            </a>
+                            <!-- <a href="#" class="sub_menu_links">
                                 <img src="./image/setting.png">
                                 <p>Help & Support</p>
                                 <span>></span>
                             </a> -->
-                        <?php if ($role == 'admin'): ?>
-                        <a href="./adminPanel/index.php" class="sub_menu_links">
-                            <img src="./image/setting.png">
-                            <p>Admin Panel</p>
-                            <span>></span>
-                        </a>
-                        <?php endif; ?>
-                        <a href="./logout.php" class="sub_menu_links">
-                            <img src="./image/profile.png">
-                            <p>Log Out</p>
-                            <span>></span>
-                        </a>
+                            <?php if ($role == 'admin'): ?>
+                                <a href="./adminPanel/index.php" class="sub_menu_links">
+                                    <img src="./image/setting.png">
+                                    <p>Admin Panel</p>
+                                    <span>></span>
+                                </a>
+                            <?php endif; ?>
+                            <a href="./logout.php" class="sub_menu_links">
+                                <img src="./image/profile.png">
+                                <p>Log Out</p>
+                                <span>></span>
+                            </a>
+                        </div>
                     </div>
-                </div>
                 <?php else: ?>
-                <div class="login_button">
-                    <a href="loginPage.php"><i class='bx bx-log-in'></i> Login</a>
-                </div>
+                    <div class="login_button">
+                        <a href="loginPage.php"><i class='bx bx-log-in'></i> Login</a>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
     </nav>
     <?php
 } else { ?>
-
-    <nav>
+   
+   <nav>
         <div class="nav_bar">
             <i class='bx bx-menu sideBarOpen'></i>
             <span class="logo"><a href="#">Skynet</a></span>
@@ -259,118 +161,127 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
             </div>
 
             <div class="login_profile">
-                <div class="login_button">
-                    <a href="loginPage.php"><i class='bx bx-log-in'></i> Login</a>
-                </div>
+                    
+                    <div class="login_button">
+                        <a href="loginPage.php"><i class='bx bx-log-in'></i> Login</a>
+                    </div>
             </div>
         </div>
     </nav>
-    <?php
+   <?php
 }
 
 ?>
 
-
-
-
-
-
-
-
-
-    <section id="hero">
-        <div class="container_hero">
-            <div class="info">
-                <h1>Welcome to our bolg page</h1>
+    <div class="header">
+        <div class="logo">
+            NEWS
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#sportsNews">Sports</a></li>
+                <li><a href="#businessNews">Business</a></li>
+                <li><a href="#techNews">Technology</a></li>
+            </ul>
+            <div class="bar">
+                <i class="open fa-solid fa-bars-staggered"></i>
+                <i class="close fa-solid fa-xmark"></i>
+            </div>
+        </nav>
+    </div>
+    <div class="topHeadlines">
+        <div class="left">
+            <div class="title">
+                <h2>Breaking News</h2>
+            </div>
+            <div class="img" id="breakingImg">
+                <img src="" alt="">
+            </div>
+            <div class="text" id="breakingNews">
+                <div class="title">
+                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
+                </div>
+                <div class="description">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, veritatis? Eveniet ut amet expedita itaque dolore delectus? Tenetur eius animi distinctio voluptatem vitae itaque dolorum architecto illo, expedita, dignissimos reprehenderit.
+                </div>
             </div>
         </div>
-    </section>
-
-
-
-
-
-    <!-- Blog -->
-    <link rel="stylesheet" href="./adminPanel/assets/css/style.css">
-    <div class="blog">
-        <div class="container">
-            <div class="row">
-                <div class="section-title mt-5">
-                    <h2>All Post</h2>
-                    <div class="underline"></div>
+        <div class="right">
+            <div class="title">
+                <h2>Top Headlines</h2>
+            </div>
+            <div class="topNews">
+                <div class="news">
+                    <div class="img"></div>
+                    <div class="text">
+                        <div class="title">
+                            <a href="#">
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae magnam </p>
+                            </a>
+                            
+                        </div>
+                    </div>
                 </div>
-                <div class="row">
-                    <!-- Content Column -->
-                    <div class="col-lg-12 mb-4">
-                        <div class="mb-4">
-                            <div class="load_more_container">
-                                <div class="box-container">
-                                    <?php
-                        include './backEnd/connection.php';
-                        $sql = "SELECT * FROM blogs";
-                        $result = mysqli_query($con, $sql);
-                        $count = 0; // Track the number of posts
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $count++;
-                    ?>
-                                    <article class="box">
-                                        <div class="article-wrapper">
-                                            <figure>
-                                                <img src="./adminPanel/blogImages/blogTitle/<?php echo $row['image']; ?>"
-                                                    alt="">
-                                            </figure>
-                                            <div class="article-body">
-                                                <a href="detail.php?blog_id=<?php echo $row['id']; ?>"
-                                                    style="text-decoration: none;">
-                                                    <h2>
-                                                        <?php echo $row['heading']; ?>
-                                                    </h2>
-                                                </a>
-                                                <p class="content-text">
-                                                    <?php
-                                        // Limit content to first 20 words
-                                        $content = $row['content'];
-                                        $contentArray = explode(' ', $content);
-                                        echo (count($contentArray) > 25) 
-                                            ? implode(' ', array_slice($contentArray, 0, 20)) . '...' 
-                                            : $content;
-                                    ?>
-                                                </p>
-                                                <div class="row">
-                                                    <div class="col-lg-6"
-                                                        style="position: absolute; bottom: 10px; left: 0px;">
-                                                    </div>
-                                                    <div class="col-lg-6"
-                                                        style="position: absolute; bottom: 10px; right: 0px;">
-                                                        <?php if (count($contentArray) > 25) { ?>
-                                                        <a href="detail.php?blog_id=<?php echo $row['id']; ?>"
-                                                            class="read-more-btn">Read more</a>
-                                                        <?php } ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    <?php } ?>
-                                </div>
+            </div>
 
-                                <div class="buttons">
-                                    <div id="load-more">Load More</div>
-                                    <div id="show-less" style="display: none;">Show Less</div>
-                                </div>
-                            </div>
+        </div>
+    </div>
+    <div class="page2">
+        <div class="news" id="sportsNews">
+            <div class="title">
+                <h2>Sports News</h2>
+            </div>
+            <div class="newsBox">
+                <div class="newsCard">
+                    <div class="img">
+                        <img src="" alt="">
+                    </div>
+                    <div class="text">
+                        <div class="title">
+                            <a href="#"><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, ad pariatur?</p></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="news" id="businessNews">
+            <div class="title">
+                <h2>Business News</h2>
+            </div>
+            <div class="newsBox">
+                <div class="newsCard">
+                    <div class="img">
+                        <img src="" alt="">
+                    </div>
+                    <div class="text">
+                        <div class="title">
+                            <a href="#"><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, ad pariatur?</p></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="news" id="techNews">
+            <div class="title">
+                <h2>Technology News</h2>
+            </div>
+            <div class="newsBox">
+                <div class="newsCard">
+                    <div class="img">
+                        <img src="" alt="">
+                    </div>
+                    <div class="text">
+                        <div class="title">
+                            <a href="#"><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, ad pariatur?</p></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end blog -->
 
-
-
-
-
+    <!-- Footer Start -->
     <footer>
         <section class="footer_sec">
             <div class="container">
@@ -428,16 +339,14 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
         <p>Copyright © 2025 SkyNet. All Rights Reserved.</p>
     </div>
 
-    <!-- Optional JavaScript -->
-    <!-- Popper.js first, then Bootstrap JS -->
-    <script src="./assets/js/popper.min.js"></script>
-    <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="./assets/js/script.js"></script>
 
-    <script src="./assets/js/header.js"></script>
-    <script src="./adminPanel/assets/js/load_more.js"></script>
+    
 
+
+    <!-- <script src="./b   log.js"></script> -->
+
+    <script src="assets/js/header.js"></script>
+    <script src="assets/js/member.js"></script>
 
 </body>
-
 </html>
