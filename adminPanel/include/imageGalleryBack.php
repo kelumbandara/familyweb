@@ -4,70 +4,66 @@
 include 'connection.php';
 
 if (isset($_POST['img_submit'])) {
-    // Loop through each uploaded image
+    // Get category from form
+    $category = isset($_POST['category']) ? $_POST['category'] : "Uncategorized";
+
     foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
-        // Get the original file name and sanitize it
         $fileName = basename($_FILES['images']['name'][$index]);
         $fileTmpName = $_FILES['images']['tmp_name'][$index];
         $fileSize = $_FILES['images']['size'][$index];
         $fileError = $_FILES['images']['error'][$index];
-        $uploadDir = "../imagesLibrary/" . $fileName;
+        $uploadDir = "../assets/imagesLibrary/" . $fileName;
 
-        // Validate the file (size, type, error)
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif']; // Allowed MIME types
+        // Validate file type and size
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         $fileType = mime_content_type($fileTmpName);
-        $maxFileSize = 5 * 1024 * 1024; // 5MB max file size
+        $maxFileSize = 5 * 1024 * 1024; // 5MB max
 
-        // Check for errors in file upload
         if ($fileError !== UPLOAD_ERR_OK) {
-            echo "Error uploading file $fileName. Please try again.";
+            echo "Error uploading file $fileName.";
             continue;
         }
 
-        // Validate MIME type
         if (!in_array($fileType, $allowedTypes)) {
-            echo "Invalid file type for $fileName. Only JPG, PNG, and GIF files are allowed.";
+            echo "Invalid file type for $fileName.";
             continue;
         }
 
-        // Validate file size
         if ($fileSize > $maxFileSize) {
-            echo "File $fileName is too large. Maximum file size is 5MB.";
+            echo "File $fileName is too large.";
             continue;
         }
 
-        // Sanitize file name to prevent malicious file names
-        $fileName = preg_replace("/[^a-zA-Z0-9\._-]/", "_", $fileName); // Allow only alphanumeric characters, dots, dashes, and underscores
+        // Sanitize filename
+        $fileName = preg_replace("/[^a-zA-Z0-9\._-]/", "_", $fileName);
 
-        // Prepare SQL statement using prepared statements to prevent SQL injection
-        $stmt = $con->prepare("INSERT INTO image_gallery (image) VALUES (?)");
+        // Insert image and category into database
+        $stmt = $con->prepare("INSERT INTO image_gallery (image, category) VALUES (?, ?)");
         if ($stmt === false) {
-            echo "Error preparing the SQL statement.";
+            echo "Error preparing SQL.";
             continue;
         }
 
-        // Bind parameters and execute the query
-        $stmt->bind_param("s", $fileName);
+        $stmt->bind_param("ss", $fileName, $category);
         $result = $stmt->execute();
 
-        // Check if the query was successful
         if ($result) {
-            // Move the file to the destination directory if everything is valid
             if (move_uploaded_file($fileTmpName, $uploadDir)) {
                 echo "File $fileName uploaded successfully.";
-                header("Location: ../add_gallery.php?error=sended");
+                header("Location: ../add_gallery.php?success=1");
             } else {
-                echo "Error moving file $fileName to the destination directory.";
+                echo "Error moving file $fileName.";
             }
         } else {
             echo "Error: " . $stmt->error;
         }
 
-        // Close the prepared statement
         $stmt->close();
     }
 }
 ?>
+
+
 
 
 <!-- query for delete  -->
@@ -105,7 +101,7 @@ if (isset($_REQUEST['img_id'])) {
 
         if ($result) {
             // Delete the image file from the server
-            $imagePath = "../imagesLibrary/" . $currentImage;
+            $imagePath = "../assets/imagesLibrary/" . $currentImage;
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }

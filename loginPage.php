@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- ________________Login CSS________________ -->
-    <link rel="stylesheet" href="assets/css/loginregister.css">
+    <link rel="stylesheet" href="assets/css/login_register.css">
 
     <!-- ________________Boxicons________________ -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>

@@ -1,3 +1,5 @@
+<!-- send the data -->
+
 <?php
     include 'connection.php';
 
@@ -17,7 +19,7 @@
         $image = $_FILES['head_img']['name'];
         $img_size = $_FILES['head_img']['size'];
         $temp_name = $_FILES['head_img']['tmp_name'];
-        $folder = "../blogImages/blogTitle/" . $image;
+        $folder = "../assets/blogImages/blogTitle/" . $image;
 
         // Handle multiple images for the gallery
         $totalImages = count($_FILES['blog_images']['tmp_name']);
@@ -47,7 +49,7 @@
                         $fileTmpName = $_FILES['blog_images']['tmp_name'][$index];
                         $fileSize = $_FILES['blog_images']['size'][$index];
                         $fileError = $_FILES['blog_images']['error'][$index];
-                        $uploadDir = "../blogImages/blogGalleries/" . $fileName;
+                        $uploadDir = "../assets/blogImages/blogGalleries/" . $fileName;
 
                         // Validate the file (size, type, error)
                         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif']; // Allowed MIME types
@@ -110,6 +112,7 @@
     }
 ?>
 
+<!-- delete -->
 <?php
     include 'connection.php';
 
@@ -126,7 +129,7 @@
 
         // Delete the main blog image from the server
         if (!empty($main_image)) {
-            $mainImagePath = "../blogImages/blogTitle/" . $main_image;
+            $mainImagePath = "../assets/blogImages/blogTitle/" . $main_image;
             if (file_exists($mainImagePath)) {
                 unlink($mainImagePath);
             }
@@ -140,7 +143,7 @@
 
         // Delete each image file from the server
         while ($row = $result->fetch_assoc()) {
-            $imagePath = "../blogImages/blogGalleries/" . $row['blog_images'];
+            $imagePath = "../assets/blogImages/blogGalleries/" . $row['blog_images'];
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
@@ -167,4 +170,58 @@
         // Close database connection
         $con->close();
     }
+?>
+
+
+<!-- update the data -->
+
+<?php
+include 'connection.php';
+
+if (isset($_REQUEST["update_blog"])) {
+    $blog_id = $_REQUEST['blog_up_id']; // Corrected variable name
+    $blog_title = $_REQUEST['title'];
+    $up_blog_author = $_REQUEST['author'];
+    $up_blog_category = $_REQUEST['category'];
+    $up_blog_content = $_REQUEST['content'];
+
+    $message = mysqli_real_escape_string($con, $up_blog_content);
+
+    // Fetch the existing image from the database BEFORE updating
+    $query = "SELECT image FROM blogs WHERE id = '$blog_id'";
+    $result = mysqli_query($con, $query);
+    $row = mysqli_fetch_assoc($result);
+    $existing_image = $row['image'];
+
+    // Handle the main blog image (head image)
+    $up_image = $_FILES['head_img']['name'];
+    $up_temp_name = $_FILES['head_img']['tmp_name'];
+    $up_folder = "../assets/blogImages/blogTitle/" . $up_image;
+
+    // If a new image is uploaded, delete the old image
+    if (!empty($up_image)) {
+        $old_image_path = "../assets/blogImages/blogTitle/" . $existing_image;
+        if (file_exists($old_image_path) && !empty($existing_image)) {
+            unlink($old_image_path); // Remove the old image
+        }
+
+        // Move the new image to the designated folder
+        move_uploaded_file($up_temp_name, $up_folder);
+
+        // Update the query with the new image
+        $update_query = "UPDATE blogs SET heading = '$blog_title', content = '$message', Author = '$up_blog_author', Category = '$up_blog_category', image = '$up_image' WHERE id = '$blog_id'";
+    } else {
+        // If no new image, update everything else EXCEPT the image
+        $update_query = "UPDATE blogs SET heading = '$blog_title', content = '$message', Author = '$up_blog_author', Category = '$up_blog_category' WHERE id = '$blog_id'";
+    }
+
+    if (mysqli_query($con, $update_query)) {
+        header("Location: ../index.php"); // Redirect on success
+        exit();
+    } else {
+        echo "Error updating blog: " . mysqli_error($con);
+    }
+}
+
+mysqli_close($con);
 ?>

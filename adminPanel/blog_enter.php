@@ -62,27 +62,28 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="blog_enter.php" data-target="#collapseTwo" aria-expanded="true"
                     aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <!-- <i class="fas fa-fw fa-cog"></i> -->
                     <span>Add News
                     </span>
                 </a>
-                <!-- <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div> -->
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link" href="add_gallery.php" data-target="#collapseUtilities" aria-expanded="true"
                     aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
                     <span>Add Gallery</span>
                 </a>
 
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="member_panel.php" data-target="#collapseUtilities" aria-expanded="true"
+                    aria-controls="collapseUtilities">
+                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
+                    <span>Member Panel</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -160,7 +161,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -201,8 +202,8 @@
 
                                     <!-- Clear Button Area (Initially Hidden) -->
                                     <div class="clear-area">
-                                        <button id="clear-btn" class="clear-btn" style="display: none;">Clear
-                                            Images</button>
+                                        <a id="clear-btn" class="clear-btn" style="display: none;">Clear
+                                            Images</a>
                                     </div>
                                 </div>
                             </div>
@@ -216,11 +217,6 @@
                                     <div class="form-group">
                                         <label for="author">Author</label>
                                         <input type="text" id="author" name="author" >
-                                    <?php
-                                    
-                                    
-                                    ?>
-                                        <input type="hidden" id="author" name="id_blog" >
                                     </div>
 
                                     <div class="form-group">
@@ -238,12 +234,6 @@
                                         <textarea id="content" name="content" rows="5" ></textarea>
                                     </div>
 
-                                    
-
-                                    <!-- <div class="form-group">
-                                        <label for="source">Source/Reference (Optional)</label>
-                                        <input type="text" id="source" name="source">
-                                    </div> -->
 
                                     <button type="submit" name="add_blog">Submit</button>
                                 </div>
@@ -301,7 +291,7 @@
                                                 <tr>
                                                     <td class="tb_data">
                                                         <img class="table_image"
-                                                            src="./blogImages/blogTitle/<?php echo $row['image']?>">
+                                                            src="./assets/blogImages/blogTitle/<?php echo $row['image']?>">
                                                     </td>
                                                     
                                                     <td><?php echo $row['heading']?></td>
@@ -373,12 +363,12 @@
                 </div>
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="login.html">Logout</a>
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

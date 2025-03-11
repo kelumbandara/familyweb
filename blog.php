@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css" integrity="sha512-HHsOC+h3najWR7OKiGZtfhFIEzg5VRIPde0kB0bG2QRidTQqf+sbfcxCTB16AcFB93xMjnBIKE29/MjdzXE+qw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./assets/css/blog.css">
+    <link rel="icon" type="image/png" href="./image/images.png">
     <title>News Website</title>
+
+    <link rel="stylesheet" href="./assets/css/blog.css">
 
     <link rel="stylesheet" href="assets/css/homePage.css">
 
@@ -16,8 +18,10 @@
      <!-- ________________Font Awesome icons________________ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-<!-- ________________Footer CSS________________ -->
-<link rel="stylesheet" href="assets/css/footer.css">
+        <!-- ________________Footer CSS________________ -->
+        <link rel="stylesheet" href="assets/css/footer.css">
+
+        <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
 </head>
 <body>
 
@@ -26,7 +30,7 @@ session_start();
 include './backEnd/connection.php';
 
 // Default profile image
-$profileImage = "./image/Memberimages/avatar1.png";
+$profileImage = "./assets/images/Member images/avatar1.png";
 
 // Check if the user is logged in (employee or admin)
 if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
@@ -44,7 +48,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
         $result = mysqli_stmt_get_result($stmt);
 
         if ($row = mysqli_fetch_assoc($result)) {
-            $profileImage = !empty($row['image']) ? "./image/Memberimages/{$row['image']}" : $profileImage;
+            $profileImage = !empty($row['image']) ? "./assets/images/Member images/{$row['image']}" : $profileImage;
         } else {
             header("Location: loginPage.php");
             exit();
@@ -54,7 +58,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
         // Admin session
         $user = $_SESSION["adminName"];
         $role = 'admin'; // Admin role
-        $profileImage = "./image/Memberimages/avatar1.png"; // Custom admin image, change as needed
+        $profileImage = "./assets/images/Member images/avatar1.png"; // Custom admin image, change as needed
 
         // Securely fetch admin data using prepared statements
         $query = "SELECT * FROM admin_login WHERE user_name = ?";
@@ -65,7 +69,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
 
         if ($row = mysqli_fetch_assoc($result)) {
             // Profile image for admin if any, else default image
-            $profileImage = !empty($row['image']) ? "./image/Memberimages/{$row['image']}" : $profileImage;
+            $profileImage = !empty($row['image']) ? "./assets/images/Member images/{$row['image']}" : $profileImage;
         } else {
             header("Location: loginPage.php");
             exit();
@@ -74,6 +78,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
 
     // Render the navigation bar based on role
     ?>
+    
     <nav>
         <div class="nav_bar">
             <i class='bx bx-menu sideBarOpen'></i>
@@ -89,6 +94,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                     <li><a href="index.php">Home</a></li>
                     <li><a href="#">Family Tree</a></li>
                     <li><a href="blog.php">News & Updates</a></li>
+                    <li><a href="gallery.php">Gallery</a></li>
                 </ul>
             </div>
 
@@ -107,11 +113,13 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                                 <?php echo htmlspecialchars($user); ?>
                             </div>
                             <hr>
+                            <?php if ($role == 'employee'): ?>
                             <a href="./profile.php?user=<?php echo urlencode($user); ?>" class="sub_menu_links">
-                                <img src="./image/profile.png">
+                                <img src="./assets/images/profile.png">
                                 <p>Edit Profile</p>
                                 <span>></span>
                             </a>
+                            <?php endif; ?>
                             <!-- <a href="#" class="sub_menu_links">
                                 <img src="./image/setting.png">
                                 <p>Help & Support</p>
@@ -119,13 +127,13 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                             </a> -->
                             <?php if ($role == 'admin'): ?>
                                 <a href="./adminPanel/index.php" class="sub_menu_links">
-                                    <img src="./image/setting.png">
+                                    <img src="./assets/images/setting.png">
                                     <p>Admin Panel</p>
                                     <span>></span>
                                 </a>
                             <?php endif; ?>
                             <a href="./logout.php" class="sub_menu_links">
-                                <img src="./image/profile.png">
+                                <img src="./assets/images/profile.png">
                                 <p>Log Out</p>
                                 <span>></span>
                             </a>
@@ -157,6 +165,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                     <li><a href="index.php">Home</a></li>
                     <li><a href="#">Family Tree</a></li>
                     <li><a href="blog.php">News & Updates</a></li>
+                    <li><a href="gallery.php">Gallery</a></li>
                 </ul>
             </div>
 
@@ -172,39 +181,39 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
 }
 
 ?>
-
-    <div class="header">
-        <div class="logo">
-            NEWS
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#sportsNews">Sports</a></li>
-                <li><a href="#businessNews">Business</a></li>
-                <li><a href="#techNews">Technology</a></li>
-            </ul>
-            <div class="bar">
-                <i class="open fa-solid fa-bars-staggered"></i>
-                <i class="close fa-solid fa-xmark"></i>
-            </div>
-        </nav>
-    </div>
+<div class="header"></div>
+ 
     <div class="topHeadlines">
         <div class="left">
             <div class="title">
                 <h2>Breaking News</h2>
             </div>
+            <?php
+                $n = 1;
+                $offset = $n - 1;
+                $sql = "SELECT * FROM blogs ORDER BY id ASC LIMIT 1 OFFSET $offset"; 
+                $result = mysqli_query($con, $sql);
+
+                $row=mysqli_fetch_assoc($result);
+            ?>
             <div class="img" id="breakingImg">
-                <img src="" alt="">
+                <img src="./adminPanel/assets/blogImages/blogTitle/<?php echo $row['image']?>" alt="">
             </div>
             <div class="text" id="breakingNews">
                 <div class="title">
-                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
+                    <a href="./blog_detail.php?blog_id=<?php echo $row['id']?>">
+                        <h2><?php echo $row['heading']?></h2>
+                    </a>
                 </div>
                 <div class="description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, veritatis? Eveniet ut amet expedita itaque dolore delectus? Tenetur eius animi distinctio voluptatem vitae itaque dolorum architecto illo, expedita, dignissimos reprehenderit.
-                </div>
+                <?php  $content = $row['content'];
+                $contentArray = explode(' ', $content);
+                echo (count($contentArray) > 25) 
+                    ? implode(' ', array_slice($contentArray, 0, 20)) . '...' 
+                    : $content;
+                
+                ?>       
+            </div>
             </div>
         </div>
         <div class="right">
@@ -212,17 +221,31 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                 <h2>Top Headlines</h2>
             </div>
             <div class="topNews">
-                <div class="news">
-                    <div class="img"></div>
+                <?php
+                    $allblogs="SELECT * FROM blogs";
+                    $allResult=mysqli_query($con,$allblogs);
+
+                   
+                        while($row2=mysqli_fetch_assoc($allResult)){
+                            ?>
+                    <div class="news">
+                    <div class="img">
+                        <img src="./adminPanel/assets/blogImages/blogTitle/<?php echo $row2['image']?>" alt="">
+                    </div>
                     <div class="text">
                         <div class="title">
-                            <a href="#">
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae magnam </p>
+                            <a href="./blog_detail.php?blog_id=<?php echo $row2['id']?>">
+                                <p><?php echo $row2['heading']?></p>
                             </a>
                             
                         </div>
                     </div>
                 </div>
+                    
+                        <?php
+                            }
+                        ?>
+                
             </div>
 
         </div>
@@ -233,50 +256,82 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                 <h2>Sports News</h2>
             </div>
             <div class="newsBox">
+
+            <?php
+                    $category="news";
+                    $allblogs="SELECT * FROM blogs WHERE Category='$category' ORDER BY id ASC LIMIT 5;";
+                    $allResult=mysqli_query($con,$allblogs);
+                        while($row2=mysqli_fetch_assoc($allResult)){
+                            ?>
                 <div class="newsCard">
                     <div class="img">
-                        <img src="" alt="">
+                        <img src="./adminPanel/assets/blogImages/blogTitle/<?php echo $row2['image']?>" alt="">
                     </div>
                     <div class="text">
                         <div class="title">
-                            <a href="#"><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, ad pariatur?</p></a>
+                            <a href="./blog_detail.php?blog_id=<?php echo $row2['id']?>"> <p><?php echo $row2['heading']?></p></a>
                         </div>
                     </div>
                 </div>
+                <?php
+                        }
+                        ?>
             </div>
         </div>
+
         <div class="news" id="businessNews">
             <div class="title">
                 <h2>Business News</h2>
             </div>
             <div class="newsBox">
+                <?php
+                $category="blog";
+                $allblogs="SELECT * FROM blogs WHERE Category='$category' ORDER BY id ASC LIMIT 5;";
+                $allResult=mysqli_query($con,$allblogs);
+                    while($row2=mysqli_fetch_assoc($allResult)){
+                        ?>
                 <div class="newsCard">
                     <div class="img">
-                        <img src="" alt="">
+                        <img src="./adminPanel/assets/blogImages/blogTitle/<?php echo $row2['image']?>" alt="">
                     </div>
                     <div class="text">
                         <div class="title">
-                            <a href="#"><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, ad pariatur?</p></a>
+                        <a href="./blog_detail.php?blog_id=<?php echo $row2['id']?>"> <p><?php echo $row2['heading']?></p></a>
                         </div>
                     </div>
                 </div>
+                <?php
+                    }
+                    ?>
             </div>
         </div>
+
+
         <div class="news" id="techNews">
             <div class="title">
                 <h2>Technology News</h2>
             </div>
             <div class="newsBox">
+                
+            <?php
+                    $category="opinion";
+                    $allblogs="SELECT * FROM blogs WHERE Category='$category' ORDER BY id ASC LIMIT 5;";
+                    $allResult=mysqli_query($con,$allblogs);
+                        while($row2=mysqli_fetch_assoc($allResult)){
+                            ?>
                 <div class="newsCard">
                     <div class="img">
-                        <img src="" alt="">
+                        <img src="./adminPanel/assets/blogImages/blogTitle/<?php echo $row2['image']?>" alt="">
                     </div>
                     <div class="text">
                         <div class="title">
-                            <a href="#"><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, ad pariatur?</p></a>
+                        <a href="./blog_detail.php?blog_id=<?php echo $row2['id']?>"> <p><?php echo $row2['heading']?></p></a>
                         </div>
                     </div>
                 </div>
+                <?php
+                        }
+                        ?>
             </div>
         </div>
     </div>

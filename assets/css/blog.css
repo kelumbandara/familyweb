@@ -6,7 +6,7 @@
     scroll-behavior: smooth;
 }
 body{
-    background-color: #ffffff;
+    background-color: #000000;
     font-family: 'Ubuntu', sans-serif;
     width: 100%;
     min-height: 100vh;
@@ -28,75 +28,20 @@ body{
     width: 6px;
 }
 .topHeadlines .right .topNews::-webkit-scrollbar-thumb{
-    background-color: #777;
+    background-color: #9c9c9c;
 }
 
-
-.header{
-    position: fixed;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 20px 50px;
-    background-color: #ffffff;
-    transition: 0.3s;
-}
-.header.sticky{
-    padding-block: 10px;
-    box-shadow: inset 0 -1.5px 3px rgba(255,255,255,0.3);
-}
-.logo{
-    font-size: 45px;
-    font-weight: 700;
-    cursor: pointer;
-}
-nav ul{
-    display: flex;
-}
-nav div.bar{
-    display: none;
-    position: absolute;
-    right: 80px;
-    margin-top: -10px;
-    font-size: 25px;
-    cursor: pointer;
-}
-nav div.bar.active .open{
-    display: none;
-}
-nav div.bar .close{
-    display: none;
-}
-nav div.bar.active .close{
-    display: initial;
-}
-
-nav ul li{
-    list-style: none;
-    margin: 0 15px;
-    padding: 0 10px;
-    border-left: 1px solid #fff0;
-    border-right: 1px solid #fff0;
-    transition: 0.3s;
-}
-nav ul li:hover{
-    border-left: 1px solid #575656;
-    border-right: 1px solid #726f6f;
-}
-nav ul li a{
-    text-decoration: none;
-    color: #000000;
-    letter-spacing: 1px;
-}
 .topHeadlines{
     padding: 100px 50px 50px;
     width: 100%;
     display: grid;
     grid-template-columns: 1.5fr 1fr;
+    background-color: white;
 }
 .topHeadlines .left{
     padding: 10px 30px;
+    /* border-right: 1px solid black;
+    height: 50%; */
 }
 .topHeadlines .left > .title{
     font-size: 20px;
@@ -111,15 +56,17 @@ nav ul li a{
 .topHeadlines .left .img img{
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 .topHeadlines .left .text{
     padding: 20px 15px 10px;
 }
 .topHeadlines .left .text .title a{
     text-decoration: none;
+    color: black;
 }
 .topHeadlines .left .text .title a h2{
-    font-size: 20px;
+    font-size: 22px;
     color: #000000;
     letter-spacing: 1px;
     display: inline;
@@ -131,7 +78,7 @@ nav ul li a{
 .topHeadlines .left .text .description{
     font-size: 15px;
     margin-top: 10px;
-    color: #aaa;
+    color: #727272;
     letter-spacing: 1px;
 }
 .topHeadlines .right{
@@ -147,13 +94,12 @@ nav ul li a{
 .topHeadlines .right .topNews{
     padding: 7px;
     height: 85%;
-    border: 1px solid #070707;
-    border-radius: 4px;
     overflow-y: scroll;
 }
 .topHeadlines .right .topNews .news{
     display: grid;
     grid-template-columns: auto auto;
+    justify-content: left;
     align-items: center;
     margin-bottom: 20px;
 }
@@ -167,11 +113,13 @@ nav ul li a{
 .topHeadlines .right .topNews .news .img img{
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 .topHeadlines .right .topNews .news .text{
     margin-inline: 10px;
-    display: flex;
+    display: grid;
     align-items: center;
+    justify-content: start;
 }
 .topHeadlines .right .topNews .news .text .title a{
     text-decoration: none;
@@ -191,7 +139,7 @@ nav ul li a{
 }
 .page2 .news{
     padding: 30px 0;
-    border-bottom: 1px solid #555;
+
 }
 .page2 .news:last-child{
     padding: 30px 0;
@@ -225,6 +173,8 @@ nav ul li a{
     width: 100%;
     height: 100%;
     border-radius: 5px;
+    object-fit: cover;
+    object-position: center;
 }
 .page2 .news .newsBox .newsCard .text{
     padding: 10px;
@@ -242,111 +192,7 @@ nav ul li a{
     text-decoration: underline;
 }
 
-.footer{
-    width: 100%;
-    padding: 50px 50px 0px;
-    background-color: #a1a1a1;
-    min-height: 200px;
-}
-.footer .box{
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: space-around;
-}
-.footer .box .left{
-    display: flex;
-    justify-content: space-around;
-    padding-right: 20px;
-}
-.footer .box .left .categories > p {
-    font-size: 28px;
-    margin-bottom: 30px;
-}
-.footer .box .left .categories div{
-    margin-bottom: 15px;
-    width: max-content;
-}
-.footer .box .left .categories div p{
-    font-size: 20px;
-    color: #424242;
-    cursor: pointer;
-    padding: 0 10px;
-    border-left: 1px solid #fff0;
-    border-right: 1px solid #fff0;
-    transition: 0.3s;
-}
-.footer .box .left .categories div p:hover{
-    color: #fff;
-    border-left: 1px solid #fff;
-    border-right: 1px solid #fff;
-}
-.footer .contact{
-    margin-left: 10px;
-}
-.footer .contact p{
-    font-size: 28px;
-    margin-bottom: 30px;
-}
-.footer .contact div{
-    font-size: 17px;
-    margin-bottom: 15px;
-    color: #161616;
-}
-.footer .icon{
-    margin-top: 20px;
-    padding: 20px;
-}
-.footer .icon i{
-    font-size: 25px;
-    margin-right: 20px;
-    color: #141414;
-    cursor: pointer;
-    transition: 0.3s;
-}
-.footer .icon i:hover{
-    color: #fff;
-    transform: scale(1.2);
-}
-.footer .newsletter p{
-    font-size: 28px;
-    margin-bottom: 30px;
-}
-.footer .newsletter .email{
-    display: flex;
-}
-.footer .newsletter .email input{
-    width: 400px;
-    padding: 12px 25px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    margin-right: 20px;
-}
-.footer .newsletter .email button{
-    padding: 10px 25px;
-    font-size: 16px;
-    font-weight: 600;
-    background-color: transparent;
-    border-color: #fff;
-    border-style: solid;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-.footer .newsletter .email button:hover{
-    color: #0a0a18;
-    background-color: #fff;
-}
-.footer .copyrights{
-    font-size: 18px;
-    text-align: center;
-    padding: 20px;
-    letter-spacing: 1px;
-}
+
 
 @media (max-width:1024px) {
     .topHeadlines .right .topNews .news .img {

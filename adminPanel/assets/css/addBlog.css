@@ -459,3 +459,28 @@
     height: 100%;
     object-fit: cover;
   }
+
+
+  
+
+.modal-content {
+    width: 100%; /* Ensures the modal content stretches to full width */
+    padding: 20px; /* Adjusts padding inside the modal */
+}
+
+.form-container {
+    width: 100%;  /* Ensures the form container takes full width */
+}
+
+.form-group {
+    width: 100%; /* Makes each form group full width */
+    margin-bottom: 15px; /* Adds spacing between form groups */
+}
+
+#title, #author, #category, #content {
+    width: 100%; /* Ensures form fields span the entire width */
+}
+
+textarea {
+    width: 100%; /* Makes the textarea take up full width */
+}

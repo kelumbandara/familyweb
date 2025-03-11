@@ -61,12 +61,12 @@
                                         if($row['image']){
                                     ?>
                                     <img src="#" id="newImg"
-                                        onerror="this.src='./image/Memberimages/<?php echo $row['image'] ?>'"
+                                        onerror="this.src='./assets/images/Member images/<?php echo $row['image'] ?>'"
                                         class="d-block ui-w-80">
                                     <?php
                                         }else{
                                     ?>
-                                    <img src="#" id="newImg" onerror="this.src='./image/Memberimages/avatar1.png'"
+                                    <img src="#" id="newImg" onerror="this.src='./assets/images/Member images/avatar1.png'"
                                         class="d-block ui-w-80">
                                     <?php
                                         }
@@ -270,40 +270,6 @@
                             }
                             ?>
                         </div>
-
-
-
-                        <!-- <div class="tab-pane fade" id="account-social-links">
-                            <div class="card-body pb-2">
-                                <div class="form-group">
-                                    <label class="form-label">Twitter</label>
-                                    <input type="text" class="form-control" value="https://twitter.com/user">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Facebook</label>
-                                    <input type="text" class="form-control" value="https://www.facebook.com/user">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Google+</label>
-                                    <input type="text" class="form-control" value>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">LinkedIn</label>
-                                    <input type="text" class="form-control" value>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Instagram</label>
-                                    <input type="text" class="form-control" value="https://www.instagram.com/user">
-                                </div>
-                                <div class="text-right mt-3">
-                                    <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
-                                    <button type="button" class="btn btn-default">Cancel</button>
-                                </div>
-                            </div>
-
-                        </div> -->
-
-
 
 
                     </div>

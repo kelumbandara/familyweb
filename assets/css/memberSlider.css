@@ -1,4 +1,4 @@
-/* Family Members Start */
+/* Global Styles */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 * {
@@ -9,14 +9,11 @@
     border: none;
 }
 
-.Members {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--text-color);
+body {
+    background-color: #f0f0f0;
 }
 
+/* Section Title */
 .section_title_mem {
     background-color: var(--text-color);
     min-height: 70vh;
@@ -30,19 +27,22 @@
 
 .section_title_mem h1 {
     font-size: 50px;
+    font-weight: 500;
+    color: #333;
 }
 
+/* Carousel Wrapper */
 .wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 35px;
-    max-width: 1500px;
+    max-width: 1600px;
     width: 100%;
     position: relative;
-
 }
 
+/* Arrow Buttons */
 .wrapper i {
     height: 50px;
     width: 50px;
@@ -52,8 +52,8 @@
     border-radius: 50%;
     cursor: pointer;
     position: absolute;
-    top: 50;
-    font-size: 1.1rem;
+    top: 50%;
+    font-size: 1.5rem;
     transform: translateY(-50%);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
     z-index: 10;
@@ -67,19 +67,19 @@
     right: 60px;
 }
 
-
-.wrapper .carousel {
+/* Carousel Container */
+.carousel {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: calc((103% / 3) - 15px);
     gap: 16px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     scrollbar-width: 0;
-
+    padding-bottom: 20px;
 }
 
+/* Remove Scrollbar */
 .carousel::-webkit-scrollbar {
     display: none;
 }
@@ -88,9 +88,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
+/* Infinite Scroll Class */
 .carousel.no-transition {
     scroll-behavior: auto;
 }
@@ -101,25 +101,24 @@
 }
 
 .carousel.dragging .card {
-    cursor: grab;
+    cursor: grabbing;
     user-select: none;
-
 }
 
-
-
+/* Card Styles */
 .carousel .card {
     scroll-snap-align: start;
+    width: 500px;
     height: 342px;
     list-style: none;
-    border: none;
     background: #eeeff1;
     border-radius: 8px;
     padding-bottom: 15px;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
 }
 
 .card .img {
@@ -140,7 +139,7 @@
 .card h2 {
     font-weight: 500;
     font-size: 1.56rem;
-    margin: 30px 0 30px;
+    margin: 30px 0 10px;
 }
 
 .card span {
@@ -148,16 +147,32 @@
     font-size: 1.1rem;
 }
 
+/* Responsive Design for smaller screens */
+@media screen and (max-width: 1200px) {
+    .carousel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
 @media screen and (max-width: 990px) {
-    .wrapper .carousel {
-        grid-auto-columns: calc((103% / 2) - 9px);
+    .carousel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .section_title_mem h1 {
+      font-size: 40px;
     }
 }
 
 @media screen and (max-width: 750px) {
-    .wrapper .carousel {
-        grid-auto-columns: 104%;
+    .carousel {
+        grid-template-columns: 1fr;
     }
 }
 
-/* Family Members End */
+/* Adjust arrows for small screens */
+@media screen and (max-width: 768px) {
+    /* .wrapper i {
+        display: none; 
+    } */
+}

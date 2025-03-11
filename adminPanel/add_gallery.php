@@ -22,6 +22,21 @@
 
     <link rel="stylesheet" href="./assets/css/addBlog.css">
 
+    <style>
+        .preview-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #options-panel {
+            margin-top: 10px;
+        }
+    </style>
+
 </head>
 
 <body id="page-top">
@@ -32,8 +47,8 @@
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-           <!-- Sidebar - Brand -->
-           <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <!-- <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div> -->
@@ -62,7 +77,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="blog_enter.php" data-target="#collapseTwo" aria-expanded="true"
                     aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <!-- <i class="fas fa-fw fa-cog"></i> -->
                     <span>Add News
                     </span>
                 </a>
@@ -79,8 +94,17 @@
             <li class="nav-item">
                 <a class="nav-link" href="add_gallery.php" data-target="#collapseUtilities" aria-expanded="true"
                     aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
                     <span>Add Gallery</span>
+                </a>
+
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="member_panel.php" data-target="#collapseUtilities" aria-expanded="true"
+                    aria-controls="collapseUtilities">
+                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
+                    <span>Member Panel</span>
                 </a>
 
             </li>
@@ -160,7 +184,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -194,23 +218,34 @@
                         <div class="container_img">
                             <!-- File input for image selection -->
                             <form id="image-form" action="./include/imageGalleryBack.php" method="POST"
-                            enctype="multipart/form-data">
-                            <input type="file" id="file-input" name="images[]" multiple
-                                accept="image/png, image/jpeg" onchange="preview()" multiple>
-                            <label class="label_photo" for="file-input">
-                                <i class="fas fa-upload"></i> &nbsp; Choose A Photo
-                            </label>
-                            <button type="submit" name="img_submit" id="submit-btn"
-                                class="btn btn-primary">Submit</button>
-                            </form>
-                            <button id="clear-btn2" onclick="clearImages()">Clear</button>
+                                enctype="multipart/form-data">
+                                <input type="file" id="file-input" name="images[]" multiple
+                                    accept="image/png, image/jpeg" onchange="preview()">
+                                <label class="label_photo" for="file-input">
+                                    <i class="fas fa-upload"></i> &nbsp; Choose A Photo
+                                </label>
 
-                            <p id="num-of-files">No Files Chosen</p>
-                            <!-- Image Preview Container -->
-                            <div id="images"></div>
+                                <p id="num-of-files">No Files Chosen</p>
+
+                                <!-- Image Preview Container -->
+                                <div id="images"></div>
+
+                                <!-- Options Panel (Initially Hidden) -->
+                                <div id="options-panel" style="display: none;">
+                                    <label for="category-select">Select Category:</label>
+                                    <select id="category-select" name="category">
+                                        <option value="family">Family</option>
+                                        <option value="office">Office</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" name="img_submit" id="submit-btn" class="btn btn-primary"
+                                    style="display: none;">Submit</button>
+                            </form>
+                            <button id="clear-btn2" onclick="clearImages()" style="display: none;">Clear</button>
                         </div>
-                        <!-- Submit Button (Initially Hidden) -->
                     </div>
+
 
 
 
@@ -229,7 +264,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Image</th>
-                                                    <th>Enterd date</th>
+                                                    <th>Category</th>
                                                     <th>Edit</th>
                                                 </tr>
                                             </thead>
@@ -243,14 +278,18 @@
 
                                             while($row=mysqli_fetch_assoc($result)){
                                                 ?>
-                                                
+
                                                 <tr>
                                                     <td class="tb_data">
                                                         <img class="table_image"
-                                                            src="./imagesLibrary/<?php echo $row['image']?>">
+                                                            src="./assets/imagesLibrary/<?php echo $row['image']?>">
                                                     </td>
-                                                    <td>2011/04/25</td>
-                                                    <td><a class="table_delete_btn" href="./include/imageGalleryBack.php?img_id=<?php echo $row['id']?>"> Delete</a>
+                                                    <td>
+                                                        <?php echo $row['category']?>
+                                                    </td>
+                                                    <td><a class="table_delete_btn"
+                                                            href="./include/imageGalleryBack.php?img_id=<?php echo $row['id']?>">
+                                                            Delete</a>
                                                     </td>
                                                 </tr>
 
@@ -313,7 +352,6 @@
                 </div>
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="login.html">Logout</a>
                 </div>
             </div>

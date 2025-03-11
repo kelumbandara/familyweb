@@ -153,13 +153,7 @@
                     <span>Add News
                     </span>
                 </a>
-                <!-- <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div> -->
+             
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
@@ -168,6 +162,14 @@
                     aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Add Gallery</span>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="member_panel.php" data-target="#collapseUtilities" aria-expanded="true"
+                    aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Member Panel</span>
                 </a>
 
             </li>
@@ -245,7 +247,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -308,17 +310,15 @@
                                         <!-- featured Details -->
                                         <section class="section" id="featured">
                                             <div class="detail">
-                                                <img src="./blogImages/blogTitle/<?php echo $blog_row['image']; ?>"
+                                                <img src="./assets/blogImages/blogTitle/<?php echo $blog_row['image']; ?>"
                                                     style="width: 500px; height: 300px; object-fit: cover;"
                                                     class="img-fluid" alt="...">
                                                 <div class="post-cat mt-5">
-                                                    <a href="#" class="btn">Journal</a>
-                                                    <a href="#" class="btn">Life Style</a>
                                                     <div class="meta mt-3 ">
                                                         <a class="profile" href="#"><i class="fas fa-user ml-2"></i>
-                                                            <span>Darisset</span>
+                                                            <span><?php echo $blog_row['Author']; ?></span>
                                                         </a> -
-                                                        <span>San, 12 Mei 2020</span>
+                                                        <span><?php echo $blog_row['date']; ?></span>
                                                     </div>
                                                 </div>
                                                 <div class="article mt-3">
@@ -326,26 +326,19 @@
                                                         <?php echo $blog_row['heading']; ?>
                                                     </h1>
 
-                                                    <?php
-                                        // Get the content from the database
-                                        $content = $blog_row['content']; // Replace 'content_column' with the actual column name from your database
+                                                <?php
+                                                   
+                                                    $content = $blog_row['content']; 
+                                                   
+                                                    $paragraphs = explode('.', $content); 
 
-                                        // Split the content into paragraphs by period (or use any delimiter you want)
-                                        $paragraphs = explode('.', $content); // This will split the content at each period
 
-                                        // Loop through the paragraphs and display them
-                                        foreach ($paragraphs as $paragraph) {
-                                            if (!empty(trim($paragraph))) {
-                                                echo '<p>' . htmlspecialchars(trim($paragraph)) . '.</p>';
-                                            }
-                                        }
-                                        ?>
-
-                                                    <figcaption class="blockquote-footer mt-5">
-                                                        <span>#Tags: </span>
-                                                        <cite title="Source Title">Python, Django, Web
-                                                            Development</cite>
-                                                    </figcaption>
+                                                    foreach ($paragraphs as $paragraph) {
+                                                        if (!empty(trim($paragraph))) {
+                                                            echo '<p>' . htmlspecialchars(trim($paragraph)) . '.</p>';
+                                                        }
+                                                    }
+                                                ?>                            
                                                 </div>
                                             </div>
                                         </section>
@@ -367,7 +360,7 @@
                                                     <a href="">
                                                         <figure class="gallery_figure">
                                                             <img class="figure_img"
-                                                                src='./blogImages/blogGalleries/<?php echo $image_row['blog_images']; ?>'>
+                                                                src='./assets/blogImages/blogGalleries/<?php echo $image_row['blog_images']; ?>'>
 
                                                         </figure>
                                                     </a>
@@ -412,21 +405,23 @@
 
             <!-- Logout Modal-->
             <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="login.html">Logout</a>
-                        </div>
-                    </div>
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="login.html">Logout</a>
                 </div>
             </div>
+        </div>
+    </div>
+
 
             <!-- Bootstrap core JavaScript-->
             <script src="vendor/jquery/jquery.min.js"></script>

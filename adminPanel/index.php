@@ -12,10 +12,10 @@
     <title>SB Admin 2 - Buttons</title>
 
     <!-- Custom fonts for this template-->
-    <!-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> -->
-    <!-- <link
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet"> -->
+        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="./assets/css/sb-admin-2.min.css" rel="stylesheet">
@@ -23,6 +23,12 @@
     <!-- <link rel="stylesheet" href="./assets/css/addBlog.css"> -->
 
     <link rel="stylesheet" href="./assets/css/style.css">
+
+    <link rel="stylesheet" href="../assets/css/gallery.css">
+
+    <link rel="stylesheet" href="../assets/css/lightbox.min.css">
+
+    <link rel="stylesheet" href="./assets/css/addBlog.css">
 
 </head>
 
@@ -64,7 +70,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="blog_enter.php" data-target="#collapseTwo" aria-expanded="true"
                     aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <!-- <i class="fas fa-fw fa-cog"></i> -->
                     <span>Add News
                     </span>
                 </a>
@@ -81,8 +87,16 @@
             <li class="nav-item">
                 <a class="nav-link" href="add_gallery.php" data-target="#collapseUtilities" aria-expanded="true"
                     aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
                     <span>Add Gallery</span>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="member_panel.php" data-target="#collapseUtilities" aria-expanded="true"
+                    aria-controls="collapseUtilities">
+                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
+                    <span>Member Panel</span>
                 </a>
 
             </li>
@@ -191,73 +205,181 @@
                     <h1 class="mb-5">Dashboard</h1>
                     <div class="blog">
                         <div class="container">
-                           
-                                <div class="row">
-                                    <!-- Content Column -->
-                                    <div class="col-lg-12 mb-4">
-                                        <div class="mb-4">
-                                            <div class="load_more_container">
-                                                <div class="box-container">
-                                                    <?php
-                                        include './include/connection.php';
-                                        $sql = "SELECT * FROM blogs";
-                                        $result = mysqli_query($con, $sql);
-                                        $count = 0; // Track the number of posts
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            $count++;
+
+                        <div class="row">
+    <!-- Content Column -->
+    <div class="col-lg-12 mb-4" style="text-align: center;">
+
+        <div class="mb-4">
+            <div class="load_more_container">
+                <div class="box-container">
+                    <?php
+                        include './include/connection.php';
+                        $sql = "SELECT * FROM blogs";
+                        $result = mysqli_query($con, $sql);
+                        $count = 0; // Track the number of posts
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $count++;
+                    ?>
+                    <article class="box">
+                        <div class="article-wrapper">
+                            <figure>
+                                <img src="./assets/blogImages/blogTitle/<?php echo $row['image']; ?>" alt="">
+                            </figure>
+                            <div class="article-body">
+                                <a href="viewBlogs.php?blog_id=<?php echo $row['id']; ?>" style="text-decoration: none;">
+                                    <h2><?php echo $row['heading']; ?></h2>
+                                </a>
+                                <p class="content-text">
+                                    <?php
+                                    // Limit content to first 20 words
+                                    $content = $row['content'];
+                                    $contentArray = explode(' ', $content);
+                                    echo (count($contentArray) > 25) 
+                                        ? implode(' ', array_slice($contentArray, 0, 20)) . '...' 
+                                        : $content;
                                     ?>
-                                                    <article class="box">
-                                                        <div class="article-wrapper">
-                                                            <figure>
-                                                                <img src="./blogImages/blogTitle/<?php echo $row['image']; ?>"
-                                                                    alt="">
-                                                            </figure>
-                                                            <div class="article-body">
-                                                                <a href="viewBlogs.php?blog_id=<?php echo $row['id']; ?>"
-                                                                    style="text-decoration: none;">
-                                                                    <h2>
-                                                                        <?php echo $row['heading']; ?>
-                                                                    </h2>
-                                                                </a>
-                                                                <p class="content-text">
-                                                                    <?php
-                                                        // Limit content to first 20 words
-                                                        $content = $row['content'];
-                                                        $contentArray = explode(' ', $content);
-                                                        echo (count($contentArray) > 25) 
-                                                            ? implode(' ', array_slice($contentArray, 0, 20)) . '...' 
-                                                            : $content;
-                                                    ?>
-                                                                </p>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6"
-                                                                        style="position: absolute; bottom: 10px; left: 0px;">
-                                                                        <a href="#" class="link"><span class="text">Edit More</span></a>
-                                                                    </div>
-                                                                    <div class="col-lg-6"
-                                                                        style="position: absolute; bottom: 10px; right: 0px;">
-                                                                        <?php if (count($contentArray) > 25) { ?>
-                                                                        <a href="viewBlog.php?blog_id=<?php echo $row['id']; ?>"
-                                                                            class="read-more-btn">Read more</a>
-                                                                        <?php } ?>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                    <?php } ?>
+                                </p>
+                                <div class="row">
+    <div class="col-lg-6" style="position: absolute; bottom: 10px; left: 0px;">
+        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#UpdateModal-<?php echo $row['id']; ?>">
+            Edit More
+        </a>
+        <form action="./include/blogAddBack.php" method="POST" enctype="multipart/form-data">
+            <div class="modal fade" id="UpdateModal-<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Already want to Update?</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container_drop">
+                                <!-- Drag & Drop Area -->
+                                <div class="drop-area" id="drop-area-<?php echo $row['id']; ?>">
+                                    <i class='bx bxs-cloud-upload icon'></i>
+                                    <h3>Drag and drop or click here to select images</h3>
+                                    <p>Image size must be less than <span>2MB</span></p>
+                                    <input type="file" name="head_img" accept="image/*" id="input-file-<?php echo $row['id']; ?>" hidden>
+                                </div>
+
+                                <div class="clear-area">
+                                    <a href="#" id="clear-btn-<?php echo $row['id']; ?>" class="clear clear-btn" style="display: none;">Clear Image</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-container">
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="hidden" id="title" name="blog_up_id" value="<?php echo $row['id']; ?>">
+                                <input type="text" id="title" name="title" value="<?php echo $row['heading']; ?>">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="author">Author</label>
+                                <input type="text" id="author" name="author" value="<?php echo $row['Author']; ?>">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select id="category" name="category">
+                                    <option value="news">News</option>
+                                    <option value="blog">Blog</option>
+                                    <option value="opinion">Opinion</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="content">Content</label>
+                                <textarea id="content" name="content" rows="5"><?php echo $row['content']; ?></textarea>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary" name="update_blog">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-6" style="position: absolute; bottom: 10px; right: 0px;">
+        <?php if (count($contentArray) > 25) { ?>
+        <a href="viewBlogs.php?blog_id=<?php echo $row['id']; ?>" class="read-more-btn">Read more</a>
+        <?php } ?>
+    </div>
+</div>
+
+                            </div>
+                        </div>
+                    </article>
+                    <?php } ?>
+                </div>
+
+                <div class="buttons">
+                    <div id="load-more">Load More</div>
+                    <div id="show-less" style="display: none;">Show Less</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                            <div class="row">
+
+                                <section class="portfolio" id="Portfolio" style="text-align: center;">
+                                    <h1 class="mb-5">Gallery</h1>
+                                    <div class="container">
+
+                                        <div class="row">
+
+                                            <div class="filter-buttons">
+                                                <ul id="filter-btns">
+                                                    <li class="active" data-target="all">ALL</li>
+                                                    <li data-target="family">FAMILY</li>
+                                                    <li data-target="office">OFFICE</li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="portfolio-gallery">
+
+                                                <?php
+                                $gallery_sql="SELECT * FROM image_gallery";
+                                $gallery_result=mysqli_query($con,$gallery_sql);
+                                if($gallery_result){
+                                    while($gallery_row=mysqli_fetch_assoc($gallery_result)){
+                                        ?>
+                                                <div class="item" data-id="<?php echo $gallery_row['category']?>">
+                                                    <div class="inner">
+                                                        <a href="./assets/imagesLibrary/<?php echo $gallery_row['image']?>"
+                                                            data-lightbox="mygallery"><img
+                                                                src="./assets/imagesLibrary/<?php echo $gallery_row['image']?>"
+                                                                alt="portfolio"></a>
+
+                                                    </div>
                                                 </div>
-                
-                                                <div class="buttons">
-                                                    <div id="load-more">Load More</div>
-                                                    <div id="show-less" style="display: none;">Show Less</div>
-                                                </div>
+                                                <?php
+                    }
+                }
+
+                ?>
+
+
+
+
+
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            
+                                </section>
+                            </div>
+
                         </div>
+
                     </div>
 
                 </div>
@@ -300,12 +422,12 @@
                 </div>
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="login.html">Logout</a>
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -320,6 +442,14 @@
     <script src="./assets/js/sb-admin-2.min.js"></script>
 
     <script src="./assets/js/load_more.js"></script>
+
+
+    <script src="../assets/js/galley.js"></script>
+
+    <script src="../assets/js/lightbox-plus-jquery.min.js"></script>
+
+    <script src="./assets/js/image_drag.js"></script>
+
 </body>
 
 </html>
