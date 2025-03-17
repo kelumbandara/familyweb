@@ -55,12 +55,12 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
         }
 
     } elseif (isset($_SESSION['adminId'])) {
-        // Admin session
+  
         $user = $_SESSION["adminName"];
-        $role = 'admin'; // Admin role
-        $profileImage = "./assets/images/Member images/avatar1.png"; // Custom admin image, change as needed
+        $role = 'admin';
+        $profileImage = "./assets/images/Member images/avatar1.png"; 
 
-        // Securely fetch admin data using prepared statements
+       
         $query = "SELECT * FROM admin_login WHERE user_name = ?";
         $stmt = mysqli_prepare($con, $query);
         mysqli_stmt_bind_param($stmt, "s", $user);
@@ -68,7 +68,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
         $result = mysqli_stmt_get_result($stmt);
 
         if ($row = mysqli_fetch_assoc($result)) {
-            // Profile image for admin if any, else default image
+           
             $profileImage = !empty($row['image']) ? "./assets/images/Member images/{$row['image']}" : $profileImage;
         } else {
             header("Location: loginPage.php");
@@ -76,7 +76,6 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
         }
     }
 
-    // Render the navigation bar based on role
     ?>
     
     <nav>
@@ -288,6 +287,34 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
             </div>
         </div>
 
+        <div class="news" id="techNews">
+            <div class="title">
+                <h2>Technology News</h2>
+            </div>
+            <div class="newsBox">
+                
+            <?php
+                    $category="opinion";
+                    $allblogs="SELECT * FROM blogs WHERE Category='$category' ORDER BY id ASC LIMIT 5;";
+                    $allResult=mysqli_query($con,$allblogs);
+                        while($row2=mysqli_fetch_assoc($allResult)){
+                            ?>
+                <div class="newsCard">
+                    <div class="img">
+                        <img src="./adminPanel/assets/blogImages/blogTitle/<?php echo $row2['image']?>" alt="">
+                    </div>
+                    <div class="text">
+                        <div class="title">
+                        <a href="./blog_detail.php?blog_id=<?php echo $row2['id']?>"> <p><?php echo $row2['heading']?></p></a>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                        }
+                        ?>
+            </div>
+        </div>
+
         <div class="news" id="businessNews">
             <div class="title">
                 <h2>Business News</h2>
@@ -316,44 +343,18 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
         </div>
 
 
-        <div class="news" id="techNews">
-            <div class="title">
-                <h2>Technology News</h2>
-            </div>
-            <div class="newsBox">
-                
-            <?php
-                    $category="opinion";
-                    $allblogs="SELECT * FROM blogs WHERE Category='$category' ORDER BY id ASC LIMIT 5;";
-                    $allResult=mysqli_query($con,$allblogs);
-                        while($row2=mysqli_fetch_assoc($allResult)){
-                            ?>
-                <div class="newsCard">
-                    <div class="img">
-                        <img src="./adminPanel/assets/blogImages/blogTitle/<?php echo $row2['image']?>" alt="">
-                    </div>
-                    <div class="text">
-                        <div class="title">
-                        <a href="./blog_detail.php?blog_id=<?php echo $row2['id']?>"> <p><?php echo $row2['heading']?></p></a>
-                        </div>
-                    </div>
-                </div>
-                <?php
-                        }
-                        ?>
-            </div>
-        </div>
+        
     </div>
 
     <!-- Footer Start -->
+ 
+ 
     <footer>
         <section class="footer_sec">
             <div class="container">
                 <div class="sec aboutus">
                     <h2>About Us</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quod cupiditate,
-                        sapiente vitae odio mollitia. Id molestias similique dolor consequuntur accusantium dicta amet
-                        temporibus iusto explicabo quia, corporis at sed sapiente quibusdam doloribus perspiciatis?
+                    <p>We are skytech
                     </p>
 
                     <ul class="sci">
