@@ -4,62 +4,63 @@
 include 'connection.php';
 
 if (isset($_POST['img_submit'])) {
-    // Get category from form
-    $category = isset($_POST['category']) ? $_POST['category'] : "Uncategorized";
+   // Get category from form
+   $category = isset($_POST['category']) ? $_POST['category'] : "Uncategorized";
 
-    foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
-        $fileName = basename($_FILES['images']['name'][$index]);
-        $fileTmpName = $_FILES['images']['tmp_name'][$index];
-        $fileSize = $_FILES['images']['size'][$index];
-        $fileError = $_FILES['images']['error'][$index];
-        $uploadDir = "../assets/imagesLibrary/" . $fileName;
+   foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
+       $fileName = basename($_FILES['images']['name'][$index]);
+       $fileTmpName = $_FILES['images']['tmp_name'][$index];
+       $fileSize = $_FILES['images']['size'][$index];
+       $fileError = $_FILES['images']['error'][$index];
+       $uploadDir = "../assets/imagesLibrary/" . $fileName;
 
-        // Validate file type and size
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        $fileType = mime_content_type($fileTmpName);
-        $maxFileSize = 5 * 1024 * 1024; // 5MB max
+       // Validate file type and size
+       $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+       $fileType = mime_content_type($fileTmpName);
+       $maxFileSize = 5 * 1024 * 1024; // 5MB max
 
-        if ($fileError !== UPLOAD_ERR_OK) {
-            echo "Error uploading file $fileName.";
-            continue;
-        }
+       if ($fileError !== UPLOAD_ERR_OK) {
+           echo "Error uploading file $fileName.";
+           continue;
+       }
 
-        if (!in_array($fileType, $allowedTypes)) {
-            echo "Invalid file type for $fileName.";
-            continue;
-        }
+       if (!in_array($fileType, $allowedTypes)) {
+           echo "Invalid file type for $fileName.";
+           continue;
+       }
 
-        if ($fileSize > $maxFileSize) {
-            echo "File $fileName is too large.";
-            continue;
-        }
+       if ($fileSize > $maxFileSize) {
+           echo "File $fileName is too large.";
+           continue;
+       }
 
-        // Sanitize filename
-        $fileName = preg_replace("/[^a-zA-Z0-9\._-]/", "_", $fileName);
+       // Sanitize filename
+       $fileName = preg_replace("/[^a-zA-Z0-9\._-]/", "_", basename($fileName));
 
-        // Insert image and category into database
-        $stmt = $con->prepare("INSERT INTO image_gallery (image, category) VALUES (?, ?)");
-        if ($stmt === false) {
-            echo "Error preparing SQL.";
-            continue;
-        }
+       // Insert image and category into database
+       $stmt = $con->prepare("INSERT INTO image_gallery (image, category) VALUES (?, ?)");
+       if ($stmt === false) {
+           echo "Error preparing SQL.";
+           continue;
+       }
 
-        $stmt->bind_param("ss", $fileName, $category);
-        $result = $stmt->execute();
+       $stmt->bind_param("ss", $fileName, $category);
+       $result = $stmt->execute();
 
-        if ($result) {
-            if (move_uploaded_file($fileTmpName, $uploadDir)) {
-                echo "File $fileName uploaded successfully.";
-                header("Location: ../add_gallery.php?success=1");
-            } else {
-                echo "Error moving file $fileName.";
-            }
-        } else {
-            echo "Error: " . $stmt->error;
-        }
+       if ($result) {
+           if (move_uploaded_file($fileTmpName, $uploadDir)) {
+               echo "File $fileName uploaded successfully.";
+               header("Location: ../add_gallery.php?success=1");
+               exit; // Make sure to exit after redirect
+           } else {
+               echo "Error moving file $fileName.";
+           }
+       } else {
+           echo "Error: " . $stmt->error;
+       }
 
-        $stmt->close();
-    }
+       $stmt->close();
+   }
 }else if(isset($_POST['emplayee_img_submit'])){
 // Get category from form
 $category = isset($_POST['category']) ? $_POST['category'] : "Uncategorized";

@@ -385,7 +385,7 @@
 
                             <div class="row">
 
-                                <section class="portfolio" id="Portfolio" style="text-align: center;">
+                                <section class="portfolio" id="Portfolio" style="text-align: center; background:none; width:100%;">
                                     <h1 class="mb-5">Gallery</h1>
                                     <div class="container">
 
@@ -401,35 +401,35 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="portfolio-gallery">
+    <div class="portfolio-gallery">
 
-                                                <?php
-                                $gallery_sql="SELECT * FROM image_gallery";
-                                $gallery_result=mysqli_query($con,$gallery_sql);
-                                if($gallery_result){
-                                    while($gallery_row=mysqli_fetch_assoc($gallery_result)){
-                                        ?>
-                                                <div class="item" data-id="<?php echo $gallery_row['category']?>">
-                                                    <div class="inner">
-                                                        <a href="./assets/imagesLibrary/<?php echo $gallery_row['image']?>"
-                                                            data-lightbox="mygallery"><img
-                                                                src="./assets/imagesLibrary/<?php echo $gallery_row['image']?>"
-                                                                alt="portfolio"></a>
+        <?php
+        $gallery_sql = "SELECT * FROM image_gallery";
+        $gallery_result = mysqli_query($con, $gallery_sql);
+        if ($gallery_result) {
+            while ($gallery_row = mysqli_fetch_assoc($gallery_result)) {
+                
+                $image_name = $gallery_row['image'];
 
-                                                    </div>
-                                                </div>
-                                                <?php
-                    }
-                }
+                
+                $image_name = str_replace('__', ' (', $image_name);
+                $image_name = str_replace('_', ')', $image_name);
+        ?>
+                <div class="item" data-id="<?php echo htmlspecialchars($gallery_row['category']); ?>">
+                    <div class="inner">
+                        <a href="./assets/imagesLibrary/<?php echo htmlspecialchars($image_name); ?>" data-lightbox="mygallery">
+                            <img src="./assets/imagesLibrary/<?php echo htmlspecialchars($image_name); ?>" alt="portfolio">
+                        </a>
+                    </div>
+                </div>
+        <?php
+            }
+        }
+        ?>
 
-                ?>
+    </div>
+</div>
 
-
-
-
-
-                                            </div>
-                                        </div>
                                     </div>
                                 </section>
                             </div>

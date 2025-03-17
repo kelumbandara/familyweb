@@ -273,40 +273,35 @@
                                             </thead>
 
                                             <tbody>
-                                                <?php
-                                            include './include/connection.php';
+    <?php
+    include './include/connection.php';
 
-                                            $sql="SELECT * FROM image_gallery";
-                                            $result=mysqli_query($con,$sql);
+    $sql = "SELECT * FROM image_gallery";
+    $result = mysqli_query($con, $sql);
 
-                                            while($row=mysqli_fetch_assoc($result)){
-                                                ?>
+    while ($row = mysqli_fetch_assoc($result)) {
+        $image_name = $row['image'];
+        $image_name = str_replace('__', ' (', $image_name);
+        $image_name = str_replace('_', ')', $image_name);
+    ?>
+        <tr>
+            <td class="tb_data">
+                <img class="table_image" src="./assets/imagesLibrary/<?php echo htmlspecialchars($image_name); ?>" alt="Image">
+            </td>
+            <td>
+                <?php echo htmlspecialchars($row['category']); ?>
+            </td>
+            <td>
+                <a class="table_delete_btn" href="./include/imageGalleryBack.php?img_id=<?php echo $row['id']; ?>">
+                    Delete
+                </a>
+            </td>
+        </tr>
+    <?php
+    }
+    ?>
+</tbody>
 
-                                                <tr>
-                                                    <td class="tb_data">
-                                                        <img class="table_image"
-                                                            src="./assets/imagesLibrary/<?php echo $row['image']?>">
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['category']?>
-                                                    </td>
-                                                    <td><a class="table_delete_btn"
-                                                            href="./include/imageGalleryBack.php?img_id=<?php echo $row['id']?>">
-                                                            Delete</a>
-                                                    </td>
-                                                </tr>
-
-
-
-                                                <?php
-                                            }
-                                        
-                                        ?>
-
-
-
-
-                                            </tbody>
                                         </table>
                                     </div>
                                 </div>

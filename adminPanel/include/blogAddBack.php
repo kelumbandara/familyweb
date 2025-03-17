@@ -4,195 +4,175 @@
     include 'connection.php';
 
     if (isset($_REQUEST['add_blog'])) {
-        // Get blog data from the form
-        $blog_title = $_REQUEST['title'];
-        $blog_author = $_REQUEST['author'];
-        $blog_category = $_REQUEST['category'];
-        $blog_content = $_REQUEST['content'];
-
-        $message = mysqli_real_escape_string($con, $blog_content);
-
+        // Sanitize form inputs
+        $blog_title = mysqli_real_escape_string($con, $_REQUEST['title']);
+        $blog_author = mysqli_real_escape_string($con, $_REQUEST['author']);
+        $blog_category = mysqli_real_escape_string($con, $_REQUEST['category']);
+        $blog_content = mysqli_real_escape_string($con, $_REQUEST['content']);
+    
+        $message = $blog_content;
+    
         // Get today's date
-        $today_date = date('Y-m-d'); // Format: YYYY-MM-DD
-
+        $today_date = date('Y-m-d');
+    
         // Handle the main blog image (head image)
-        $image = $_FILES['head_img']['name'];
-        $img_size = $_FILES['head_img']['size'];
+        $image = preg_replace("/[^a-zA-Z0-9\._-]/", "_", $_FILES['head_img']['name']);
         $temp_name = $_FILES['head_img']['tmp_name'];
         $folder = "../assets/blogImages/blogTitle/" . $image;
-
+    
         // Handle multiple images for the gallery
         $totalImages = count($_FILES['blog_images']['tmp_name']);
-        
+    
         // Check if more than 5 images are uploaded
         if ($totalImages > 5) {
-            // Rollback the insertion if there are more than 5 images
             echo "<script>alert('You can only upload up to 5 images.'); window.history.back();</script>";
-            exit;  // Stop the execution of the script
-        } else {
-            // Insert blog data into the database including today's date
-            $stmt = $con->prepare("INSERT INTO blogs (date, heading, content, Author, Category, image) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssss", $today_date, $blog_title, $message, $blog_author, $blog_category, $image);
-
-            if (move_uploaded_file($temp_name, $folder)) {
-                // If blog data is inserted successfully, process images
-                if ($stmt->execute()) {
-                    echo "Blog data inserted successfully.<br>";
-
-                    // Get the last inserted blog ID
-                    $blog_id = $con->insert_id;
-
-                    // Process each image if the image count is valid
-                    foreach ($_FILES['blog_images']['tmp_name'] as $index => $tmpName) {
-                        // Get the file details for each uploaded image
-                        $fileName = basename($_FILES['blog_images']['name'][$index]);
-                        $fileTmpName = $_FILES['blog_images']['tmp_name'][$index];
-                        $fileSize = $_FILES['blog_images']['size'][$index];
-                        $fileError = $_FILES['blog_images']['error'][$index];
-                        $uploadDir = "../assets/blogImages/blogGalleries/" . $fileName;
-
-                        // Validate the file (size, type, error)
-                        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif']; // Allowed MIME types
-                        $fileType = mime_content_type($fileTmpName);
-                        $maxFileSize = 5 * 1024 * 1024; // 5MB max file size
-
-                        // Check for errors in file upload
-                        if ($fileError !== UPLOAD_ERR_OK) {
-                            echo "Error uploading file $fileName. Please try again.<br>";
-                            continue;
-                        }
-
-                        // Validate MIME type
-                        if (!in_array($fileType, $allowedTypes)) {
-                            echo "Invalid file type for $fileName. Only JPG, PNG, and GIF files are allowed.<br>";
-                            continue;
-                        }
-
-                        // Validate file size
-                        if ($fileSize > $maxFileSize) {
-                            echo "File $fileName is too large. Maximum file size is 5MB.<br>";
-                            continue;
-                        }
-
-                        // Sanitize file name to prevent malicious file names
-                        $fileName = preg_replace("/[^a-zA-Z0-9\._-]/", "_", $fileName); // Allow only alphanumeric characters, dots, dashes, and underscores
-
-                        // Prepare SQL statement to insert images into the blog_images table
-                        $stmt_img = $con->prepare("INSERT INTO blog_images (blog_id, blog_images) VALUES (?, ?)");
-                        $stmt_img->bind_param("is", $blog_id, $fileName); // Corrected bind_param
-
-                        // Execute the query
-                        if ($stmt_img->execute()) {
-                            // Move the file to the destination directory
-                            if (move_uploaded_file($fileTmpName, $uploadDir)) {
-                                echo "File $fileName uploaded successfully.<br>";
-                            } else {
-                                echo "Error moving file $fileName to the destination directory.<br>";
-                            }
-                        } else {
-                            echo "Error: " . $stmt_img->error . "<br>";
-                        }
-
-                        // Close the prepared statement for images
-                        $stmt_img->close();
+            exit;
+        }
+    
+        // Insert blog data into the database including today's date
+        $stmt = $con->prepare("INSERT INTO blogs (date, heading, content, Author, Category, image) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssss", $today_date, $blog_title, $message, $blog_author, $blog_category, $image);
+    
+        if (move_uploaded_file($temp_name, $folder)) {
+            if ($stmt->execute()) {
+                echo "Blog data inserted successfully.<br>";
+    
+                // Get the last inserted blog ID
+                $blog_id = $con->insert_id;
+    
+                // Process each image if the image count is valid
+                foreach ($_FILES['blog_images']['tmp_name'] as $index => $tmpName) {
+                    // Get and sanitize file name
+                    $fileName = preg_replace("/[^a-zA-Z0-9\._-]/", "_", basename($_FILES['blog_images']['name'][$index]));
+                    $fileTmpName = $_FILES['blog_images']['tmp_name'][$index];
+                    $fileSize = $_FILES['blog_images']['size'][$index];
+                    $fileError = $_FILES['blog_images']['error'][$index];
+                    $uploadDir = "../assets/blogImages/blogGalleries/" . $fileName;
+    
+                    // Check for file upload errors
+                    if ($fileError !== UPLOAD_ERR_OK) {
+                        echo "Error uploading file $fileName. Please try again.<br>";
+                        continue;
                     }
-
-                    // Redirect after successful insertion
-                    header("Location: ../blog_enter.php?error=sended");
-                } else {
-                    echo "Error: " . $stmt->error . "<br>";
+    
+                    // Validate file type and size
+                    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                    $fileType = mime_content_type($fileTmpName);
+                    $maxFileSize = 5 * 1024 * 1024; // 5MB max file size
+    
+                    if (!in_array($fileType, $allowedTypes)) {
+                        echo "Invalid file type for $fileName. Only JPG, PNG, and GIF files are allowed.<br>";
+                        continue;
+                    }
+    
+                    if ($fileSize > $maxFileSize) {
+                        echo "File $fileName is too large. Maximum file size is 5MB.<br>";
+                        continue;
+                    }
+    
+                    // Prepare SQL statement to insert images into the blog_images table
+                    $stmt_img = $con->prepare("INSERT INTO blog_images (blog_id, blog_images) VALUES (?, ?)");
+                    $stmt_img->bind_param("is", $blog_id, $fileName);
+    
+                    // Execute the query
+                    if ($stmt_img->execute()) {
+                        if (move_uploaded_file($fileTmpName, $uploadDir)) {
+                            echo "File $fileName uploaded successfully.<br>";
+                        } else {
+                            echo "Error moving file $fileName to the destination directory.<br>";
+                        }
+                    } else {
+                        echo "Error: " . $stmt_img->error . "<br>";
+                    }
+    
+                    // Close the prepared statement for images
+                    $stmt_img->close();
                 }
-
-                // Close the prepared statement for the blog
-                $stmt->close();
+    
+                // Redirect after successful insertion
+                header("Location: ../blog_enter.php?error=sended");
+                exit;
             } else {
-                echo "Error uploading head image.<br>";
+                echo "Error: " . $stmt->error . "<br>";
             }
+    
+            // Close the prepared statement for the blog
+            $stmt->close();
+        } else {
+            echo "Error uploading head image.<br>";
         }
     }
      else if(isset($_REQUEST['emaployee_add_blog']))
     {
     
-        // Get blog data from the form
-$blog_title = $_REQUEST['title'];
-$blog_author = $_REQUEST['author'];
-$blog_category = $_REQUEST['category'];
-$blog_content = $_REQUEST['content'];
+         // Sanitize form inputs
+    $blog_title = mysqli_real_escape_string($con, $_REQUEST['title']);
+    $blog_author = mysqli_real_escape_string($con, $_REQUEST['author']);
+    $blog_category = mysqli_real_escape_string($con, $_REQUEST['category']);
+    $blog_content = mysqli_real_escape_string($con, $_REQUEST['content']);
+    
+    // Get today's date
+    $today_date = date('Y-m-d');
 
-$message = mysqli_real_escape_string($con, $blog_content);
+    // Handle the main blog image (head image)
+    $image = preg_replace("/[^a-zA-Z0-9\._-]/", "_", $_FILES['head_img']['name']);
+    $temp_name = $_FILES['head_img']['tmp_name'];
+    $folder = "../assets/blogImages/blogTitle/" . $image;
 
-// Get today's date
-$today_date = date('Y-m-d'); // Format: YYYY-MM-DD
+    // Handle multiple images for the gallery
+    $totalImages = count($_FILES['blog_images']['tmp_name']);
 
-// Handle the main blog image (head image)
-$image = $_FILES['head_img']['name'];
-$img_size = $_FILES['head_img']['size'];
-$temp_name = $_FILES['head_img']['tmp_name'];
-$folder = "../assets/blogImages/blogTitle/" . $image;
+    // Check if more than 5 images are uploaded
+    if ($totalImages > 5) {
+        echo "<script>alert('You can only upload up to 5 images.'); window.history.back();</script>";
+        exit;
+    }
 
-// Handle multiple images for the gallery
-$totalImages = count($_FILES['blog_images']['tmp_name']);
-
-// Check if more than 5 images are uploaded
-if ($totalImages > 5) {
-    // Rollback the insertion if there are more than 5 images
-    echo "<script>alert('You can only upload up to 5 images.'); window.history.back();</script>";
-    exit;  // Stop the execution of the script
-} else {
-    // Insert blog data into the database including today's date
+    // Insert blog data into the database
     $stmt = $con->prepare("INSERT INTO blogs (date, heading, content, Author, Category, image) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssss", $today_date, $blog_title, $message, $blog_author, $blog_category, $image);
+    $stmt->bind_param("ssssss", $today_date, $blog_title, $blog_content, $blog_author, $blog_category, $image);
 
     if (move_uploaded_file($temp_name, $folder)) {
-        // If blog data is inserted successfully, process images
         if ($stmt->execute()) {
             echo "Blog data inserted successfully.<br>";
 
             // Get the last inserted blog ID
             $blog_id = $con->insert_id;
 
-            // Process each image if the image count is valid
+            // Process each uploaded image
             foreach ($_FILES['blog_images']['tmp_name'] as $index => $tmpName) {
-                // Get the file details for each uploaded image
-                $fileName = basename($_FILES['blog_images']['name'][$index]);
+                $fileName = preg_replace("/[^a-zA-Z0-9\._-]/", "_", basename($_FILES['blog_images']['name'][$index]));
                 $fileTmpName = $_FILES['blog_images']['tmp_name'][$index];
                 $fileSize = $_FILES['blog_images']['size'][$index];
                 $fileError = $_FILES['blog_images']['error'][$index];
                 $uploadDir = "../assets/blogImages/blogGalleries/" . $fileName;
 
-                // Validate the file (size, type, error)
-                $allowedTypes = ['image/jpeg', 'image/png', 'image/gif']; // Allowed MIME types
-                $fileType = mime_content_type($fileTmpName);
-                $maxFileSize = 5 * 1024 * 1024; // 5MB max file size
-
-                // Check for errors in file upload
+                // Check for file upload errors
                 if ($fileError !== UPLOAD_ERR_OK) {
                     echo "Error uploading file $fileName. Please try again.<br>";
                     continue;
                 }
 
-                // Validate MIME type
+                // Validate file type and size
+                $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                $fileType = mime_content_type($fileTmpName);
+                $maxFileSize = 5 * 1024 * 1024; // 5MB
+
                 if (!in_array($fileType, $allowedTypes)) {
                     echo "Invalid file type for $fileName. Only JPG, PNG, and GIF files are allowed.<br>";
                     continue;
                 }
 
-                // Validate file size
                 if ($fileSize > $maxFileSize) {
                     echo "File $fileName is too large. Maximum file size is 5MB.<br>";
                     continue;
                 }
 
-                // Sanitize file name to prevent malicious file names
-                $fileName = preg_replace("/[^a-zA-Z0-9\._-]/", "_", $fileName); // Allow only alphanumeric characters, dots, dashes, and underscores
-
-                // Prepare SQL statement to insert images into the blog_images table
+                // Insert image into the blog_images table
                 $stmt_img = $con->prepare("INSERT INTO blog_images (blog_id, blog_images) VALUES (?, ?)");
-                $stmt_img->bind_param("is", $blog_id, $fileName); // Corrected bind_param
+                $stmt_img->bind_param("is", $blog_id, $fileName);
 
-                // Execute the query
                 if ($stmt_img->execute()) {
-                    // Move the file to the destination directory
                     if (move_uploaded_file($fileTmpName, $uploadDir)) {
                         echo "File $fileName uploaded successfully.<br>";
                     } else {
@@ -201,23 +181,19 @@ if ($totalImages > 5) {
                 } else {
                     echo "Error: " . $stmt_img->error . "<br>";
                 }
-
-                // Close the prepared statement for images
                 $stmt_img->close();
             }
 
             // Redirect after successful insertion
             header("Location: ../../Profile.php?error=sended#add-blogs");
+            exit;
         } else {
             echo "Error: " . $stmt->error . "<br>";
         }
-
-        // Close the prepared statement for the blog
         $stmt->close();
     } else {
         echo "Error uploading head image.<br>";
     }
-}
     }
 ?>
 

@@ -196,43 +196,41 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
 
 
         <div class="slider-wrapper swiper-wrapper">
+    <?php
+    $con = mysqli_connect("localhost", "root", "", "family_tree");
+    if (!$con) {
+        die("Connection Failed: " . mysqli_connect_error());
+    }
 
-            <?php
-            $con=mysqli_connect("localhost","root","","family_tree");
-            if(!$con){
-            die("Connection Faild".mysqli_connect());
-            };
-            
-            $sql="SELECT * FROM blogs ORDER BY date DESC LIMIT 5";
-            $result=mysqli_query($con,$sql);
-            while($row=mysqli_fetch_assoc($result)){?>
-            <div class="slider-item swiper-slide"
-                style="background: url(./adminPanel/assets/blogImages/blogTitle/<?php echo $row['image']?>);  filter: grayscale(20%) !important; background-repeat: no-repeat; background-position: center; background-size: cover;">
-                <div class="slide-content">
-                    <h3 class="slide-subtitle">
-                        <?php echo $row['Author']?>
-                    </h3>
-                    <h2 class="slide-title">
-                        <?php echo $row['heading']?>!
-                    </h2>
-                    <p class="slide-description">
-                        <?php  $content = $row['content'];
+    $sql = "SELECT * FROM blogs ORDER BY date DESC LIMIT 5";
+    $result = mysqli_query($con, $sql);
+    while ($row = mysqli_fetch_assoc($result)) { ?>
+        <div class="slider-item swiper-slide"
+            style="background: url('./adminPanel/assets/blogImages/blogTitle/<?php echo $row['image']; ?>'); filter: grayscale(20%) !important; background-repeat: no-repeat; background-position: center; background-size: cover;">
+            <div class="slide-content">
+                <h3 class="slide-subtitle">
+                    <?php echo $row['Author']; ?>
+                </h3>
+                <h2 class="slide-title">
+                    <?php echo $row['heading']; ?>!
+                </h2>
+                <p class="slide-description">
+                    <?php  
+                    $content = $row['content'];
                     $contentArray = explode(' ', $content);
                     echo (count($contentArray) > 25) 
                         ? implode(' ', array_slice($contentArray, 0, 20)) . '...' 
                         : $content;
-                    
                     ?>
-                    </p>
-                    <a href="./blog_detail.php?blog_id=<?php echo $row['id']?>" class="slide-button"><span>Learn More</span></a>
-                </div>
+                </p>
+                <a href="./blog_detail.php?blog_id=<?php echo $row['id']; ?>" class="slide-button"><span>Learn More</span></a>
             </div>
-            <?php
-        }
-            ?>
-
-
         </div>
+    <?php
+    }
+    ?>
+</div>
+
 
         <!-- Slider Pagination -->
         <div class="slider-controls">

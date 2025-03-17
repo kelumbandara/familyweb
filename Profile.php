@@ -227,9 +227,9 @@
 
                             <script>
                                 document.addEventListener("DOMContentLoaded", function () {
-                                <? php if ($showAlert): ?>
+                                <?php if ($showAlert): ?>
                                         alert('Password has been updated successfully!');
-                                <? php endif; ?>
+                                <?php endif; ?>
 
                                 const form = document.getElementById("passwordForm");
 
@@ -427,11 +427,11 @@
 
                                                             <td>
                                                                 <?php
-                    $content = $row['content']; // Get the content
-                    $words = explode(' ', $content); // Split content into words
-                    $shortContent = implode(' ', array_slice($words, 0, 20)); // Get the first 20 words
-                    echo htmlspecialchars($shortContent); // Display the shortened content
-                ?>
+                                                                    $content = $row['content']; // Get the content
+                                                                    $words = explode(' ', $content); // Split content into words
+                                                                    $shortContent = implode(' ', array_slice($words, 0, 20)); // Get the first 20 words
+                                                                    echo htmlspecialchars($shortContent); // Display the shortened content
+                                                                ?>
                                                             </td>
 
                                                             <td>
@@ -468,20 +468,20 @@
                                                                             </div>
 
                                                                             <div class="modal-body">
-    <div class="container-drop">
-        <!-- Drag & Drop Area -->
-        <div class="drag-drop-area" id="drag-drop-area-<?php echo $row['id']; ?>">
-            <i class="bx bxs-cloud-upload icon"></i>
-            <h3>Drag and drop or click here to select images</h3>
-            <p>Image size must be less than <span>2MB</span></p>
-            <input type="file" name="head_img" accept="image/*" id="input-file-<?php echo $row['id']; ?>" hidden multiple>
-        </div>
+                                                                        <div class="container-drop">
+                                                                            <!-- Drag & Drop Area -->
+                                                                            <div class="drag-drop-area" id="drag-drop-area-<?php echo $row['id']; ?>">
+                                                                                <i class="bx bxs-cloud-upload icon"></i>
+                                                                                <h3>Drag and drop or click here to select images</h3>
+                                                                                <p>Image size must be less than <span>2MB</span></p>
+                                                                                <input type="file" name="head_img" accept="image/*" id="input-file-<?php echo $row['id']; ?>" hidden multiple>
+                                                                            </div>
 
-        <div class="clear-image-area">
-            <a href="#" id="clear-image-btn-<?php echo $row['id']; ?>" class="clear-image-btn" style="display: none;">Clear Image</a>
-        </div>
-    </div>
-</div>
+                                                                            <div class="clear-image-area">
+                                                                                <a href="#" id="clear-image-btn-<?php echo $row['id']; ?>" class="clear-image-btn" style="display: none;">Clear Image</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
 
 
                                                                             <div class="form-container">
@@ -593,41 +593,42 @@
                                                     </thead>
 
                                                     <tbody>
-                                                        <?php
-                                            include './backEnd/connection.php';
+    <?php
+    include './backEnd/connection.php';
 
-                                            $sql="SELECT * FROM image_gallery";
-                                            $result=mysqli_query($con,$sql);
+    // Ensure the query was executed successfully
+    $sql = "SELECT * FROM image_gallery";
+    $result = mysqli_query($con, $sql);
+    if (!$result) {
+        echo "Error executing query: " . mysqli_error($con);
+        exit;
+    }
 
-                                            while($row=mysqli_fetch_assoc($result)){
-                                                ?>
+    while ($row = mysqli_fetch_assoc($result)) {
+        $image_name = $row['image'];
+        $image_name = str_replace('__', ' (', $image_name);
+        $image_name = str_replace('_', ')', $image_name);
 
-                                                        <tr>
-                                                            <td class="tb_data">
-                                                                <img class="table_image"
-                                                                    src="./adminPanel/assets/imagesLibrary/<?php echo $row['image']?>">
-                                                            </td>
-                                                            <td>
-                                                                <?php echo $row['category']?>
-                                                            </td>
-                                                            <td><a class="table_delete_btn"
-                                                                    href="./adminPanel/include/imageGalleryBack.php?img_id_emp=<?php echo $row['id']?>">
-                                                                    Delete</a>
-                                                            </td>
-                                                        </tr>
+        ?>
+        <tr>
+            <td class="tb_data">
+                <!-- Fixed image path with normalized filename -->
+                <img class="table_image" src="./adminPanel/assets/imagesLibrary/<?php echo htmlspecialchars($image_name); ?>" alt="Image">
+            </td>
+            <td>
+                <?php echo htmlspecialchars($row['category']); ?>
+            </td>
+            <td>
+                <a class="table_delete_btn" href="./adminPanel/include/imageGalleryBack.php?img_id_emp=<?php echo $row['id']; ?>">
+                    Delete
+                </a>
+            </td>
+        </tr>
+    <?php
+    }
+    ?>
+</tbody>
 
-
-
-                                                        <?php
-                                            }
-                                        
-                                        ?>
-
-
-
-
-                                                    </tbody>
-                                                </table>
                                             </div>
                                         </div>
                                     </div>
