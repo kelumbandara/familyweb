@@ -3,22 +3,27 @@ let imageContainer = document.getElementById("images");
 let numOfFiles = document.getElementById("num-of-files");
 let clearBtn = document.getElementById("clear-btn2");
 
-clearBtn.style.display = "none"; // Hide the button initially
+const MAX_IMAGES = 5; // Maximum images allowed
 
 function preview() {
     let files = fileInput.files;
-    let filesCount = files.length;
+    if (files.length > MAX_IMAGES) {
+        alert(`You can only upload up to ${MAX_IMAGES} images.`);
+        fileInput.value = "";
+        return;
+    }
 
-    if (filesCount > 0) {
-        numOfFiles.textContent = `${filesCount} File${filesCount > 1 ? "s" : ""} Selected`;
-        clearBtn.style.display = "block"; // Show the button when images are added
+    if (files.length > 0) {
+        numOfFiles.textContent = `${files.length} File${files.length > 1 ? "s" : ""} Selected`;
+        clearBtn.style.display = "block";
     } else {
         numOfFiles.textContent = "No Files Chosen";
-        clearBtn.style.display = "none"; // Hide the button if no files are selected
+        clearBtn.style.display = "none";
     }
 
     imageContainer.innerHTML = ""; // Clear previous previews
 
+    // Create image previews
     for (let file of files) {
         if (!file.type.startsWith("image/")) continue; // Skip non-image files
 
@@ -27,13 +32,11 @@ function preview() {
             let img = document.createElement("img");
             img.setAttribute("src", event.target.result);
             img.classList.add("preview-image");
+            img.style.width = "100%"; // Adjust width here
+            img.style.height = "100%"; // Maintain aspect ratio
 
             let figure = document.createElement("figure");
-            let figCap = document.createElement("figcaption");
-            figCap.textContent = file.name;
-
             figure.appendChild(img);
-            figure.appendChild(figCap);
             imageContainer.appendChild(figure);
         };
         reader.readAsDataURL(file);
@@ -41,8 +44,16 @@ function preview() {
 }
 
 function clearImages() {
-    fileInput.value = ""; // Reset input
-    imageContainer.innerHTML = ""; // Clear all images in the preview
-    numOfFiles.textContent = "No Files Chosen"; // Reset file count text
-    clearBtn.style.display = "none"; // Hide clear button
+    fileInput.value = "";
+    imageContainer.innerHTML = "";
+    numOfFiles.textContent = "No Files Chosen";
+    clearBtn.style.display = "none";
 }
+
+// Reset button functionality
+let resetBtn = document.getElementById("clear-btn2"); // Assuming your reset button has this ID
+resetBtn.addEventListener("click", function() {
+    clearImages(); // Call the clearImages function to reset everything
+});
+
+

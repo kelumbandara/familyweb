@@ -65,6 +65,14 @@
             <div class="sidebar-heading">
                 Interface
             </div>
+            <li class="nav-item">
+                <a class="nav-link" href="member_panel.php" data-target="#collapseUtilities" aria-expanded="true"
+                    aria-controls="collapseUtilities">
+                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
+                    <span>Member Panel</span>
+                </a>
+
+            </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -92,14 +100,7 @@
                 </a>
 
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="member_panel.php" data-target="#collapseUtilities" aria-expanded="true"
-                    aria-controls="collapseUtilities">
-                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
-                    <span>Member Panel</span>
-                </a>
 
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -206,125 +207,180 @@
                     <div class="blog">
                         <div class="container">
 
-                        <div class="row">
-    <!-- Content Column -->
-    <div class="col-lg-12 mb-4" style="text-align: center;">
+                            <div class="row">
+                                <!-- Content Column -->
+                                <div class="col-lg-12 mb-4" style="text-align: center;">
 
-        <div class="mb-4">
-            <div class="load_more_container">
-                <div class="box-container">
-                    <?php
-                        include './include/connection.php';
-                        $sql = "SELECT * FROM blogs";
-                        $result = mysqli_query($con, $sql);
-                        $count = 0; // Track the number of posts
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $count++;
-                    ?>
-                    <article class="box">
-                        <div class="article-wrapper">
-                            <figure>
-                                <img src="./assets/blogImages/blogTitle/<?php echo $row['image']; ?>" alt="">
-                            </figure>
-                            <div class="article-body">
-                                <a href="viewBlogs.php?blog_id=<?php echo $row['id']; ?>" style="text-decoration: none;">
-                                    <h2><?php echo $row['heading']; ?></h2>
-                                </a>
-                                <p class="content-text">
-                                    <?php
-                                    // Limit content to first 20 words
-                                    $content = $row['content'];
-                                    $contentArray = explode(' ', $content);
-                                    echo (count($contentArray) > 25) 
-                                        ? implode(' ', array_slice($contentArray, 0, 20)) . '...' 
-                                        : $content;
-                                    ?>
-                                </p>
-                                <div class="row">
-    <div class="col-lg-6" style="position: absolute; bottom: 10px; left: 0px;">
-        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#UpdateModal-<?php echo $row['id']; ?>">
-            Edit More
-        </a>
-        <form action="./include/blogAddBack.php" method="POST" enctype="multipart/form-data">
-            <div class="modal fade" id="UpdateModal-<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Already want to Update?</h5>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container_drop">
-                                <!-- Drag & Drop Area -->
-                                <div class="drop-area" id="drop-area-<?php echo $row['id']; ?>">
-                                    <i class='bx bxs-cloud-upload icon'></i>
-                                    <h3>Drag and drop or click here to select images</h3>
-                                    <p>Image size must be less than <span>2MB</span></p>
-                                    <input type="file" name="head_img" accept="image/*" id="input-file-<?php echo $row['id']; ?>" hidden>
+                                    <div class="mb-4">
+                                        <div class="load_more_container">
+                                            <div class="box-container">
+                                                <?php
+                                                    include './include/connection.php';
+                                                    $sql = "SELECT * FROM blogs";
+                                                    $result = mysqli_query($con, $sql);
+                                                    $count = 0; // Track the number of posts
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        $count++;
+                                                ?>
+                                                <article class="box">
+                                                    <div class="article-wrapper">
+                                                        <figure>
+                                                            <img src="./assets/blogImages/blogTitle/<?php echo $row['image']; ?>"
+                                                                alt="">
+                                                        </figure>
+                                                        <div class="article-body">
+                                                            <a href="viewBlogs.php?blog_id=<?php echo $row['id']; ?>"
+                                                                style="text-decoration: none;">
+                                                                <h2>
+                                                                    <?php echo $row['heading']; ?>
+                                                                </h2>
+                                                            </a>
+                                                            <p class="content-text">
+                                                                <?php
+                                                                    // Limit content to first 20 words
+                                                                    $content = $row['content'];
+                                                                    $contentArray = explode(' ', $content);
+                                                                    echo (count($contentArray) > 25) 
+                                                                        ? implode(' ', array_slice($contentArray, 0, 20)) . '...' 
+                                                                        : $content;
+                                                                    ?>
+                                                            </p>
+                                                            <div class="row">
+                                                                <div class="col-lg-6"
+                                                                    style="position: absolute; bottom: 10px; left: 0px;">
+                                                                    <a class="dropdown-item" href="#"
+                                                                        data-toggle="modal"
+                                                                        data-target="#UpdateModal-<?php echo $row['id']; ?>">
+                                                                        Edit More
+                                                                    </a>
+                                                                    <form action="./include/blogAddBack.php"
+                                                                        method="POST" enctype="multipart/form-data">
+                                                                        <div class="modal fade"
+                                                                            id="UpdateModal-<?php echo $row['id']; ?>"
+                                                                            tabindex="-1" role="dialog"
+                                                                            aria-labelledby="exampleModalLabel"
+                                                                            aria-hidden="true">
+                                                                            <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title"
+                                                                                            id="exampleModalLabel">
+                                                                                            Already want to Update?</h5>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <div class="container_drop">
+                                                                                            <!-- Drag & Drop Area -->
+                                                                                            <div class="drop-area"
+                                                                                                id="drop-area-<?php echo $row['id']; ?>">
+                                                                                                <i
+                                                                                                    class='bx bxs-cloud-upload icon'></i>
+                                                                                                <h3>Drag and drop or
+                                                                                                    click here to select
+                                                                                                    images</h3>
+                                                                                                <p>Image size must be
+                                                                                                    less than
+                                                                                                    <span>2MB</span>
+                                                                                                </p>
+                                                                                                <input type="file"
+                                                                                                    name="head_img"
+                                                                                                    accept="image/*"
+                                                                                                    id="input-file-<?php echo $row['id']; ?>"
+                                                                                                    hidden>
+                                                                                            </div>
+
+                                                                                            <div class="clear-area">
+                                                                                                <a href="#"
+                                                                                                    id="clear-btn-<?php echo $row['id']; ?>"
+                                                                                                    class="clear clear-btn"
+                                                                                                    style="display: none;">Clear
+                                                                                                    Image</a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="form-container">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="title">Title</label>
+                                                                                            <input type="hidden"
+                                                                                                id="title"
+                                                                                                name="blog_up_id"
+                                                                                                value="<?php echo $row['id']; ?>">
+                                                                                            <input type="text"
+                                                                                                id="title" name="title"
+                                                                                                value="<?php echo $row['heading']; ?>">
+                                                                                        </div>
+
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="author">Author</label>
+                                                                                            <input type="text"
+                                                                                                id="author"
+                                                                                                name="author"
+                                                                                                value="<?php echo $row['Author']; ?>">
+                                                                                        </div>
+
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="category">Category</label>
+                                                                                            <select id="category"
+                                                                                                name="category">
+                                                                                                <option value="news">
+                                                                                                    News</option>
+                                                                                                <option value="blog">
+                                                                                                    Blog</option>
+                                                                                                <option value="opinion">
+                                                                                                    Opinion</option>
+                                                                                                <option value="other">
+                                                                                                    Other</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="content">Content</label>
+                                                                                            <textarea id="content"
+                                                                                                name="content"
+                                                                                                rows="5"><?php echo $row['content']; ?></textarea>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="modal-footer">
+                                                                                        <button
+                                                                                            class="btn btn-secondary"
+                                                                                            type="button"
+                                                                                            data-dismiss="modal">Cancel</button>
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-primary"
+                                                                                            name="update_blog">Update</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="col-lg-6"
+                                                                    style="position: absolute; bottom: 10px; right: 0px;">
+                                                                    <?php if (count($contentArray) > 25) { ?>
+                                                                    <a href="viewBlogs.php?blog_id=<?php echo $row['id']; ?>"
+                                                                        class="read-more-btn">Read more</a>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                                <?php } ?>
+                                            </div>
+
+                                            <div class="buttons">
+                                                <div id="load-more">Load More</div>
+                                                <div id="show-less" style="display: none;">Show Less</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="clear-area">
-                                    <a href="#" id="clear-btn-<?php echo $row['id']; ?>" class="clear clear-btn" style="display: none;">Clear Image</a>
-                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-container">
-                            <div class="form-group">
-                                <label for="title">Title</label>
-                                <input type="hidden" id="title" name="blog_up_id" value="<?php echo $row['id']; ?>">
-                                <input type="text" id="title" name="title" value="<?php echo $row['heading']; ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="author">Author</label>
-                                <input type="text" id="author" name="author" value="<?php echo $row['Author']; ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="category">Category</label>
-                                <select id="category" name="category">
-                                    <option value="news">News</option>
-                                    <option value="blog">Blog</option>
-                                    <option value="opinion">Opinion</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="content">Content</label>
-                                <textarea id="content" name="content" rows="5"><?php echo $row['content']; ?></textarea>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary" name="update_blog">Update</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="col-lg-6" style="position: absolute; bottom: 10px; right: 0px;">
-        <?php if (count($contentArray) > 25) { ?>
-        <a href="viewBlogs.php?blog_id=<?php echo $row['id']; ?>" class="read-more-btn">Read more</a>
-        <?php } ?>
-    </div>
-</div>
-
-                            </div>
-                        </div>
-                    </article>
-                    <?php } ?>
-                </div>
-
-                <div class="buttons">
-                    <div id="load-more">Load More</div>
-                    <div id="show-less" style="display: none;">Show Less</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
                             <div class="row">
@@ -422,7 +478,7 @@
                 </div>
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>

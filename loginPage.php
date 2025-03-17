@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="icon" type="image/png" href="./assets/images/images.png">
     <!-- ________________Login CSS________________ -->
     <link rel="stylesheet" href="assets/css/login_register.css">
 
@@ -18,7 +19,28 @@
 
 <body>
 
+<?php
 
+if (isset($_GET['error'])) {
+    if ($_GET['error'] == 'userNotExistsOrNotApproved') {
+        // Alert for user not found or not approved
+        echo '<script>alert("User not found or not approved.");</script>';
+        echo '<script>window.history.replaceState({}, document.title, window.location.pathname);</script>';
+    } elseif ($_GET['error'] == 'wrongPassword') {
+        // Alert for wrong password
+        echo '<script>alert("Wrong password, please try again.");</script>';
+        echo '<script>window.history.replaceState({}, document.title, window.location.pathname);</script>';
+    }
+}
+
+if (isset($_GET['employe']) && $_GET['employe'] == 'aprove') {
+    // Alert for successful employee approval
+    echo '<script>alert("User successfully approved.");</script>';
+    echo '<script>window.history.replaceState({}, document.title, window.location.pathname);</script>';
+}
+
+
+?>
     <div class="container">
         <div class="form_box login">
             <form action="backEnd/loginback.php" method="post">

@@ -134,8 +134,9 @@ nav .nav_bar .logo a {
 }
 
 .profile_button a {
-    width: 70px;
-    height: 50px;
+    width: 55px;
+    height: 45px;
+    object-fit: cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -185,8 +186,8 @@ nav .nav_bar .logo a {
 }
 
 .user_info img{
-    width: 100%;
-    height: 100%;
+    width: 80px;
+    height: 60px;
     margin: 0 5px;
     border-radius: 50%;
     object-fit: cover;
@@ -628,6 +629,10 @@ nav .nav_bar .logo a {
 
 .about .section_title h2 {
     font-size: 50px;
+    text-decoration: underline;
+}
+.about .section_title p {
+  font-size: 20px;
 }
 
 .about .family_info {
@@ -638,8 +643,11 @@ nav .nav_bar .logo a {
     padding: 0 10px;
 }
 
-.about .h3 {
+.about h3 {
     margin: 30px 0 30px;
+    font-size: 30px;
+    font-weight: 500;
+    text-decoration: underline;
 }
 
 .about .family_info .left {
@@ -658,7 +666,12 @@ nav .nav_bar .logo a {
     flex-direction: column;
     justify-content: right;
     align-items: end;
-    text-align: justify;
+    text-align: right;
+}
+
+.about .family_info p{
+  font-size: 25px;
+  font-weight: 400;
 }
 
 /* About Us End */

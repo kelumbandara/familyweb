@@ -6,11 +6,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodingDung | Profile Template</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="./assets/images/images.png">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- ________________Boxicons________________ -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+    <link rel="stylesheet" href="./adminPanel/assets/css/addBlog.css">
+
+
+    <!-- Custom fonts for this template-->
+    <link href="./adminPanel/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="./adminPanel/assets/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+        .preview-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #options-panel {
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .row_table_responsive {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -31,11 +66,12 @@
                             href="#account-change-password">Change password</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="#account-info">Info</a>
-                        <!-- <a class="list-group-item list-group-item-action" data-toggle="list"
-                            href="#account-social-links">Social links</a> -->
-                        <!-- <a class="list-group-item list-group-item-action" data-toggle="list"
-                            href="#account-connections">Connections</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#add-blogs">Add
+                            Blogs</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list"
+                            href="#add-images-to-gallery">Add Images To library</a>
+
+                        <!-- <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="#account-notifications">Notifications</a> -->
                     </div>
                 </div>
@@ -58,32 +94,42 @@
                             <form action="backEnd/proUpdate.php" method="post" enctype="multipart/form-data">
                                 <div class="card-body media align-items-center">
                                     <?php
-                                        if($row['image']){
-                                    ?>
+                                    if($row['image']){
+                                ?>
                                     <img src="#" id="newImg"
                                         onerror="this.src='./assets/images/Member images/<?php echo $row['image'] ?>'"
                                         class="d-block ui-w-80">
                                     <?php
-                                        }else{
-                                    ?>
-                                    <img src="#" id="newImg" onerror="this.src='./assets/images/Member images/avatar1.png'"
+                                    }else{
+                                ?>
+                                    <img src="#" id="newImg"
+                                        onerror="this.src='./assets/images/Member images/avatar1.png'"
                                         class="d-block ui-w-80">
                                     <?php
-                                        }
-                                    ?>
+                                }
+                                ?>
 
                                     <div class="media-body ml-4">
-                                        <label class="btn btn-outline-primary">
-                                            Upload new photo
+                                        <label class="btn btn-outline-primary"> Upload new photo
                                             <input type="file" name="ImgFile" id="InpImg"
                                                 class="account-settings-fileinput">
                                         </label>
                                         <!-- &nbsp; -->
-                                        <button type="button" class="btn btn-default md-btn-flat">Reset</button>
-                                        <!-- <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K
-                                        </div> -->
+                                        <button type="button" id="reset-btn" class="btn md-btn-flat">Reset</button>
                                     </div>
                                 </div>
+
+                                <script>
+                                    document.getElementById("reset-btn").addEventListener("click", function () {
+                                        // Reset the file input
+                                        document.getElementById("InpImg").value = "";
+
+                                        // Reset the image preview
+                                        let defaultImg = "<?php echo $row['image'] ? './assets/images/Member images/' . $row['image'] : './assets/images/Member images/avatar1.png'; ?>";
+                                        document.getElementById("newImg").src = defaultImg;
+                                    });
+                                </script>
+
                                 <hr class="border-light m-0">
                                 <div class="card-body">
                                     <div class="form-group">
@@ -110,12 +156,11 @@
                                         <input type="text" class="form-control" name="company"
                                             placeholder="Company Name" value="<?php echo $row['Company_Name']?>">
                                     </div>
-                                    <div class="text-right mt-3">
-                                        <!-- <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
-                                        <button type="button" class="btn btn-default">Cancel</button> -->
-                                        <input type="submit" name="update" class="btn btn-primary" value="Update">
-                                        <button type="reset" class="btn btn-default">Cancel</button>
+                                    <div class="Updatebuttons">
+                                        <input type="submit" name="update" class="update_button" value="Update">
+                                        <button type="reset" class="update_cancel">Cancel</button>
                                     </div>
+
                                 </div>
                             </form>
 
@@ -144,7 +189,7 @@
                                     $user = $_SESSION["UsName"];
                                     $query = "SELECT * FROM register WHERE user_name='$user'";
                                     $result = mysqli_query($con, $query);
-                                    $row = mysqli_fetch_assoc($result);
+                                    $row2 = mysqli_fetch_assoc($result);
 
                                     // Check for 'editPasswordSuccess' parameter and set flag
                                     if (isset($_GET['editPasswordSuccess'])) {
@@ -159,9 +204,9 @@
                                         <label class="form-label">Current password</label>
                                         <input type="password" class="form-control" id="old_pass" name="oldPassword">
                                         <input type="hidden" class="form-control" id="hidden_pass" name="hidden_pass"
-                                            value="<?php echo $row["password"] ?>">
+                                            value="<?php echo $row2["password"] ?>">
                                         <input type="hidden" class="form-control" name="hidden_id"
-                                            value="<?php echo $row["id"] ?>">
+                                            value="<?php echo $row2["id"] ?>">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">New password</label>
@@ -172,30 +217,26 @@
                                         <input type="password" class="form-control" name="ComPassword" id="ComPassword">
                                     </div>
 
-                                    <div class="text-right mt-3">
-                                        <button type="submit" class="btn btn-primary" name="submitPassword">Save
+                                    <div class="Updatebuttons">
+                                        <button type="submit" class="update_button" name="submitPassword">Save
                                             changes</button>&nbsp;
-                                        <button type="button" class="btn btn-default">Cancel</button>
+                                        <button type="button" class="update_cancel">Cancel</button>
                                     </div>
                                 </div>
                             </form>
 
                             <script>
-                            document.addEventListener("DOMContentLoaded", function () {
-                                <?php if ($showAlert): ?>
-                                    alert('Password has been updated successfully!');
-                                <?php endif; ?>
+                                document.addEventListener("DOMContentLoaded", function () {
+                                <? php if ($showAlert): ?>
+                                        alert('Password has been updated successfully!');
+                                <? php endif; ?>
 
                                 const form = document.getElementById("passwordForm");
 
-                                form.addEventListener("submit", function (event) {
+                                    form.addEventListener("submit", function (event) {
                                         const oldPass = document.getElementById("old_pass").value.trim();
-                                        const oldConfirmPass = document.getElementById("hidden_pass").value.trim();
                                         const newPassword = document.getElementById("NewPssword").value.trim();
                                         const confirmPassword = document.getElementById("ComPassword").value.trim();
-
-                                        // Hash the old password
-                                        const md5Pass = CryptoJS.MD5(oldPass).toString();
 
                                         if (oldPass === "") {
                                             alert("The Old password must not be empty!");
@@ -209,21 +250,16 @@
                                         } else if (newPassword === oldPass) {
                                             alert("New password and old password should not be the same!");
                                             event.preventDefault();
-                                        } else if (md5Pass !== oldConfirmPass) {
-                                            alert("Old password is incorrect!");
-                                            event.preventDefault();
                                         }
                                     });
-                            });
+                                });
+
                             </script>
 
                             <?php 
-        } 
-    ?>
+                                } 
+                            ?>
                         </div>
-
-
-
                         <div class="tab-pane fade" id="account-info">
                             <?php
                             include 'backEnd/connection.php';
@@ -258,10 +294,10 @@
                                             value="<?php echo $row['contact']?>">
 
                                     </div>
-                                    <div class="text-right mt-3">
-                                        <input type="submit" name="bio" class="btn btn-primary"
+                                    <div class="Updatebuttons">
+                                        <input type="submit" name="bio" class="update_button"
                                             value="Submit Changes">&nbsp;
-                                        <button type="button" class="btn btn-default">Cancel</button>
+                                        <button type="button" class="update_cancel">Cancel</button>
                                     </div>
                                 </div>
                             </form>
@@ -269,6 +305,335 @@
                             <?php
                             }
                             ?>
+                        </div>
+                        <div class="tab-pane fade" id="add-blogs">
+                            <form action="./adminPanel/include/blogAddBack.php" method="post"
+                                enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-lg-6 mb-4">
+                                        <div class="container_drop">
+                                            <!-- Drag & Drop Area -->
+                                            <div class="drop-area">
+                                                <i class='bx bxs-cloud-upload icon'></i>
+                                                <h3>Drag and drop or click here to select images</h3>
+                                                <p>Image size must be less than <span>2MB</span></p>
+                                                <input type="file" name="head_img" accept="image/*" id="input-file"
+                                                    hidden multiple>
+                                            </div>
+
+                                            <!-- Clear Button Area (Initially Hidden) -->
+                                            <div class="clear-area">
+                                                <a id="clear-btn" class="clear-btn" style="display: none;">Clear
+                                                    Images</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4">
+                                        <div class="form-container">
+                                            <div class="form-group">
+                                                <label for="title">Title</label>
+                                                <input type="text" id="title" name="title">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="author">Author</label>
+                                                <input type="text" id="author" name="author">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="category">Category</label>
+                                                <select id="category" name="category">
+                                                    <option value="blog">Blog</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="content">Content</label>
+                                                <textarea id="content" name="content" rows="5"></textarea>
+                                            </div>
+
+
+                                            <button type="submit" name="emaployee_add_blog">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="container_img">
+                                        <!-- File input for image selection -->
+                                        <input type="file" id="file-input" name="blog_images[]" multiple
+                                            accept="image/png, image/jpeg" onchange="preview()">
+                                        <label class="label_photo" for="file-input">
+                                            <i class="fas fa-upload"></i> &nbsp; Choose A Photo
+                                        </label>
+
+                                        <button id="clear-btn2" type="button" onclick="clearImages()">Clear</button>
+
+                                        <p id="num-of-files">No Files Chosen</p>
+
+                                        <!-- Image Preview Container -->
+                                        <div id="images" class="image-preview-container"></div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="row row_table_responsive">
+                                <div class="container-fluid">
+
+                                    <!-- DataTales Example -->
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="dataTable" width="100%"
+                                                    cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Blog Head Image</th>
+                                                            <th>Blog Title</th>
+                                                            <th>Blog Date</th>
+                                                            <th>Content</th>
+                                                            <th>Author</th>
+                                                            <th>Category</th>
+                                                            <th>Delete</th>
+                                                            <th>Update</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <?php
+                                                    include './backEnd/connection.php';
+
+                                                    $sql = "SELECT * FROM blogs";
+                                                    $result = mysqli_query($con, $sql);
+                                                    $count = 0;
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        $count++;
+                                                ?>
+                                                        <tr>
+                                                            <td class="tb_data">
+                                                                <img class="table_image" style="width: 100px;"
+                                                                    src="./adminPanel/assets/blogImages/blogTitle/<?php echo htmlspecialchars($row['image']); ?>">
+                                                            </td>
+
+                                                            <td>
+                                                                <?php echo htmlspecialchars($row['heading']); ?>
+                                                            </td>
+
+                                                            <td>
+                                                                <?php echo htmlspecialchars($row['date']); ?>
+                                                            </td>
+
+                                                            <td>
+                                                                <?php
+                    $content = $row['content']; // Get the content
+                    $words = explode(' ', $content); // Split content into words
+                    $shortContent = implode(' ', array_slice($words, 0, 20)); // Get the first 20 words
+                    echo htmlspecialchars($shortContent); // Display the shortened content
+                ?>
+                                                            </td>
+
+                                                            <td>
+                                                                <?php echo htmlspecialchars($row['Author']); ?>
+                                                            </td>
+
+                                                            <td>
+                                                                <?php echo htmlspecialchars($row['Category']); ?>
+                                                            </td>
+
+                                                            <td>
+                                                                <a class="table_delete_btn"
+                                                                    href="./adminPanel/include/blogAddBack.php?blog_delete_emp=<?php echo $row['id']; ?>">Delete</a>
+                                                            </td>
+
+                                                            <td style="width: 1050px !important;">
+                                                                <a class="table_delete_btn" href="#" data-toggle="modal"
+                                                                    data-target="#UpdateModal-<?php echo $row['id']; ?>">Edit
+                                                                    More</a>
+                                                            </td>
+                                                            <form action="./adminPanel/include/blogAddBack.php"
+                                                                method="POST" enctype="multipart/form-data">
+                                                                <div class="modal fade"
+                                                                    id="UpdateModal-<?php echo $row['id']; ?>"
+                                                                    tabindex="-1" role="dialog"
+                                                                    aria-labelledby="exampleModalLabel"
+                                                                    aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title"
+                                                                                    id="exampleModalLabel">Already want
+                                                                                    to Update?</h5>
+                                                                            </div>
+
+                                                                            <div class="modal-body">
+    <div class="container-drop">
+        <!-- Drag & Drop Area -->
+        <div class="drag-drop-area" id="drag-drop-area-<?php echo $row['id']; ?>">
+            <i class="bx bxs-cloud-upload icon"></i>
+            <h3>Drag and drop or click here to select images</h3>
+            <p>Image size must be less than <span>2MB</span></p>
+            <input type="file" name="head_img" accept="image/*" id="input-file-<?php echo $row['id']; ?>" hidden multiple>
+        </div>
+
+        <div class="clear-image-area">
+            <a href="#" id="clear-image-btn-<?php echo $row['id']; ?>" class="clear-image-btn" style="display: none;">Clear Image</a>
+        </div>
+    </div>
+</div>
+
+
+                                                                            <div class="form-container">
+                                                                                <div class="form-group">
+                                                                                    <label for="title">Title</label>
+                                                                                    <input type="hidden"
+                                                                                        name="blog_up_id"
+                                                                                        value="<?php echo $row['id']; ?>">
+                                                                                    <input type="text" name="title"
+                                                                                        value="<?php echo htmlspecialchars($row['heading']); ?>">
+                                                                                </div>
+
+                                                                                <div class="form-group">
+                                                                                    <label for="author">Author</label>
+                                                                                    <input type="text" name="author"
+                                                                                        value="<?php echo htmlspecialchars($row['Author']); ?>">
+                                                                                </div>
+
+                                                                                <div class="form-group">
+                                                                                    <label
+                                                                                        for="category">Category</label>
+
+                                                                                </div>
+
+                                                                                <div class="form-group">
+                                                                                    <label for="content">Content</label>
+                                                                                    <textarea name="content"
+                                                                                        rows="5"><?php echo htmlspecialchars($row['content']); ?></textarea>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="modal-footer">
+                                                                                <button class="btn btn-secondary"
+                                                                                    type="button"
+                                                                                    data-dismiss="modal">Cancel</button>
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary"
+                                                                                    name="update_blog_emp">Update</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </tr>
+                                                        <?php
+        }
+    ?>
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="add-images-to-gallery">
+                            <div class="row-new">
+                                <div class="container-img-new">
+                                    <!-- File input for image selection -->
+                                    <form id="image-form-new" action="./adminPanel/include/imageGalleryBack.php"
+                                        method="POST" enctype="multipart/form-data">
+                                        <input type="file" id="file-input-new" name="images[]" multiple
+                                            accept="image/png, image/jpeg" onchange="previewNew()">
+                                        <label class="label-photo-new" for="file-input-new">
+                                            <i class="fas fa-upload"></i> &nbsp; Choose A Photo
+                                        </label>
+
+                                        <p id="num-of-files-new">No Files Chosen</p>
+
+                                        <!-- Image Preview Container -->
+                                        <div id="images-new"></div>
+
+                                        <!-- Options Panel (Initially Hidden) -->
+                                        <div id="options-panel-new" style="display: none;">
+                                            <label for="category-select-new">Select Category:</label>
+                                            <select id="category-select-new" name="category">
+                                                <option value="family">Family</option>
+                                                <option value="office">Office</option>
+                                            </select>
+                                        </div>
+
+                                        <button type="submit" name="emplayee_img_submit" id="submit-btn-new"
+                                            class="btn btn-primary" style="display: none;">Submit</button>
+                                    </form>
+                                    <button id="clear-btn-new" onclick="clearImagesNew()"
+                                        style="display: none;">Clear</button>
+                                </div>
+                            </div>
+                            <div class="row row_table_responsive">
+                                <div class="container-fluid">
+
+                                    <!-- DataTales Example -->
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="dataTable" width="100%"
+                                                    cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Image</th>
+                                                            <th>Category</th>
+                                                            <th>Edit</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <?php
+                                            include './backEnd/connection.php';
+
+                                            $sql="SELECT * FROM image_gallery";
+                                            $result=mysqli_query($con,$sql);
+
+                                            while($row=mysqli_fetch_assoc($result)){
+                                                ?>
+
+                                                        <tr>
+                                                            <td class="tb_data">
+                                                                <img class="table_image"
+                                                                    src="./adminPanel/assets/imagesLibrary/<?php echo $row['image']?>">
+                                                            </td>
+                                                            <td>
+                                                                <?php echo $row['category']?>
+                                                            </td>
+                                                            <td><a class="table_delete_btn"
+                                                                    href="./adminPanel/include/imageGalleryBack.php?img_id_emp=<?php echo $row['id']?>">
+                                                                    Delete</a>
+                                                            </td>
+                                                        </tr>
+
+
+
+                                                        <?php
+                                            }
+                                        
+                                        ?>
+
+
+
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
 
 
@@ -285,6 +650,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
+    <script src="./adminPanel/assets/js/demo/datatables-demo.js"></script>
 
     <script>
         function validations() {
@@ -380,6 +746,32 @@
             return true;
         }
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the hash from the URL (e.g., #add-images-to-gallery)
+            var hash = window.location.hash;
+
+            if (hash) {
+                // Activate the corresponding tab
+                var tabLink = document.querySelector('a[href="' + hash + '"]');
+                if (tabLink) {
+                    tabLink.click(); // Simulate a click to activate the tab
+                }
+            }
+        });
+    </script>
+
+    <script src="./adminPanel/assets/js/submit_multipleImg.js"></script>
+
+
+    <script src="./adminPanel/assets/js/script.js"></script>
+
+    <script src="./adminPanel/assets/js/addBlog_multiimg.js"></script>
+
+    <script src="./adminPanel/assets/js/image_drag.js"></script>
+
+
+
 </body>
 
 </html>

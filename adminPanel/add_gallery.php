@@ -12,7 +12,7 @@
     <title>SB Admin 2 - Buttons</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="./vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -72,6 +72,14 @@
             <div class="sidebar-heading">
                 Interface
             </div>
+            <li class="nav-item">
+                <a class="nav-link" href="member_panel.php" data-target="#collapseUtilities" aria-expanded="true"
+                    aria-controls="collapseUtilities">
+                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
+                    <span>Member Panel</span>
+                </a>
+
+            </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -100,14 +108,7 @@
 
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="member_panel.php" data-target="#collapseUtilities" aria-expanded="true"
-                    aria-controls="collapseUtilities">
-                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
-                    <span>Member Panel</span>
-                </a>
-
-            </li>
+            
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -214,37 +215,39 @@
 
 
 
-                    <div class="row">
-                        <div class="container_img">
-                            <!-- File input for image selection -->
-                            <form id="image-form" action="./include/imageGalleryBack.php" method="POST"
-                                enctype="multipart/form-data">
-                                <input type="file" id="file-input" name="images[]" multiple
-                                    accept="image/png, image/jpeg" onchange="preview()">
-                                <label class="label_photo" for="file-input">
-                                    <i class="fas fa-upload"></i> &nbsp; Choose A Photo
-                                </label>
+                    <div class="row-new">
+    <div class="container-img-new">
+        <!-- File input for image selection -->
+        <form id="image-form-new" action="./adminPanel/include/imageGalleryBack.php"
+            method="POST" enctype="multipart/form-data">
+            <input type="file" id="file-input-new" name="images[]" multiple
+                accept="image/png, image/jpeg" onchange="previewNew()">
+            <label class="label-photo-new" for="file-input-new">
+                <i class="fas fa-upload"></i> &nbsp; Choose A Photo
+            </label>
 
-                                <p id="num-of-files">No Files Chosen</p>
+            <p id="num-of-files-new">No Files Chosen</p>
 
-                                <!-- Image Preview Container -->
-                                <div id="images"></div>
+            <!-- Image Preview Container -->
+            <div id="images-new"></div>
 
-                                <!-- Options Panel (Initially Hidden) -->
-                                <div id="options-panel" style="display: none;">
-                                    <label for="category-select">Select Category:</label>
-                                    <select id="category-select" name="category">
-                                        <option value="family">Family</option>
-                                        <option value="office">Office</option>
-                                    </select>
-                                </div>
+            <!-- Options Panel (Initially Hidden) -->
+            <div id="options-panel-new" style="display: none;">
+                <label for="category-select-new">Select Category:</label>
+                <select id="category-select-new" name="category">
+                    <option value="family">Family</option>
+                    <option value="office">Office</option>
+                </select>
+            </div>
 
-                                <button type="submit" name="img_submit" id="submit-btn" class="btn btn-primary"
-                                    style="display: none;">Submit</button>
-                            </form>
-                            <button id="clear-btn2" onclick="clearImages()" style="display: none;">Clear</button>
-                        </div>
-                    </div>
+            <button type="submit" name="emplayee_img_submit" id="submit-btn-new"
+                class="btn btn-primary" style="display: none;">Submit</button>
+        </form>
+        <button id="clear-btn-new" onclick="clearImagesNew()"
+            style="display: none;">Clear</button>
+    </div>
+</div>
+
 
 
 
@@ -352,7 +355,7 @@
                 </div>
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>

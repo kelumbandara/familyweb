@@ -1,8 +1,6 @@
 <?php
+include("connection.php");
 if (isset($_REQUEST["register"])) {
-    include("connection.php");
-    session_start();
-
     // Trim input data to remove unwanted spaces
     $username = trim($_REQUEST["regi_Username"]);
     $email = trim($_REQUEST["regi_UserEmail"]);
@@ -41,9 +39,44 @@ if (isset($_REQUEST["register"])) {
         $_SESSION['regid'] = mysqli_insert_id($con);
         $_SESSION['UsName'] = $username;
 
-        // Redirect to the homepage with the username
-        header("Location: ../index.php?user=" . urlencode($_SESSION['UsName']));
-        exit();
+        // === Automatically log in the user after successful registration ===
+        // Prepare SQL to fetch the newly registered user
+        $query = "SELECT id, user_name, password, aprove FROM register WHERE user_name = ?";
+        $stmt3 = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt3, "s", $username);
+        mysqli_stmt_execute($stmt3);
+        $result3 = mysqli_stmt_get_result($stmt3);
+
+        if ($row = mysqli_fetch_assoc($result3)) {
+            // Check if the user is approved by admin (aprove = 1)
+            if ($row['aprove'] == 0) {
+                // If not approved, inform the user to wait for admin approval
+                header("Location: ../loginPage.php?error=waitingForApproval");
+                exit();
+            }
+
+            // Verify password for login if the user is approved
+            if (password_verify($password, $row['password'])) {
+                $_SESSION['userid'] = $row['id'];
+                $_SESSION['UsName'] = $row['user_name'];
+                $_SESSION['role'] = "employee"; // You can modify this depending on user type
+
+                // Redirect to the homepage or dashboard
+                header("Location: ../index.php?user=" . urlencode($_SESSION['UsName']));
+                exit();
+            } else {
+                // If password doesn't match (though it should)
+                header('Location: ../loginPage.php?error=wrongPassword');
+                exit();
+            }
+        } else {
+            // If the user is not found or not approved
+            header('Location: ../loginPage.php?error=userNotExistsOrNotApproved');
+            exit();
+        }
+
+        // Close the query statement
+        mysqli_stmt_close($stmt3);
     } else {
         // Handle database error and display an error message
         echo "Error: " . mysqli_error($con);

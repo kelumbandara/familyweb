@@ -72,6 +72,14 @@
             <div class="sidebar-heading">
                 Interface
             </div>
+            <li class="nav-item">
+                <a class="nav-link" href="member_panel.php" data-target="#collapseUtilities" aria-expanded="true"
+                    aria-controls="collapseUtilities">
+                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
+                    <span>Member Panel</span>
+                </a>
+
+            </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -93,14 +101,7 @@
 
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="member_panel.php" data-target="#collapseUtilities" aria-expanded="true"
-                    aria-controls="collapseUtilities">
-                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
-                    <span>Member Panel</span>
-                </a>
-
-            </li>
+            
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -206,7 +207,40 @@
 
 
 
-                    
+                    <?php
+if (isset($_GET['appstatus'])) {
+    if ($_GET['appstatus'] == 'Aproved') {
+        // Alert for successful approval
+        echo '<script>alert("User successfully approved.");</script>';
+        echo '<script>window.history.replaceState({}, document.title, window.location.pathname);</script>';
+    } elseif ($_GET['appstatus'] == 'error') {
+        // Alert for error during approval
+        echo '<script>alert("Error in approving user.");</script>';
+    }
+} elseif (isset($_GET['disstatus'])) {
+    if ($_GET['disstatus'] == 'Disaprove') {
+        // Alert for successful disapproval
+        echo '<script>alert("User successfully disapproved.");</script>';
+        echo '<script>window.history.replaceState({}, document.title, window.location.pathname);</script>';
+    } elseif ($_GET['disstatus'] == 'error') {
+        // Alert for error during disapproval
+        echo '<script>alert("Error in disapproving user.");</script>';
+    }
+} elseif (isset($_GET['delete'])) {
+    if ($_GET['delete'] == 'Delete') {
+        // Alert for successful deletion
+        echo '<script>alert("User successfully deleted.");</script>';
+        echo '<script>window.history.replaceState({}, document.title, window.location.pathname);</script>';
+    } elseif ($_GET['delete'] == 'error') {
+        // Alert for error during deletion
+        echo '<script>alert("Error in deleting user.");</script>';
+    }
+}
+?>
+
+
+
+
                     <div class="row">
                         <div class="container-fluid">
 
@@ -225,7 +259,10 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Contact</th>
-                                                    <th>Edit</th>
+                                                    <th>Approve</th>
+                                                    <th>DisAprove</th>
+                                                    <th>Delete</th>
+
                                                 </tr>
                                             </thead>
 
@@ -240,10 +277,6 @@
                                                 ?>
 
                                                 <tr>
-                                                    <!-- <td class="tb_data">
-                                                        <img class="table_image"
-                                                            src="./assets/imagesLibrary/<?php echo $row['image']?>">
-                                                    </td> -->
                                                     <td>
                                                         <?php echo $row['user_name']?>
                                                     </td>
@@ -256,11 +289,116 @@
                                                     <td>
                                                         <?php echo $row['contact']?>
                                                     </td>
+                                                    <?php
+                                                    $usName = $row['user_name']; 
 
-                                                    <td><a class="table_delete_btn"
-                                                            href="#">
-                                                            Delete</a>
-                                                    </td>
+                                                   
+                                                    $aproveSql = "SELECT * FROM register WHERE user_name = ? AND aprove = '0'";
+                                                    $stmt = mysqli_prepare($con, $aproveSql);
+
+                                                    if ($stmt) {
+                                                       
+                                                        mysqli_stmt_bind_param($stmt, "s", $usName);
+                                                        mysqli_stmt_execute($stmt);
+                                                        $aproveRequest = mysqli_stmt_get_result($stmt);
+
+                                                        if ($aproveRow = mysqli_fetch_assoc($aproveRequest)) { ?>
+                                                            <td>
+                                                            <a class="table_delete_btn" href="include/memberAprove.php?member_aprovel=<?php echo $aproveRow['id']; ?>&value=1">
+                                                                Approve
+                                                            </a>
+                                                            </td>
+                                                        <?php
+                                                        } else { ?>
+                                                            <td><h6>Approved</h6></td>
+                                                        <?php
+                                                        }
+
+                                                      
+                                                        mysqli_stmt_close($stmt);
+                                                    } else {
+                                                      
+                                                        echo "<td><h2>Error in query</h2></td>";
+                                                    }
+                                                    ?>
+                                                    
+                                                    <td>
+                                                    <?php
+                                                    $usName = $row['user_name']; 
+
+                                                    // Query to check if the user is approved
+                                                    $aproveSql = "SELECT id FROM register WHERE user_name = ? AND aprove = 1"; 
+                                                    $stmt = mysqli_prepare($con, $aproveSql);
+
+                                                    if ($stmt) {
+                                                        // Bind parameters
+                                                        mysqli_stmt_bind_param($stmt, "s", $usName);
+                                                        // Execute the query
+                                                        mysqli_stmt_execute($stmt);
+                                                        // Get result
+                                                        $aproveRequest = mysqli_stmt_get_result($stmt);
+
+                                                        // Check if the user is approved
+                                                        if ($aproveRow = mysqli_fetch_assoc($aproveRequest)) { ?>
+                                                            <a class="table_delete_btn" href="./include/memberAprove.php?member_disaprovel=<?php echo $aproveRow['id']; ?>&value=0">
+                                                                Disapprove
+                                                            </a>
+                                                        <?php
+                                                        } else {
+                                                            // If the user is not approved, show "Not Approved"
+                                                            echo "<h6>Not Approved</h6>";
+                                                        }
+
+                                                        // Close the statement
+                                                        mysqli_stmt_close($stmt);
+                                                    } else {
+                                                        // If query preparation fails, show a generic error
+                                                        echo "<h2>Error in query</h2>";
+                                                    }
+                                                    ?>
+                                                </td>
+
+<td>
+    <?php
+    $usName = $row['user_name']; 
+
+    // Query to get the user's ID for deletion
+    $deleteSql = "SELECT id FROM register WHERE user_name = ?"; 
+    $stmt = mysqli_prepare($con, $deleteSql);
+
+    if ($stmt) {
+        // Bind parameters
+        mysqli_stmt_bind_param($stmt, "s", $usName);
+        // Execute the query
+        mysqli_stmt_execute($stmt);
+        // Get result
+        $deleteRequest = mysqli_stmt_get_result($stmt);
+
+        // Check if the user exists for deletion
+        if ($deleteRow = mysqli_fetch_assoc($deleteRequest)) { ?>
+            <a class="table_delete_btn" href="./include/memberAprove.php?member_delete=<?php echo $deleteRow['id']; ?>">Delete</a>
+        <?php
+        } else {
+            // If no user found, display an error message
+            echo "<h2>No user found</h2>";
+        }
+
+        // Close the statement
+        mysqli_stmt_close($stmt);
+    } else {
+        // If query preparation fails, show a generic error
+        echo "<h2>Error in query</h2>";
+    }
+    ?>
+</td>
+
+
+
+
+
+
+
+                                                    
                                                 </tr>
 
 
@@ -322,7 +460,7 @@
                 </div>
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css" integrity="sha512-HHsOC+h3najWR7OKiGZtfhFIEzg5VRIPde0kB0bG2QRidTQqf+sbfcxCTB16AcFB93xMjnBIKE29/MjdzXE+qw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="icon" type="image/png" href="./image/images.png">
+    <link rel="icon" type="image/png" href="./assets/images/images.png">
     <title>News Website</title>
 
     <link rel="stylesheet" href="./assets/css/blog.css">
@@ -107,37 +107,46 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                     </div>
 
                     <div class="sub_menu_wrap" id="subMenu">
-                        <div class="sub_menu">
-                            <div class="user_info">
-                                <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
-                                <?php echo htmlspecialchars($user); ?>
-                            </div>
-                            <hr>
-                            <?php if ($role == 'employee'): ?>
-                            <a href="./profile.php?user=<?php echo urlencode($user); ?>" class="sub_menu_links">
-                                <img src="./assets/images/profile.png">
-                                <p>Edit Profile</p>
-                                <span>></span>
-                            </a>
-                            <?php endif; ?>
-                            <!-- <a href="#" class="sub_menu_links">
-                                <img src="./image/setting.png">
-                                <p>Help & Support</p>
-                                <span>></span>
-                            </a> -->
-                            <?php if ($role == 'admin'): ?>
-                                <a href="./adminPanel/index.php" class="sub_menu_links">
-                                    <img src="./assets/images/setting.png">
-                                    <p>Admin Panel</p>
-                                    <span>></span>
-                                </a>
-                            <?php endif; ?>
-                            <a href="./logout.php" class="sub_menu_links">
-                                <img src="./assets/images/profile.png">
-                                <p>Log Out</p>
-                                <span>></span>
-                            </a>
+                    <div class="sub_menu">
+                        <div class="user_info">
+                            <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
+                            <?php echo htmlspecialchars($user); ?>
                         </div>
+                        <hr>
+                        <?php if ($role == 'employee'): ?>
+                        <a href="./profile.php?user=<?php echo urlencode($user); ?>" class="sub_menu_links">
+                            <img src="./assets/images/profile.png">
+                            <p>Edit Profile</p>
+                            <span>></span>
+                        </a>
+                        <?php endif; ?>
+                        <?php if ($role == 'employee'): ?>
+                        <a href="./profile.php?user=<?php echo urlencode($user); ?>#add-blogs" class="sub_menu_links">
+                            <img src="./assets/images/blog.png">
+                            <p>Add Blogs</p>
+                            <span>></span>
+                        </a>
+                        <?php endif; ?>
+                        <?php if ($role == 'employee'): ?>
+                        <a href="./profile.php?user=<?php echo urlencode($user); ?>#add-images-to-gallery" class="sub_menu_links">
+                            <img src="./assets/images/image.png">
+                            <p>Add Gallery</p>
+                            <span>></span>
+                        </a>
+                        <?php endif; ?>
+                        <?php if ($role == 'admin'): ?>
+                        <a href="./adminPanel/index.php" class="sub_menu_links">
+                            <img src="./assets/images/setting.png">
+                            <p>Admin Panel</p>
+                            <span>></span>
+                        </a>
+                        <?php endif; ?>
+                        <a href="./logout.php" class="sub_menu_links">
+                            <img src="./assets/images/logout.png">
+                            <p>Log Out</p>
+                            <span>></span>
+                        </a>
+                    </div>
                     </div>
                 <?php else: ?>
                     <div class="login_button">

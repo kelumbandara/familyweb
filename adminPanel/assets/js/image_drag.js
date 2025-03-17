@@ -1,7 +1,7 @@
-document.querySelectorAll('.drop-area').forEach(dropArea => {
-    const modalId = dropArea.id.split('-')[2]; // Extract blog_id from drop-area id (e.g., drop-area-123 will extract 123)
+document.querySelectorAll('.drag-drop-area').forEach(dropArea => {
+    const modalId = dropArea.id.split('-')[3]; // Extract blog_id from drag-drop-area id (e.g., drag-drop-area-123 will extract 123)
     const inputFile = document.getElementById('input-file-' + modalId);
-    const clearButton = document.getElementById('clear-btn-' + modalId);
+    const clearButton = document.getElementById('clear-image-btn-' + modalId);
 
     let dropHasOccurred = false; // Flag to track if a file has been dropped
 
@@ -60,17 +60,17 @@ document.querySelectorAll('.drop-area').forEach(dropArea => {
     // Function to create thumbnail
     function createThumbnail(file, modalId) {
         // Remove old images
-        const dropAreaElement = document.getElementById('drop-area-' + modalId);
-        document.querySelectorAll('#drop-area-' + modalId + ' .thumbnail, #drop-area-' + modalId + ' .img-name').forEach(el => el.remove());
+        const dropAreaElement = document.getElementById('drag-drop-area-' + modalId);
+        document.querySelectorAll('#drag-drop-area-' + modalId + ' .thumbnail-image, #drag-drop-area-' + modalId + ' .image-name').forEach(el => el.remove());
 
         const reader = new FileReader();
         reader.onload = () => {
             const img = document.createElement('img');
             img.src = reader.result;
-            img.className = 'thumbnail';
+            img.className = 'thumbnail-image';
 
             const span = document.createElement('span');
-            span.className = 'img-name';
+            span.className = 'image-name';
             span.textContent = file.name;
 
             dropAreaElement.appendChild(img);
@@ -87,8 +87,8 @@ document.querySelectorAll('.drop-area').forEach(dropArea => {
     // Clear button functionality (Now a link)
     clearButton.addEventListener('click', function (e) {
         e.preventDefault(); // Prevent the default link behavior
-        const dropAreaElement = document.getElementById('drop-area-' + modalId);
-        document.querySelectorAll('#drop-area-' + modalId + ' .thumbnail, #drop-area-' + modalId + ' .img-name').forEach(el => el.remove());
+        const dropAreaElement = document.getElementById('drag-drop-area-' + modalId);
+        document.querySelectorAll('#drag-drop-area-' + modalId + ' .thumbnail-image, #drag-drop-area-' + modalId + ' .image-name').forEach(el => el.remove());
         dropAreaElement.style.borderColor = '#ccc';
         clearButton.style.display = 'none';
         inputFile.value = ''; // Reset file input

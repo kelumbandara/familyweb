@@ -12,7 +12,7 @@ if (isset($_REQUEST['update'])) {
     $Image = $_FILES['ImgFile']['name'];
     $img_size = $_FILES['ImgFile']['size'];
     $temp_name = $_FILES['ImgFile']['tmp_name'];
-    $folder = "../image/Memberimages/" . $Image;
+    $folder = "../assets/images/Member images/" . $Image;
 
     // Check image size
     if ($img_size > 10000000) {
@@ -32,8 +32,8 @@ if (isset($_REQUEST['update'])) {
             $image_data = $Image;
 
             // Delete old image if it exists
-            if (!empty($currentImage) && file_exists("../image/Memberimages/" . $currentImage)) {
-                unlink("../image/Memberimages/" . $currentImage);
+            if (!empty($currentImage) && file_exists("../assets/images/Member images/" . $currentImage)) {
+                unlink("../assets/images/Member images/" . $currentImage);
             }
         } else {
             $image_data = $currentImage; // Retain old image if no new image is uploaded
@@ -62,31 +62,48 @@ if (isset($_REQUEST['update'])) {
 ?>
 
 <?php
-
 if (isset($_REQUEST["submitPassword"])) {
+    include("connection.php"); // Ensure the correct database connection is included.
+    session_start(); // Start the session to access session variables (if needed).
+
     $pass_id = $_REQUEST["hidden_id"];
-    $compassword = md5($_REQUEST["ComPassword"]);
+    $compassword = $_REQUEST["ComPassword"];
 
-    $search_pass = "SELECT * FROM register WHERE id='$pass_id' ";
-    $search_result = mysqli_query($con, $search_pass);
+    // Validate the password (optional)
+    if (empty($compassword)) {
+        header("Location: ../Profile.php?error=emptyPassword");
+        exit();
+    }
 
-    if ($search_result) {
-        $sql = "UPDATE register SET password='$compassword' WHERE id=$pass_id";
-        $result = mysqli_query($con, $sql);
+    // Hash the password securely before saving it to the database
+    $hashedPassword = password_hash($compassword, PASSWORD_DEFAULT);
+
+    // Using a prepared statement to safely update the password
+    $sql = "UPDATE register SET password = ? WHERE id = ?";
+    $stmt = mysqli_prepare($con, $sql);
+
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "si", $hashedPassword, $pass_id);
+        $result = mysqli_stmt_execute($stmt);
+
         if ($result) {
-            // Show the alert and redirect after successful password update
-            // echo "<script>
-            //         window.onload = function() {
-            //             alert('Password has been reset!');
-            //             window.location.href = '../Profile.php';
-            //         };
-            //       </script>";
-
-                  header("Location:../Profile.php?editPasswordSuccess");
+            // Redirect to the profile page after successful password update
+            header("Location: ../Profile.php?editPasswordSuccess");
+            exit();
         } else {
+            // Handle query execution failure
             echo "Error: " . mysqli_error($con);
         }
+
+        // Close the prepared statement
+        mysqli_stmt_close($stmt);
+    } else {
+        // If the prepared statement failed to prepare
+        echo "Error: " . mysqli_error($con);
     }
+
+    // Close the database connection
+    mysqli_close($con);
 }
 ?>
 

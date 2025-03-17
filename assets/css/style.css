@@ -159,3 +159,102 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     font-size: 10px;
   }
 }
+
+
+/* Container for the media body */
+.media-body {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+/* Label styles for the file upload button */
+label.btn {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 180px; /* Set a fixed width */
+    justify-content: center; /* Centers the text inside */
+    text-align: center; /* Aligns the text in the middle */
+    box-sizing: border-box; /* Ensures padding and width are included in the width */
+}
+
+label.btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Hide the default file input */
+.account-settings-fileinput {
+    display: none;
+}
+
+/* Reset button styles */
+button.md-btn-flat {
+    margin-left: 15px;
+    padding: 8px 15px;
+    font-size: 16px;
+    color: #000000;
+    background: transparent;
+    border: 2px solid #888888;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 180px; /* Set the same width as the upload button */
+    box-sizing: border-box; /* Ensures padding and width are included in the width */
+}
+
+button.md-btn-flat:hover {
+    background-color: #000000;
+    color: #fff;
+    border: 2px solid #000000;
+}
+
+
+
+
+/* Container for the buttons */
+.Updatebuttons {
+    display: flex; /* Align buttons in a row */
+    justify-content: flex-start; /* Align buttons to the left */
+    gap: 15px; /* Space between buttons */
+    margin-top: 20px; /* Add some top margin for spacing */
+}
+
+/* Button styles for both buttons */
+.update_button, .update_cancel {
+    flex: 1; /* Ensure both buttons have the same width */
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none; /* Remove default border */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Update button styling */
+.update_button {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.update_button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Cancel button styling */
+.update_cancel {
+    background-color: #f8f9fa;
+    color: #007bff;
+    border: 2px solid #007bff;
+}
+
+.update_cancel:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+

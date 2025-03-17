@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="icon" type="image/png" href="./image/images.png">
+    <link rel="icon" type="image/png" href="./assets/images/images.png">
 
     <link rel="stylesheet" href="./assets/css/blog_detail.css">
     <link rel="stylesheet" href="./assets/css/lightbox.min.css">
@@ -105,7 +105,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                 </div>
 
                 <div class="sub_menu_wrap" id="subMenu">
-                    <div class="sub_menu">
+                <div class="sub_menu">
                         <div class="user_info">
                             <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
                             <?php echo htmlspecialchars($user); ?>
@@ -118,11 +118,20 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                             <span>></span>
                         </a>
                         <?php endif; ?>
-                        <!-- <a href="#" class="sub_menu_links">
-                                <img src="./image/setting.png">
-                                <p>Help & Support</p>
-                                <span>></span>
-                            </a> -->
+                        <?php if ($role == 'employee'): ?>
+                        <a href="./profile.php?user=<?php echo urlencode($user); ?>#add-blogs" class="sub_menu_links">
+                            <img src="./assets/images/blog.png">
+                            <p>Add Blogs</p>
+                            <span>></span>
+                        </a>
+                        <?php endif; ?>
+                        <?php if ($role == 'employee'): ?>
+                        <a href="./profile.php?user=<?php echo urlencode($user); ?>#add-images-to-gallery" class="sub_menu_links">
+                            <img src="./assets/images/image.png">
+                            <p>Add Gallery</p>
+                            <span>></span>
+                        </a>
+                        <?php endif; ?>
                         <?php if ($role == 'admin'): ?>
                         <a href="./adminPanel/index.php" class="sub_menu_links">
                             <img src="./assets/images/setting.png">
@@ -131,7 +140,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                         </a>
                         <?php endif; ?>
                         <a href="./logout.php" class="sub_menu_links">
-                            <img src="./assets/images/profile.png">
+                            <img src="./assets/images/logout.png">
                             <p>Log Out</p>
                             <span>></span>
                         </a>

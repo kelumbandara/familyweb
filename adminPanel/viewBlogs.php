@@ -144,7 +144,14 @@
             <div class="sidebar-heading">
                 Interface
             </div>
+            <li class="nav-item">
+                <a class="nav-link" href="member_panel.php" data-target="#collapseUtilities" aria-expanded="true"
+                    aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Member Panel</span>
+                </a>
 
+            </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="blog_enter.php" data-target="#collapseTwo" aria-expanded="true"
@@ -165,14 +172,7 @@
                 </a>
 
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="member_panel.php" data-target="#collapseUtilities" aria-expanded="true"
-                    aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Member Panel</span>
-                </a>
-
-            </li>
+           
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -416,7 +416,7 @@
                 </div>
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="./image/images.png">
+    <link rel="icon" type="image/png" href="./assets/images/images.png">
     <title>Skynet</title>
     <!-- Linking Google Fonts for Icons -->
     <link rel="stylesheet"
@@ -118,6 +118,20 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                             <span>></span>
                         </a>
                         <?php endif; ?>
+                        <?php if ($role == 'employee'): ?>
+                        <a href="./profile.php?user=<?php echo urlencode($user); ?>#add-blogs" class="sub_menu_links">
+                            <img src="./assets/images/blog.png">
+                            <p>Add Blogs</p>
+                            <span>></span>
+                        </a>
+                        <?php endif; ?>
+                        <?php if ($role == 'employee'): ?>
+                        <a href="./profile.php?user=<?php echo urlencode($user); ?>#add-images-to-gallery" class="sub_menu_links">
+                            <img src="./assets/images/image.png">
+                            <p>Add Gallery</p>
+                            <span>></span>
+                        </a>
+                        <?php endif; ?>
                         <?php if ($role == 'admin'): ?>
                         <a href="./adminPanel/index.php" class="sub_menu_links">
                             <img src="./assets/images/setting.png">
@@ -126,7 +140,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                         </a>
                         <?php endif; ?>
                         <a href="./logout.php" class="sub_menu_links">
-                            <img src="./assets/images/profile.png">
+                            <img src="./assets/images/logout.png">
                             <p>Log Out</p>
                             <span>></span>
                         </a>
@@ -229,7 +243,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
       die("Connection Faild".mysqli_connect());
     };
     
-      $sql="SELECT * FROM blogs";
+      $sql="SELECT * FROM blogs ORDER BY date DESC LIMIT 5";
       $result=mysqli_query($con,$sql);
       while($row=mysqli_fetch_assoc($result)){?>
                 <div class="slider-indicator"></div>
@@ -261,22 +275,18 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
     <section class="about">
         <div class="container">
             <div class="section_title">
-                <h2>About Us</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, aliquam.</p>
+                <h2>Antecedent</h2>
+                <p>අප පවුලේ සාමජිකයන් ලෙස පවුල තුළ සමගිය, සනිවේදනය සහ බෙදා හාදා ගැනීමේ වැදගත්කම හදුනා ගනිමින් අපගේ පවුල් සංවිධානයේ සහ ජීවනය වර්ධනය කිරීම සදහා මෙම ව්‍යවස්ථාව ස්ථාපිත කරමු</p>
             </div>
             <div class="row family_info">
                 <div class="left">
-                    <h3>Our Family Story</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque fugiat cumque alias sint culpa
-                        temporibus mollitia, provident earum eius delectus animi iste dolores iusto, tempora vero nobis
-                        optio labore nemo?</p>
+                    <h3>අපේ පවුලේ මෙහෙවර</h3>
+                    <p>පවුලේ බැදීම් ශක්තිමත් කිරීම, සන්නිවේදනය ප්‍රවර්ධනය කිරීම සහ එහි සාමාජිකයින්ගේ ජිවිත අර්ථවත් කරන ක්‍රියාකාරකම් සංවිධානය කිරීම.</p>
                 </div>
 
                 <div class="right">
-                    <h3>Our Family Vision</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque fugiat cumque alias sint culpa
-                        temporibus mollitia, provident earum eius delectus animi iste dolores iusto, tempora vero nobis
-                        optio labore nemo?</p>
+                    <h3>අපේ පවුලේ දැක්ම</h3>
+                    <p>පවුලේ සෑම සාමාජිකයෙකුටම වටිනාකමක්, සබඳතාවයක් සහ දියුණු වීමට ශකිතියක් දැනෙන අධිශ්ඨානශිලි හා අනොන්‍ය සහයක පරිසරයක් නිර්මනය කිරීම.</p>
                 </div>
 
 
@@ -344,26 +354,26 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
         <section id="family-constitution">
             <h2>Our Family Constitution</h2>
             <p>
-              Our Family Constitution outlines the core values and principles that guide our actions, decisions, and relationships within our family.<br>
-              <span><strong>Our Guiding Principle:</strong> "We make decisions together, respecting every voice, and honor these principles in our daily lives."</span>
+            අපගේ පවුල් ව්‍යවස්ථාව මගින් අපගේ ක්‍රියාවන්, තීරණ සහ අපගේ පවුල තුළ සබඳතා මෙහෙයවන මූලික වටිනාකම් සහ මූලධර්ම දක්වා ඇත.<br>
+              <span><strong>Our Guiding Principle:</strong> "අපි එක්ව තීරණ ගනිමු, සෑම හඬකටම ගරු කරමු, සහ අපගේ එදිනෙදා ජීවිතයේදී මෙම මූලධර්මවලට ගරු කරමු."</span>
             </p>
         
             <div class="values">
               <div class="value-card">
                 <div class="icon">🤝</div>
-                <h3>Respect</h3>
+                <h3>ගරු කරනවා</h3>
               </div>
               <div class="value-card">
                 <div class="icon">🛡️</div>
-                <h3>Integrity</h3>
+                <h3>අඛණ්ඩතාවය</h3>
               </div>
               <div class="value-card">
                 <div class="icon">💪</div>
-                <h3>Unity</h3>
+                <h3>එකමුතුකම</h3>
               </div>
               <div class="value-card responsibility-card">
                 <div class="icon">⚖️</div>
-                <h3>Responsibility</h3>
+                <h3>වගකීම</h3>
               </div>
             </div>
         </section>

@@ -1,61 +1,59 @@
-let fileInput = document.getElementById("file-input");
-    let imageContainer = document.getElementById("images");
-    let numOfFiles = document.getElementById("num-of-files");
-    let clearBtn = document.getElementById("clear-btn2");
-    let submitBtn = document.getElementById("submit-btn");
-    let optionsPanel = document.getElementById("options-panel");
+let fileInputNew = document.getElementById("file-input-new");
+let imageContainerNew = document.getElementById("images-new");
+let numOfFilesNew = document.getElementById("num-of-files-new");
+let clearBtnNew = document.getElementById("clear-btn-new");
+let submitBtnNew = document.getElementById("submit-btn-new");
+let optionsPanelNew = document.getElementById("options-panel-new");
 
-    const MAX_IMAGES = 5; // Maximum images allowed
+const MAX_IMAGES_NEW = 5; // Maximum images allowed
 
-    function preview() {
-        let files = fileInput.files;
-        if (files.length > MAX_IMAGES) {
-            alert(`You can only upload up to ${MAX_IMAGES} images.`);
-            fileInput.value = "";
-            return;
-        }
-
-        if (files.length > 0) {
-            numOfFiles.textContent = `${files.length} File${files.length > 1 ? "s" : ""} Selected`;
-            clearBtn.style.display = "block";
-            submitBtn.style.display = "block";
-            optionsPanel.style.display = "block";
-        } else {
-            numOfFiles.textContent = "No Files Chosen";
-            clearBtn.style.display = "none";
-            submitBtn.style.display = "none";
-            optionsPanel.style.display = "none";
-        }
-
-        imageContainer.innerHTML = ""; // Clear previous previews
-
-        // Create image previews
-        for (let file of files) {
-            if (!file.type.startsWith("image/")) continue; // Skip non-image files
-
-            let reader = new FileReader();
-            reader.onload = (event) => {
-                let img = document.createElement("img");
-                img.setAttribute("src", event.target.result);
-                img.classList.add("preview-image");
-
-                let figure = document.createElement("figure");
-                let figCap = document.createElement("figcaption");
-                figCap.textContent = file.name;
-
-                figure.appendChild(img);
-                figure.appendChild(figCap);
-                imageContainer.appendChild(figure);
-            };
-            reader.readAsDataURL(file);
-        }
+function previewNew() {
+    let files = fileInputNew.files;
+    if (files.length > MAX_IMAGES_NEW) {
+        alert(`You can only upload up to ${MAX_IMAGES_NEW} images.`);
+        fileInputNew.value = "";
+        return;
     }
 
-    function clearImages() {
-        fileInput.value = "";
-        imageContainer.innerHTML = "";
-        numOfFiles.textContent = "No Files Chosen";
-        clearBtn.style.display = "none";
-        submitBtn.style.display = "none";
-        optionsPanel.style.display = "none";
+    if (files.length > 0) {
+        numOfFilesNew.textContent = `${files.length} File${files.length > 1 ? "s" : ""} Selected`;
+        clearBtnNew.style.display = "block";
+        submitBtnNew.style.display = "block";
+        optionsPanelNew.style.display = "block";
+    } else {
+        numOfFilesNew.textContent = "No Files Chosen";
+        clearBtnNew.style.display = "none";
+        submitBtnNew.style.display = "none";
+        optionsPanelNew.style.display = "none";
     }
+
+    imageContainerNew.innerHTML = ""; // Clear previous previews
+
+    // Create image previews
+    for (let file of files) {
+        if (!file.type.startsWith("image/")) continue; // Skip non-image files
+
+        let reader = new FileReader();
+        reader.onload = (event) => {
+            let img = document.createElement("img");
+            img.setAttribute("src", event.target.result);
+            img.classList.add("preview-image");
+            img.style.width = "100%"; // Adjust width here
+            img.style.height = "100%"; // Maintain aspect ratio
+
+            let figure = document.createElement("figure");
+            figure.appendChild(img);
+            imageContainerNew.appendChild(figure);
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function clearImagesNew() {
+    fileInputNew.value = "";
+    imageContainerNew.innerHTML = "";
+    numOfFilesNew.textContent = "No Files Chosen";
+    clearBtnNew.style.display = "none";
+    submitBtnNew.style.display = "none";
+    optionsPanelNew.style.display = "none";
+}
