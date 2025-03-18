@@ -25,3 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+const mainMenu = document.querySelector('.nav_bar');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY) { // Trigger after scrolling past 100vh
+        mainMenu.classList.add('slidedown');
+    } else {
+        mainMenu.classList.remove('slidedown');
+    }
+});
+
