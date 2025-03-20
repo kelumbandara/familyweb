@@ -216,37 +216,37 @@
 
 
                     <div class="row-new">
-    <div class="container-img-new">
-        <!-- File input for image selection -->
-        <form id="image-form-new" action="./adminPanel/include/imageGalleryBack.php"
-            method="POST" enctype="multipart/form-data">
-            <input type="file" id="file-input-new" name="images[]" multiple
-                accept="image/png, image/jpeg" onchange="previewNew()">
-            <label class="label-photo-new" for="file-input-new">
-                <i class="fas fa-upload"></i> &nbsp; Choose A Photo
-            </label>
+                        <div class="container-img-new">
+                            <!-- File input for image selection -->
+                            <form id="image-form-new" action="./include/imageGalleryBack.php"
+                                method="POST" enctype="multipart/form-data">
+                                <input type="file" id="file-input-new" name="images[]" multiple
+                                    accept="image/png, image/jpeg" onchange="previewNew()">
+                                <label class="label-photo-new" for="file-input-new">
+                                    <i class="fas fa-upload"></i> &nbsp; Choose A Photo
+                                </label>
 
-            <p id="num-of-files-new">No Files Chosen</p>
+                                <p id="num-of-files-new">No Files Chosen</p>
 
-            <!-- Image Preview Container -->
-            <div id="images-new"></div>
+                                <!-- Image Preview Container -->
+                                <div id="images-new"></div>
 
-            <!-- Options Panel (Initially Hidden) -->
-            <div id="options-panel-new" style="display: none;">
-                <label for="category-select-new">Select Category:</label>
-                <select id="category-select-new" name="category">
-                    <option value="family">Family</option>
-                    <option value="office">Office</option>
-                </select>
-            </div>
+                                <!-- Options Panel (Initially Hidden) -->
+                                <div id="options-panel-new" style="display: none;">
+                                    <label for="category-select-new">Select Category:</label>
+                                    <select id="category-select-new" name="category">
+                                        <option value="family">Family</option>
+                                        <option value="office">Office</option>
+                                    </select>
+                                </div>
 
-            <button type="submit" name="emplayee_img_submit" id="submit-btn-new"
-                class="btn btn-primary" style="display: none;">Submit</button>
-        </form>
-        <button id="clear-btn-new" onclick="clearImagesNew()"
-            style="display: none;">Clear</button>
-    </div>
-</div>
+                                <button type="submit" name="img_submit" id="submit-btn-new"
+                                    class="btn btn-primary" style="display: none;">Submit</button>
+                            </form>
+                            <button id="clear-btn-new" onclick="clearImagesNew()"
+                                style="display: none;">Clear</button>
+                        </div>
+                    </div>
 
 
 
@@ -273,34 +273,50 @@
                                             </thead>
 
                                             <tbody>
-    <?php
-    include './include/connection.php';
+                                                <?php
+                                                include './include/connection.php';
 
-    $sql = "SELECT * FROM image_gallery";
-    $result = mysqli_query($con, $sql);
+                                                // Fetch images from the database
+                                                $sql = "SELECT * FROM image_gallery";
+                                                $result = mysqli_query($con, $sql);
+                                                if (!$result) {
+                                                    echo "Error executing query: " . mysqli_error($con);
+                                                    exit;
+                                                }
 
-    while ($row = mysqli_fetch_assoc($result)) {
-        $image_name = $row['image'];
-        $image_name = str_replace('__', ' (', $image_name);
-        $image_name = str_replace('_', ')', $image_name);
-    ?>
-        <tr>
-            <td class="tb_data">
-                <img class="table_image" src="./assets/imagesLibrary/<?php echo htmlspecialchars($image_name); ?>" alt="Image">
-            </td>
-            <td>
-                <?php echo htmlspecialchars($row['category']); ?>
-            </td>
-            <td>
-                <a class="table_delete_btn" href="./include/imageGalleryBack.php?img_id=<?php echo $row['id']; ?>">
-                    Delete
-                </a>
-            </td>
-        </tr>
-    <?php
-    }
-    ?>
-</tbody>
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    $image_name = $row['image'];
+
+                                                    // Fix filenames based on known patterns
+                                                    if (strpos($image_name, '__') !== false) {
+                                                        // Fix 'pexels' style images
+                                                        $image_name = str_replace('__', ' (', $image_name);
+                                                        $image_name = str_replace('_', ')', $image_name);
+                                                    } else {
+                                                        // Replace underscores with spaces (for Blog_2.jpg cases)
+                                                        $image_name = str_replace('_', ' ', $image_name);
+                                                    }
+
+                                                ?>
+                                                    <tr>
+                                                        <td class="tb_data">
+                                                            <!-- Use corrected filename -->
+                                                            <img class="table_image" src="./assets/imagesLibrary/<?php echo htmlspecialchars($image_name); ?>" alt="Image">
+                                                        </td>
+                                                        <td>
+                                                            <?php echo htmlspecialchars($row['category']); ?>
+                                                        </td>
+                                                        <td>
+                                                            <a class="table_delete_btn" href="./include/imageGalleryBack.php?img_id=<?php echo $row['id']; ?>">
+                                                                Delete
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                <?php
+                                                }
+                                                ?>
+                                            </tbody>
+
 
                                         </table>
                                     </div>

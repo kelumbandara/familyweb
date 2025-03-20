@@ -34,7 +34,7 @@
                         : $content;
                     ?>
                 </p>
-                <a href="./blog_detail.php?blog_id=<?php echo $row['id']; ?>" class="slide-button"><span>Learn More</span></a>
+                <a href="./blog_detail.php?blog_id=<?php echo $row['id']; ?>" class="slide-button"><h3>තවත් හදාරන්න</h3></a>
             </div>
         </div>
     <?php
@@ -124,7 +124,7 @@
     <!-- Family Members Start -->
 
     <div class="section_title_mem">
-        <h1>Our Members</h1>
+        <h1>අපේ සාමාජිකයන්</h1>
         <section class="Members">
             <div class="wrapper">
                 <i id="left" class="bx bx-left-arrow-alt" aria-hidden="true"></i>
@@ -173,7 +173,7 @@
         
         
         <section id="family-constitution">
-            <h2>Our Family Constitution</h2>
+            <h2>අපේ පවුල් ව්‍යවස්ථාව</h2>
             <p>
             අපගේ පවුල් ව්‍යවස්ථාව මගින් අපගේ ක්‍රියාවන්, තීරණ සහ අපගේ පවුල තුළ සබඳතා මෙහෙයවන මූලික වටිනාකම් සහ මූලධර්ම දක්වා ඇත.<br>
               <span><strong>Our Guiding Principle:</strong> "අපි එක්ව තීරණ ගනිමු, සෑම හඬකටම ගරු කරමු, සහ අපගේ එදිනෙදා ජීවිතයේදී මෙම මූලධර්මවලට ගරු කරමු."</span>
@@ -207,15 +207,15 @@
 
 
     <section class="portfolio" id="Portfolio">
-        <h1>Our Image Gallery</h1>
+        <h1>අපගේ පින්තූර ගැලරිය</h1>
         <div class="container">
 
             <div class="row">
                 <div class="filter-buttons">
                     <ul id="filter-btns">
-                        <li class="active" data-target="all">ALL</li>
-                        <li data-target="family">FAMILY</li>
-                        <li data-target="office">OFFICE</li>
+                        <li class="active" data-target="all">සියලුම පින්තූර</li>
+                        <li data-target="family">පවුල</li>
+                        <li data-target="office">කාර්‍යාලය</li>
 
                     </ul>
                 </div>
@@ -230,8 +230,15 @@
                         
                             $image_name = $gallery_row['image'];
 
+                           // Fix filenames based on known patterns
+                           if (strpos($image_name, '__') !== false) {
+                            // Fix 'pexels' style images
                             $image_name = str_replace('__', ' (', $image_name);
                             $image_name = str_replace('_', ')', $image_name);
+                        } else {
+                            // Replace underscores with spaces (for Blog_2.jpg cases)
+                            $image_name = str_replace('_', ' ', $image_name);
+                        }
                             ?>
                             <div class="item" data-id="<?php echo $gallery_row['category']; ?>">
                                 <div class="inner">
@@ -254,8 +261,8 @@
 
     <section class="contact" id="contact">
         <div class="con">
-            <h2>Contact Us</h2>
-            <p>Reach out to us for any inquiries or feedback.</p>
+            <h2>අපව අමතන්න</h2>
+            <p>ඕනෑම විමසීමක් හෝ ප්‍රතිපෝෂණයක් සඳහා අප හා සම්බන්ධ වන්න.</p>
             <div class="row">
                 <div class="col information">
                     <div class="contact-details">
@@ -270,10 +277,10 @@
                 </div>
                 <div class="col form">
                     <form>
-                        <input type="text" placeholder="Name*" required>
-                        <input type="email" placeholder="Email*" required>
-                        <textarea placeholder="Message*" required></textarea>
-                        <button id="submit" type="submit">Send Message</button>
+                        <input type="text" placeholder="නම*" required>
+                        <input type="email" placeholder="ඊමේල් කරන්න*" required>
+                        <textarea placeholder="පණිවිඩය*" required></textarea>
+                        <button id="submit" type="submit">පණිවිඩය යවන්න</button>
                     </form>
                 </div>
             </div>

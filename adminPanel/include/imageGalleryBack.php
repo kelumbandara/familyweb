@@ -61,7 +61,7 @@ if (isset($_POST['img_submit'])) {
 
        $stmt->close();
    }
-}else if(isset($_POST['emplayee_img_submit'])){
+}elseif(isset($_POST['emplayee_img_submit'])){
 // Get category from form
 $category = isset($_POST['category']) ? $_POST['category'] : "Uncategorized";
 

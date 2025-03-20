@@ -288,98 +288,101 @@
 
 
                     <?php
-                    if (isset($_REQUEST['blog_id'])) {
-                        $id = $_REQUEST['blog_id'];
+if (isset($_REQUEST['blog_id'])) {
+    $id = $_REQUEST['blog_id'];
 
-                        include './include/connection.php';
+    include './include/connection.php';
 
-                        // Query to fetch blog details along with all images
-                        $blog_sql = "SELECT * FROM blogs b JOIN blog_images bi ON b.id = bi.blog_id WHERE b.id = $id";
-                        $blog_result = mysqli_query($con, $blog_sql);
+    // Query to fetch blog details
+    $blog_sql = "SELECT * FROM blogs b LEFT JOIN blog_images bi ON b.id = bi.blog_id WHERE b.id = $id";
+    $blog_result = mysqli_query($con, $blog_sql);
 
-                        if ($blog_result) {
-                            $blog_row = mysqli_fetch_assoc($blog_result);
-                            ?>
-                    <!-- Content Row -->
-                    <div class="row">
-                        <!-- Blog -->
-                        <div class="mt-5" style="margin-top: 105px !important;">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-8 mb-5">
-                                        <!-- featured Details -->
-                                        <section class="section" id="featured">
-                                            <div class="detail">
-                                                <img src="./assets/blogImages/blogTitle/<?php echo $blog_row['image']; ?>"
-                                                    style="width: 500px; height: 300px; object-fit: cover;"
-                                                    class="img-fluid" alt="...">
-                                                <div class="post-cat mt-5">
-                                                    <div class="meta mt-3 ">
-                                                        <a class="profile" href="#"><i class="fas fa-user ml-2"></i>
-                                                            <span><?php echo $blog_row['Author']; ?></span>
-                                                        </a> -
-                                                        <span><?php echo $blog_row['date']; ?></span>
-                                                    </div>
-                                                </div>
-                                                <div class="article mt-3">
-                                                    <h1>
-                                                        <?php echo $blog_row['heading']; ?>
-                                                    </h1>
+    if (!$blog_result) {
+        die("Query failed: " . mysqli_error($con)); // Debugging
+    }
 
-                                                <?php
-                                                   
-                                                    $content = $blog_row['content']; 
-                                                   
-                                                    $paragraphs = explode('.', $content); 
+    $blog_row = mysqli_fetch_assoc($blog_result);
 
-
-                                                    foreach ($paragraphs as $paragraph) {
-                                                        if (!empty(trim($paragraph))) {
-                                                            echo '<p>' . htmlspecialchars(trim($paragraph)) . '.</p>';
-                                                        }
-                                                    }
-                                                ?>                            
-                                                </div>
-                                            </div>
-                                        </section>
+    // Check if a blog was found
+    if (!$blog_row) {
+        echo "<p>No blog found for this ID.</p>";
+        exit();
+    }
+    ?>
+    <!-- Content Row -->
+    <div class="row">
+        <!-- Blog -->
+        <div class="mt-5" style="margin-top: 105px !important;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mb-5">
+                        <!-- Featured Details -->
+                        <section class="section" id="featured">
+                            <div class="detail">
+                                <img src="./assets/blogImages/blogTitle/<?php echo !empty($blog_row['image']) ? $blog_row['image'] : 'default.jpg'; ?>"
+                                    style="width: 500px; height: 300px; object-fit: cover;"
+                                    class="img-fluid" alt="Blog Image">
+                                <div class="post-cat mt-5">
+                                    <div class="meta mt-3">
+                                        <a class="profile" href="#"><i class="fas fa-user ml-2"></i>
+                                            <span><?php echo !empty($blog_row['Author']) ? $blog_row['Author'] : 'Unknown'; ?></span>
+                                        </a> -
+                                        <span><?php echo !empty($blog_row['date']) ? $blog_row['date'] : 'No Date'; ?></span>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                                <div class="article mt-3">
+                                    <h1><?php echo !empty($blog_row['heading']) ? $blog_row['heading'] : 'No Title'; ?></h1>
 
-                        <!-- Gallery Section -->
-                        <div class="row">
-                            <section class="gallery_body">
-                                <ul>
-                                <?php
-                                // Move the pointer back to the first row for images
-                                mysqli_data_seek($blog_result, 0); // Reset the pointer to the beginning of the result set
-                                while ($image_row = mysqli_fetch_assoc($blog_result)) {
-                                        ?>
-                                                <li>
-                                                    <a href="">
-                                                        <figure class="gallery_figure">
-                                                            <img class="figure_img"
-                                                                src='./assets/blogImages/blogGalleries/<?php echo $image_row['blog_images']; ?>'>
+                                    <?php
+                                    $content = !empty($blog_row['content']) ? $blog_row['content'] : 'No content available.';
+                                    $paragraphs = explode('.', $content);
 
-                                                        </figure>
-                                                    </a>
-                                                </li>
-                                <?php
+                                    foreach ($paragraphs as $paragraph) {
+                                        if (!empty(trim($paragraph))) {
+                                            echo '<p>' . htmlspecialchars(trim($paragraph)) . '.</p>';
+                                        }
                                     }
                                     ?>
-                                            </ul>
-                                        </section>
-                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
-                                <!-- End of Content Row -->
+                </div>
+            </div>
+        </div>
 
-                    <?php
-                        } else {
-                         echo "Error: " . mysqli_error($con);  // For debugging
+        <!-- Gallery Section -->
+        <div class="row">
+            <section class="gallery_body">
+                <ul>
+                <?php
+                // Fetch only images separately
+                $image_sql = "SELECT blog_images FROM blog_images WHERE blog_id = $id";
+                $image_result = mysqli_query($con, $image_sql);
+
+                if ($image_result) {
+                    while ($image_row = mysqli_fetch_assoc($image_result)) {
+                        if (!empty($image_row['blog_images'])) {
+                            echo "<li>
+                                    <a href=''>
+                                        <figure class='gallery_figure'>
+                                            <img class='figure_img' src='./assets/blogImages/blogGalleries/{$image_row['blog_images']}'>
+                                        </figure>
+                                    </a>
+                                  </li>";
                         }
-                     }
-                        ?>
+                    }
+                }
+                ?>
+                </ul>
+            </section>
+        </div>
+    </div>
+    <!-- End of Content Row -->
+<?php
+}
+?>
+
 
 
                     <!-- Footer -->

@@ -1,14 +1,12 @@
 <?php include("header.php")?>
 
-
 <?php
-
-
 if (!isset($_REQUEST['blog_id']) || empty($_REQUEST['blog_id'])) {
     die("Invalid blog ID.");
 }
 
 $blog_id = mysqli_real_escape_string($con, $_REQUEST['blog_id']);
+
 $blog_single_sql = "SELECT * FROM blogs WHERE id ='$blog_id'";
 $single_result = mysqli_query($con, $blog_single_sql);
 
@@ -17,7 +15,13 @@ if (!$single_result) {
 }
 
 if ($single_row = mysqli_fetch_assoc($single_result)) {
-    $blog_image = $single_row['image']; // No need for urlencode() here, it's not necessary for file paths
+    $current_views = (int) $single_row['views'];  
+    $new_views = $current_views + 1;
+
+    $update_views_sql = "UPDATE blogs SET views = '$new_views' WHERE id = '$blog_id'";
+    mysqli_query($con, $update_views_sql);
+
+    $blog_image = $single_row['image']; 
 ?>
     <div class="header"
     style="background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,.5) 100%), url('./adminPanel/assets/blogImages/blogTitle/<?php echo $blog_image; ?>');">
@@ -69,12 +73,15 @@ if ($single_row = mysqli_fetch_assoc($single_result)) {
                     ?>
                 </div>
             </div>
+
+           
         </div>
     </section>
 
 <?php
 }
 ?>
+
 
 
 

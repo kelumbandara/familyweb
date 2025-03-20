@@ -10,10 +10,10 @@ dropArea.addEventListener('click', function () {
 // Handle file selection
 inputFile.addEventListener('change', function () {
 	const file = this.files[0];
-	if (file && file.type.startsWith('image/') && file.size < 2000000) {
+	if (file && file.type.startsWith('image/') && file.size < 3000000) {
 		createThumbnail(file);
 	} else {
-		alert('Must be an image and less than 2MB');
+		alert('Must be an image and less than 3MB');
 	}
 });
 
@@ -29,10 +29,10 @@ dropArea.addEventListener('drop', function (e) {
 	e.preventDefault();
 	inputFile.files = e.dataTransfer.files;
 	const file = e.dataTransfer.files[0];
-	if (file && file.type.startsWith('image/') && file.size < 2000000) {
+	if (file && file.type.startsWith('image/') && file.size < 3000000) {
 		createThumbnail(file);
 	} else {
-		alert('Must be an image and less than 2MB');
+		alert('Must be an image and less than 3MB');
 	}
 });
 

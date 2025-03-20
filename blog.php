@@ -1,17 +1,17 @@
 <?php include("header.php")?>
 <link rel="stylesheet" href="./assets/css/blog.css">
 <div class="header">
-        Blog Page
+    බ්ලොග් පිටුව
     </div>
     <div class="topHeadlines">
         <div class="left">
             <div class="title">
-                <h2>Breaking News</h2>
+                <h2>උණුසුම් පුවත්</h2>
             </div>
             <?php
                 $n = 1;
                 $offset = $n - 1;
-                $sql = "SELECT * FROM blogs ORDER BY id ASC LIMIT 1 OFFSET $offset"; 
+                $sql = "SELECT * FROM blogs ORDER BY id ASC LIMIT 1 OFFSET $offset "; 
                 $result = mysqli_query($con, $sql);
 
                 $row=mysqli_fetch_assoc($result);
@@ -38,7 +38,7 @@
         </div>
         <div class="right">
             <div class="title">
-                <h2>Top Headlines</h2>
+                <h2>විශේෂාංග</h2>
             </div>
             <div class="topNews">
                 <?php
@@ -71,65 +71,13 @@
         </div>
     </div>
     <div class="page2">
-        <div class="news" id="sportsNews">
-            <div class="title">
-                <h2>Sports News</h2>
-            </div>
-            <div class="newsBox">
+       
 
-            <?php
-                    $category="news";
-                    $allblogs="SELECT * FROM blogs WHERE Category='$category' ORDER BY id ASC LIMIT 5;";
-                    $allResult=mysqli_query($con,$allblogs);
-                        while($row2=mysqli_fetch_assoc($allResult)){
-                            ?>
-                <div class="newsCard">
-                    <div class="img">
-                        <img src="./adminPanel/assets/blogImages/blogTitle/<?php echo $row2['image']?>" alt="">
-                    </div>
-                    <div class="text">
-                        <div class="title">
-                            <a href="./blog_detail.php?blog_id=<?php echo $row2['id']?>"> <p><?php echo $row2['heading']?></p></a>
-                        </div>
-                    </div>
-                </div>
-                <?php
-                        }
-                        ?>
-            </div>
-        </div>
-
-        <div class="news" id="techNews">
-            <div class="title">
-                <h2>Technology News</h2>
-            </div>
-            <div class="newsBox">
-                
-            <?php
-                    $category="opinion";
-                    $allblogs="SELECT * FROM blogs WHERE Category='$category' ORDER BY id ASC LIMIT 5;";
-                    $allResult=mysqli_query($con,$allblogs);
-                        while($row2=mysqli_fetch_assoc($allResult)){
-                            ?>
-                <div class="newsCard">
-                    <div class="img">
-                        <img src="./adminPanel/assets/blogImages/blogTitle/<?php echo $row2['image']?>" alt="">
-                    </div>
-                    <div class="text">
-                        <div class="title">
-                        <a href="./blog_detail.php?blog_id=<?php echo $row2['id']?>"> <p><?php echo $row2['heading']?></p></a>
-                        </div>
-                    </div>
-                </div>
-                <?php
-                        }
-                        ?>
-            </div>
-        </div>
+        
 
         <div class="news" id="businessNews">
             <div class="title">
-                <h2>Business News</h2>
+                <h2>බ්ලොග්</h2>
             </div>
             <div class="newsBox">
                 <?php

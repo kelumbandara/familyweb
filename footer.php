@@ -3,7 +3,7 @@
         <section class="footer_sec">
             <div class="container">
                 <div class="sec aboutus">
-                    <h2>About Us</h2>
+                    <h2>අප ගැන</h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quod cupiditate,
                         sapiente vitae odio mollitia. Id molestias similique dolor consequuntur accusantium dicta amet
                         temporibus iusto explicabo quia, corporis at sed sapiente quibusdam doloribus perspiciatis?
@@ -19,19 +19,18 @@
 
 
                 <div class="sec quickLinks">
-                    <h2>Quick Links</h2>
+                    <h2>ඉක්මන් සබැඳි</h2>
                     <ul>
                         <li><a href="">About</a></li>
                         <li><a href="">FAQ</a></li>
                         <li><a href="">Privacy Policy</a></li>
                         <li><a href="">Help</a></li>
                         <li><a href="">Terms & Consitions</a></li>
-                        <li><a href="">Contact Us</a></li>
                     </ul>
                 </div>
 
                 <div class="sec contactInfo">
-                    <h2>Contact Info</h2>
+                    <h2>සම්බන්ධතා තොරතුරු</h2>
                     <ul class="info">
                         <li>
                             <span><i class='bx bxs-map'></i></span>

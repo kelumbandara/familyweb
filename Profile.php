@@ -501,9 +501,10 @@
                                                                                 </div>
 
                                                                                 <div class="form-group">
-                                                                                    <label
-                                                                                        for="category">Category</label>
-
+                                                                                    <label for="category">Category</label>
+                                                                                    <select id="category" name="category">
+                                                                                        <option value="blog">Blog</option>
+                                                                                    </select>
                                                                                 </div>
 
                                                                                 <div class="form-group">
@@ -593,41 +594,49 @@
                                                     </thead>
 
                                                     <tbody>
-    <?php
-    include './backEnd/connection.php';
+                                                <?php
+                                                include './backEnd/connection.php';
 
-    // Ensure the query was executed successfully
-    $sql = "SELECT * FROM image_gallery";
-    $result = mysqli_query($con, $sql);
-    if (!$result) {
-        echo "Error executing query: " . mysqli_error($con);
-        exit;
-    }
+                                                // Fetch images from the database
+                                                $sql = "SELECT * FROM image_gallery";
+                                                $result = mysqli_query($con, $sql);
+                                                if (!$result) {
+                                                    echo "Error executing query: " . mysqli_error($con);
+                                                    exit;
+                                                }
 
-    while ($row = mysqli_fetch_assoc($result)) {
-        $image_name = $row['image'];
-        $image_name = str_replace('__', ' (', $image_name);
-        $image_name = str_replace('_', ')', $image_name);
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    $image_name = $row['image'];
 
-        ?>
-        <tr>
-            <td class="tb_data">
-                <!-- Fixed image path with normalized filename -->
-                <img class="table_image" src="./adminPanel/assets/imagesLibrary/<?php echo htmlspecialchars($image_name); ?>" alt="Image">
-            </td>
-            <td>
-                <?php echo htmlspecialchars($row['category']); ?>
-            </td>
-            <td>
-                <a class="table_delete_btn" href="./adminPanel/include/imageGalleryBack.php?img_id_emp=<?php echo $row['id']; ?>">
-                    Delete
-                </a>
-            </td>
-        </tr>
-    <?php
-    }
-    ?>
-</tbody>
+                                                    // Fix filenames based on known patterns
+                                                    if (strpos($image_name, '__') !== false) {
+                                                        // Fix 'pexels' style images
+                                                        $image_name = str_replace('__', ' (', $image_name);
+                                                        $image_name = str_replace('_', ')', $image_name);
+                                                    } else {
+                                                        // Replace underscores with spaces (for Blog_2.jpg cases)
+                                                        $image_name = str_replace('_', ' ', $image_name);
+                                                    }
+
+                                                ?>
+                                                    <tr>
+                                                        <td class="tb_data">
+                                                            <!-- Use corrected filename -->
+                                                            <img class="table_image" src="./adminPanel/assets/imagesLibrary/<?php echo htmlspecialchars($image_name); ?>" alt="Image">
+                                                        </td>
+                                                        <td>
+                                                            <?php echo htmlspecialchars($row['category']); ?>
+                                                        </td>
+                                                        <td>
+                                                            <a class="table_delete_btn" href="./adminPanel/include/imageGalleryBack.php?img_id=<?php echo $row['id']; ?>">
+                                                                Delete
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                <?php
+                                                }
+                                                ?>
+                                            </tbody>
 
                                             </div>
                                         </div>

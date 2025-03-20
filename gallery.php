@@ -1,7 +1,7 @@
 <?php include("header.php")?>
     
     <div class="header">
-        Gallery Page
+      ඵින්තූර පිටුව
     </div>
 
 
@@ -11,10 +11,9 @@
             <div class="row">
                 <div class="filter-buttons">
                     <ul id="filter-btns">
-                        <li class="active" data-target="all">ALL</li>
-                        <li data-target="family">FAMILY</li>
-                        <li data-target="office">OFFICE</li>
-                    
+                        <li class="active" data-target="all"><h4>සියලුම පින්තූර</h4></li>
+                        <li data-target="family"><h4>පවුල</h4></li>
+                        <li data-target="office"><h4>කාර්‍යාලය</h4></li>
                     </ul>
                 </div>
             </div>
@@ -28,8 +27,15 @@
                         
                             $image_name = $gallery_row['image'];
 
+                           // Fix filenames based on known patterns
+                           if (strpos($image_name, '__') !== false) {
+                            // Fix 'pexels' style images
                             $image_name = str_replace('__', ' (', $image_name);
                             $image_name = str_replace('_', ')', $image_name);
+                        } else {
+                            // Replace underscores with spaces (for Blog_2.jpg cases)
+                            $image_name = str_replace('_', ' ', $image_name);
+                        }
                             ?>
                             <div class="item" data-id="<?php echo $gallery_row['category']; ?>">
                                 <div class="inner">

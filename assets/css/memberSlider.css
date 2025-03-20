@@ -156,7 +156,7 @@ body {
         font-size: 45px;
     }
     .carousel {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 2fr);
     }
 }
 
@@ -174,7 +174,7 @@ body {
         font-size: 40px;
     }
     .carousel {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 2fr);
     }
 }
 
@@ -204,7 +204,7 @@ body {
 
 
 /* Adjust Layout for Tablets */
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 710px) {
     .wrapper{
         display: flex;
         align-items: center;

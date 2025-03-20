@@ -115,7 +115,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
             <div class="login_profile">
                 <?php if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])): ?>
                 <div class="profile_button">
-                    <a href="#" onclick="toggleMenu()">
+                    <a  onclick="toggleMenu()">
                         <img src="<?php echo htmlspecialchars($profileImage); ?>" alt="User Profile">
                     </a>
                 </div>
