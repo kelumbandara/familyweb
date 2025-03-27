@@ -2,7 +2,7 @@
 
 $server="localhost";
 $name="root";
-$pass="";
+$pass="sKy@1234";
 $db="family_tree";
 
 $con=mysqli_connect($server,$name,$pass,$db);
