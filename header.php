@@ -41,7 +41,7 @@
 <body>
     <?php
 session_start();
-include './backEnd/connection.php';
+include './adminPanel/include/connection.php';
 
 // Default profile image
 $profileImage = "./assets/images/Member images/avatar1.png";

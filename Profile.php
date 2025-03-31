@@ -80,7 +80,7 @@
                         <div class="tab-pane fade active show" id="account-general">
                             <?php
                             session_start();
-                            include 'backEnd/connection.php';
+                            include './adminPanel/include/connection.php';
                             if(isset($_SESSION['UsName'])){  
                                 $user=$_SESSION["UsName"];
 
@@ -184,7 +184,7 @@
                         <!-- changing the password -->
                         <div class="tab-pane fade" id="account-change-password">
                             <?php
-                                include 'backEnd/connection.php';
+                                include './adminPanel/include/connection.php';
                                 if (isset($_SESSION['UsName'])) {
                                     $user = $_SESSION["UsName"];
                                     $query = "SELECT * FROM register WHERE user_name='$user'";
@@ -262,7 +262,7 @@
                         </div>
                         <div class="tab-pane fade" id="account-info">
                             <?php
-                            include 'backEnd/connection.php';
+                            include './adminPanel/include/connection.php';
                             if(isset($_SESSION['UsName'])){  
                                 $user=$_SESSION["UsName"];
 
@@ -403,7 +403,7 @@
 
                                                     <tbody>
                                                         <?php
-                                                    include './backEnd/connection.php';
+                                                    include './adminPanel/include/connection.php';
 
                                                     $sql = "SELECT * FROM blogs";
                                                     $result = mysqli_query($con, $sql);
@@ -595,7 +595,7 @@
 
                                                     <tbody>
                                                 <?php
-                                                include './backEnd/connection.php';
+                                                include './adminPanel/include/connection.php';
 
                                                 // Fetch images from the database
                                                 $sql = "SELECT * FROM image_gallery";
