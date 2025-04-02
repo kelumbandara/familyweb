@@ -12,7 +12,7 @@ if (isset($_POST['img_submit'])) {
        $fileTmpName = $_FILES['images']['tmp_name'][$index];
        $fileSize = $_FILES['images']['size'][$index];
        $fileError = $_FILES['images']['error'][$index];
-       $uploadDir = "../assets/imagesLibrary/" . $fileName;
+       $uploadDir = "../assets/imageslibrary/" . $fileName;
 
        // Validate file type and size
        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
@@ -70,7 +70,7 @@ foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
     $fileTmpName = $_FILES['images']['tmp_name'][$index];
     $fileSize = $_FILES['images']['size'][$index];
     $fileError = $_FILES['images']['error'][$index];
-    $uploadDir = "../assets/imagesLibrary/" . $fileName;
+    $uploadDir = "../assets/imageslibrary/" . $fileName;
 
     // Validate file type and size
     $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
@@ -108,7 +108,7 @@ foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
     if ($result) {
         if (move_uploaded_file($fileTmpName, $uploadDir)) {
             echo "File $fileName uploaded successfully.";
-            header("Location: ../../Profile.php?success=1#add-images-to-gallery");
+            header("Location: ../../profile.php?success=1#add-images-to-gallery");
         } else {
             echo "Error moving file $fileName.";
         }
@@ -159,7 +159,7 @@ if (isset($_REQUEST['img_id'])) {
 
         if ($result) {
             // Delete the image file from the server
-            $imagePath = "../assets/imagesLibrary/" . $currentImage;
+            $imagePath = "../assets/imageslibrary/" . $currentImage;
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
@@ -199,13 +199,13 @@ if (isset($_REQUEST['img_id'])) {
 
         if ($result) {
             // Delete the image file from the server
-            $imagePath = "../assets/imagesLibrary/" . $currentImage;
+            $imagePath = "../assets/imageslibrary/" . $currentImage;
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
 
             // Redirect after successful deletion
-            header("Location: ../../Profile.php?error=deleted#add-images-to-gallery");
+            header("Location: ../../profile.php?error=deleted#add-images-to-gallery");
             exit;
         }
     }

@@ -9,7 +9,7 @@ if (isset($_POST['login'])) {
 
     // Validate empty input fields
     if (empty($usName) || empty($password)) {
-        header('Location: ../loginPage.php?error=emptyFields');
+        header('Location: ../loginpage.php?error=emptyFields');
         exit();
     }
 
@@ -32,13 +32,13 @@ if (isset($_POST['login'])) {
                 header("Location: ../index.php?admin"); // Redirect to the admin home page
                 exit();
             } else {
-                header('Location: ../loginPage.php?error=wrongPassword');
+                header('Location: ../loginpage.php?error=wrongPassword');
                 exit();
             }
         }
         mysqli_stmt_close($stmt1);
     } else {
-        header('Location: ../loginPage.php?error=queryError');
+        header('Location: ../loginpage.php?error=queryError');
         exit();
     }
 
@@ -63,22 +63,22 @@ if (isset($_POST['login'])) {
                 exit();
             } else {
                 // If password doesn't match, show the error message
-                header('Location: ../loginPage.php?error=wrongPassword');
+                header('Location: ../loginpage.php?error=wrongPassword');
                 exit();
             }
         } else {
             // User not found or not approved
-            header('Location: ../loginPage.php?error=userNotExistsOrNotApproved');
+            header('Location: ../loginpage.php?error=userNotExistsOrNotApproved');
             exit();
         }
     
         mysqli_stmt_close($stmt);
     } else {
-        header('Location: ../loginPage.php?error=queryError');
+        header('Location: ../loginpage.php?error=queryError');
         exit();
     }
 } else {
-    header('Location: ../loginPage.php');
+    header('Location: ../loginpage.php');
     exit();
 }
 ?>

@@ -20,7 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="./assets/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <!-- <link rel="stylesheet" href="./assets/css/addBlog.css"> -->
+    <!-- <link rel="stylesheet" href="./assets/css/addblog.css"> -->
 
     <link rel="stylesheet" href="./assets/css/style.css">
 
@@ -28,7 +28,7 @@
 
     <link rel="stylesheet" href="../assets/css/lightbox.min.css">
 
-    <link rel="stylesheet" href="./assets/css/addBlog.css">
+    <link rel="stylesheet" href="./assets/css/addblog.css">
 
 </head>
 
@@ -225,11 +225,11 @@
                                                 <article class="box">
                                                     <div class="article-wrapper">
                                                         <figure>
-                                                            <img src="./assets/blogImages/blogTitle/<?php echo $row['image']; ?>"
+                                                            <img src="./assets/blogimages/blogtitle/<?php echo $row['image']; ?>"
                                                                 alt="">
                                                         </figure>
                                                         <div class="article-body">
-                                                            <a href="viewBlogs.php?blog_id=<?php echo $row['id']; ?>"
+                                                            <a href="viewblogs.php?blog_id=<?php echo $row['id']; ?>"
                                                                 style="text-decoration: none;">
                                                                 <h2>
                                                                     <?php echo $row['heading']; ?>
@@ -253,7 +253,7 @@
                                                                         data-target="#UpdateModal-<?php echo $row['id']; ?>">
                                                                         Edit More
                                                                     </a>
-                                                                    <form action="./include/blogAddBack.php"
+                                                                    <form action="./include/blogaddback.php"
                                                                         method="POST" enctype="multipart/form-data">
                                                                         <div class="modal fade"
                                                                             id="UpdateModal-<?php echo $row['id']; ?>"
@@ -361,7 +361,7 @@
                                                                 <div class="col-lg-6"
                                                                     style="position: absolute; bottom: 10px; right: 0px;">
                                                                     <?php if (count($contentArray) > 25) { ?>
-                                                                    <a href="viewBlogs.php?blog_id=<?php echo $row['id']; ?>"
+                                                                    <a href="viewblogs.php?blog_id=<?php echo $row['id']; ?>"
                                                                         class="read-more-btn">Read more</a>
                                                                     <?php } ?>
                                                                 </div>
@@ -401,34 +401,38 @@
                                             </div>
                                         </div>
                                         <div class="row">
-    <div class="portfolio-gallery">
+                                            <div class="portfolio-gallery">
+                                                <?php
+                                                $gallery_sql = "SELECT * FROM image_gallery";
+                                                $gallery_result = mysqli_query($con, $gallery_sql);
+                                                if ($gallery_result) {
+                                                    while ($gallery_row = mysqli_fetch_assoc($gallery_result)) {
+                                                    
+                                                        $image_name = $gallery_row['image'];
 
-        <?php
-        $gallery_sql = "SELECT * FROM image_gallery";
-        $gallery_result = mysqli_query($con, $gallery_sql);
-        if ($gallery_result) {
-            while ($gallery_row = mysqli_fetch_assoc($gallery_result)) {
-                
-                $image_name = $gallery_row['image'];
-
-                
-                $image_name = str_replace('__', ' (', $image_name);
-                $image_name = str_replace('_', ')', $image_name);
-        ?>
-                <div class="item" data-id="<?php echo htmlspecialchars($gallery_row['category']); ?>">
-                    <div class="inner">
-                        <a href="./assets/imagesLibrary/<?php echo htmlspecialchars($image_name); ?>" data-lightbox="mygallery">
-                            <img src="./assets/imagesLibrary/<?php echo htmlspecialchars($image_name); ?>" alt="portfolio">
-                        </a>
-                    </div>
-                </div>
-        <?php
-            }
-        }
-        ?>
-
-    </div>
-</div>
+                                                    // Fix filenames based on known patterns
+                                                    if (strpos($image_name, '__') !== false) {
+                                                        // Fix 'pexels' style images
+                                                        $image_name = str_replace('__', ' (', $image_name);
+                                                        $image_name = str_replace('_', ')', $image_name);
+                                                    } else {
+                                                        // Replace underscores with spaces (for Blog_2.jpg cases)
+                                                        $image_name = str_replace('_', ' ', $image_name);
+                                                    }
+                                                        ?>
+                                                        <div class="item" data-id="<?php echo $gallery_row['category']; ?>">
+                                                            <div class="inner">
+                                                                <a href="./assets/imageslibrary/<?php echo $image_name; ?>" data-lightbox="mygallery">
+                                                                    <img src="./assets/imageslibrary/<?php echo $image_name; ?>" alt="portfolio">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </section>

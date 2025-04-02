@@ -8,7 +8,7 @@ if (isset($_REQUEST["register"])) {
 
     // Validate empty fields
     if (empty($username) || empty($email) || empty($password)) {
-        header("Location: ../loginPage.php?error=emptyfields");
+        header("Location: ../loginpage.php?error=emptyfields");
         exit();
     }
 
@@ -20,8 +20,8 @@ if (isset($_REQUEST["register"])) {
     $result = mysqli_stmt_get_result($stmt);
 
     if (mysqli_num_rows($result) > 0) {
-        // Redirect to loginPage.php with error (username exists)
-        header("Location: ../loginPage.php?error=duplicate");
+        // Redirect to loginpage.php with error (username exists)
+        header("Location: ../loginpage.php?error=duplicate");
         exit();
     }
 
@@ -51,7 +51,7 @@ if (isset($_REQUEST["register"])) {
             // Check if the user is approved by admin (aprove = 1)
             if ($row['aprove'] == 0) {
                 // If not approved, inform the user to wait for admin approval
-                header("Location: ../loginPage.php?error=waitingForApproval");
+                header("Location: ../loginpage.php?error=waitingForApproval");
                 exit();
             }
 
@@ -66,12 +66,12 @@ if (isset($_REQUEST["register"])) {
                 exit();
             } else {
                 // If password doesn't match (though it should)
-                header('Location: ../loginPage.php?error=wrongPassword');
+                header('Location: ../loginpage.php?error=wrongPassword');
                 exit();
             }
         } else {
             // If the user is not found or not approved
-            header('Location: ../loginPage.php?error=userNotExistsOrNotApproved');
+            header('Location: ../loginpage.php?error=userNotExistsOrNotApproved');
             exit();
         }
 

@@ -12,7 +12,7 @@ if (isset($_REQUEST['update'])) {
     $Image = $_FILES['ImgFile']['name'];
     $img_size = $_FILES['ImgFile']['size'];
     $temp_name = $_FILES['ImgFile']['tmp_name'];
-    $folder = "../assets/images/Member images/" . $Image;
+    $folder = "../assets/images/memberimages/" . $Image;
 
     // Check image size
     if ($img_size > 10000000) {
@@ -32,8 +32,8 @@ if (isset($_REQUEST['update'])) {
             $image_data = $Image;
 
             // Delete old image if it exists
-            if (!empty($currentImage) && file_exists("../assets/images/Member images/" . $currentImage)) {
-                unlink("../assets/images/Member images/" . $currentImage);
+            if (!empty($currentImage) && file_exists("../assets/images/memberimages/" . $currentImage)) {
+                unlink("../assets/images/memberimages/" . $currentImage);
             }
         } else {
             $image_data = $currentImage; // Retain old image if no new image is uploaded
@@ -71,7 +71,7 @@ if (isset($_REQUEST["submitPassword"])) {
 
     // Validate the password (optional)
     if (empty($compassword)) {
-        header("Location: ../Profile.php?error=emptyPassword");
+        header("Location: ../profile.php?error=emptyPassword");
         exit();
     }
 
@@ -88,7 +88,7 @@ if (isset($_REQUEST["submitPassword"])) {
 
         if ($result) {
             // Redirect to the profile page after successful password update
-            header("Location: ../Profile.php?editPasswordSuccess");
+            header("Location: ../profile.php?editPasswordSuccess");
             exit();
         } else {
             // Handle query execution failure

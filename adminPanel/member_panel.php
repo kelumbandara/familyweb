@@ -20,7 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="./assets/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="./assets/css/addBlog.css">
+    <link rel="stylesheet" href="./assets/css/addblog.css">
 
     <style>
         .preview-image {
@@ -304,7 +304,7 @@ if (isset($_GET['appstatus'])) {
 
                                                         if ($aproveRow = mysqli_fetch_assoc($aproveRequest)) { ?>
                                                             <td>
-                                                            <a class="table_delete_btn" href="include/memberAprove.php?member_aprovel=<?php echo $aproveRow['id']; ?>&value=1">
+                                                            <a class="table_delete_btn" href="include/memberaprove.php?member_aprovel=<?php echo $aproveRow['id']; ?>&value=1">
                                                                 Approve
                                                             </a>
                                                             </td>
@@ -340,7 +340,7 @@ if (isset($_GET['appstatus'])) {
 
                                                         // Check if the user is approved
                                                         if ($aproveRow = mysqli_fetch_assoc($aproveRequest)) { ?>
-                                                            <a class="table_delete_btn" href="./include/memberAprove.php?member_disaprovel=<?php echo $aproveRow['id']; ?>&value=0">
+                                                            <a class="table_delete_btn" href="./include/memberaprove.php?member_disaprovel=<?php echo $aproveRow['id']; ?>&value=0">
                                                                 Disapprove
                                                             </a>
                                                         <?php
@@ -376,7 +376,7 @@ if (isset($_GET['appstatus'])) {
 
         // Check if the user exists for deletion
         if ($deleteRow = mysqli_fetch_assoc($deleteRequest)) { ?>
-            <a class="table_delete_btn" href="./include/memberAprove.php?member_delete=<?php echo $deleteRow['id']; ?>">Delete</a>
+            <a class="table_delete_btn" href="./include/memberaprove.php?member_delete=<?php echo $deleteRow['id']; ?>">Delete</a>
         <?php
         } else {
             // If no user found, display an error message

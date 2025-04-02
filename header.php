@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="./assets/images/images.png">
     <title>Skynet</title>
-    <link rel="stylesheet" href="./assets/css/memberSlider.css">
+    <link rel="stylesheet" href="./assets/css/memberslider.css">
     <!-- Linking Google Fonts for Icons -->
 <!-- Google Fonts -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,200,0,0" />
@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
 <!-- Internal CSS -->
-<link rel="stylesheet" href="./assets/css/homePage.css">
+<link rel="stylesheet" href="./assets/css/homepage.css">
 
 
 <link rel="stylesheet" href="./assets/css/lightbox.min.css">
@@ -44,7 +44,7 @@ session_start();
 include './adminPanel/include/connection.php';
 
 // Default profile image
-$profileImage = "./assets/images/Member images/avatar1.png";
+$profileImage = "./assets/images/memberimages/avatar1.png";
 
 // Check if the user is logged in (employee or admin)
 if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
@@ -62,9 +62,9 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
         $result = mysqli_stmt_get_result($stmt);
 
         if ($row = mysqli_fetch_assoc($result)) {
-            $profileImage = !empty($row['image']) ? "./assets/images/Member images/{$row['image']}" : $profileImage;
+            $profileImage = !empty($row['image']) ? "./assets/images/memberimages/{$row['image']}" : $profileImage;
         } else {
-            header("Location: loginPage.php");
+            header("Location: loginpage.php");
             exit();
         }
 
@@ -72,7 +72,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
         // Admin session
         $user = $_SESSION["adminName"];
         $role = 'admin'; // Admin role
-        $profileImage = "./assets/images/Member images/avatar1.png"; // Custom admin image, change as needed
+        $profileImage = "./assets/images/memberimages/avatar1.png"; // Custom admin image, change as needed
 
         // Securely fetch admin data using prepared statements
         $query = "SELECT * FROM admin_login WHERE user_name = ?";
@@ -83,9 +83,9 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
 
         if ($row = mysqli_fetch_assoc($result)) {
             // Profile image for admin if any, else default image
-            $profileImage = !empty($row['image']) ? "./assets/images/Member images/{$row['image']}" : $profileImage;
+            $profileImage = !empty($row['image']) ? "./assets/images/memberimages/{$row['image']}" : $profileImage;
         } else {
-            header("Location: loginPage.php");
+            header("Location: loginpage.php");
             exit();
         }
     }
@@ -106,7 +106,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
 
                 <ul class="nav_links">
                     <li><a href="index.php">මූල පිටුව</a></li>
-                    <li><a href="#">පවුල් රාමුව</a></li>
+                    <!-- <li><a href="#">පවුල් රාමුව</a></li> -->
                     <li><a href="blog.php"> පුවත් සහ යාවත්කාලීන</a></li>
                     <li><a href="gallery.php">ගැලරිය</a></li>
                 </ul>
@@ -164,7 +164,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                 </div>
                 <?php else: ?>
                 <div class="login_button">
-                    <a href="loginPage.php"><i class='bx bx-log-in'></i> Login</a>
+                    <a href="loginpage.php"><i class='bx bx-log-in'></i> Login</a>
                 </div>
                 <?php endif; ?>
             </div>
@@ -185,16 +185,16 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
             </div>
 
             <ul class="nav_links">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="#">Family Tree</a></li>
-                <li><a href="blog.php">News & Updates</a></li>
-                <li><a href="gallery.php">Gallery</a></li>
+                    <li><a href="index.php">මූල පිටුව</a></li>
+                    <!-- <li><a href="#">පවුල් රාමුව</a></li> -->
+                    <li><a href="blog.php"> පුවත් සහ යාවත්කාලීන</a></li>
+                    <li><a href="gallery.php">ගැලරිය</a></li>
             </ul>
         </div>
 
         <div class="login_profile">
             <div class="login_button">
-                <a href="loginPage.php"><i class='bx bx-log-in'></i> Login</a>
+                <a href="loginpage.php"><i class='bx bx-log-in'></i> Login</a>
             </div>
         </div>
     </div>

@@ -319,7 +319,7 @@ if (isset($_REQUEST['blog_id'])) {
                         <!-- Featured Details -->
                         <section class="section" id="featured">
                             <div class="detail">
-                                <img src="./assets/blogImages/blogTitle/<?php echo !empty($blog_row['image']) ? $blog_row['image'] : 'default.jpg'; ?>"
+                                <img src="./assets/blogimages/blogtitle/<?php echo !empty($blog_row['image']) ? $blog_row['image'] : 'default.jpg'; ?>"
                                     style="width: 500px; height: 300px; object-fit: cover;"
                                     class="img-fluid" alt="Blog Image">
                                 <div class="post-cat mt-5">
@@ -366,7 +366,7 @@ if (isset($_REQUEST['blog_id'])) {
                             echo "<li>
                                     <a href=''>
                                         <figure class='gallery_figure'>
-                                            <img class='figure_img' src='./assets/blogImages/blogGalleries/{$image_row['blog_images']}'>
+                                            <img class='figure_img' src='./assets/blogimages/bloggalleries/{$image_row['blog_images']}'>
                                         </figure>
                                     </a>
                                   </li>";

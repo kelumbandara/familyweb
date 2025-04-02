@@ -20,7 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="./assets/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="./assets/css/addBlog.css">
+    <link rel="stylesheet" href="./assets/css/addblog.css">
 
 </head>
 
@@ -188,7 +188,7 @@
 
                     <!-- Page Heading -->
                     <h1 class="mb-5">News & Blogger Submission Form</h1>
-                    <form action="./include/blogAddBack.php" method="post" enctype="multipart/form-data">
+                    <form action="./include/blogaddback.php" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-lg-6 mb-4">
                                 <div class="container_drop">
@@ -291,7 +291,7 @@
                                                 <tr>
                                                     <td class="tb_data">
                                                         <img class="table_image"
-                                                            src="./assets/blogImages/blogTitle/<?php echo $row['image']?>">
+                                                            src="./assets/blogimages/blogtitle/<?php echo $row['image']?>">
                                                     </td>
                                                     
                                                     <td><?php echo $row['heading']?></td>
@@ -300,7 +300,7 @@
                                                     <td><?php echo $row['Author']?></td>
                                                     <td><?php echo $row['Category']?></td>
                                                     <td>
-                                                    <a class="table_delete_btn" href="./include/blogAddBack.php?blog_delete=<?php echo $row["id"] ?>"> Delete</a>
+                                                    <a class="table_delete_btn" href="./include/blogaddback.php?blog_delete=<?php echo $row["id"] ?>"> Delete</a>
                                                     </td>
                                                 </tr>
 
@@ -382,7 +382,7 @@
 
     <script src="./assets/js/script.js"></script>
 
-    <script src="./assets/js/addBlog_multiimg.js"></script>
+    <script src="./assets/js/addblog_multiimg.js"></script>
 
 
 </body>

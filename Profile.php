@@ -14,7 +14,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 
-    <link rel="stylesheet" href="./adminPanel/assets/css/addBlog.css">
+    <link rel="stylesheet" href="./adminPanel/assets/css/addblog.css">
 
 
     <!-- Custom fonts for this template-->
@@ -91,19 +91,19 @@
                                 ?>
 
 
-                            <form action="backEnd/proUpdate.php" method="post" enctype="multipart/form-data">
+                            <form action="backend/proupdate.php" method="post" enctype="multipart/form-data">
                                 <div class="card-body media align-items-center">
                                     <?php
                                     if($row['image']){
                                 ?>
                                     <img src="#" id="newImg"
-                                        onerror="this.src='./assets/images/Member images/<?php echo $row['image'] ?>'"
+                                        onerror="this.src='./assets/images/memberimages/<?php echo $row['image'] ?>'"
                                         class="d-block ui-w-80">
                                     <?php
                                     }else{
                                 ?>
                                     <img src="#" id="newImg"
-                                        onerror="this.src='./assets/images/Member images/avatar1.png'"
+                                        onerror="this.src='./assets/images/memberimages/avatar1.png'"
                                         class="d-block ui-w-80">
                                     <?php
                                 }
@@ -125,7 +125,7 @@
                                         document.getElementById("InpImg").value = "";
 
                                         // Reset the image preview
-                                        let defaultImg = "<?php echo $row['image'] ? './assets/images/Member images/' . $row['image'] : './assets/images/Member images/avatar1.png'; ?>";
+                                        let defaultImg = "<?php echo $row['image'] ? './assets/images/memberimages/' . $row['image'] : './assets/images/memberimages/avatar1.png'; ?>";
                                         document.getElementById("newImg").src = defaultImg;
                                     });
                                 </script>
@@ -184,7 +184,7 @@
                         <!-- changing the password -->
                         <div class="tab-pane fade" id="account-change-password">
                             <?php
-                                include './adminPanel/include/connection.php';
+                               
                                 if (isset($_SESSION['UsName'])) {
                                     $user = $_SESSION["UsName"];
                                     $query = "SELECT * FROM register WHERE user_name='$user'";
@@ -198,7 +198,7 @@
                                         $showAlert = false;
                                     }
                             ?>
-                            <form action="./backEnd/proUpdate.php" method="post" id="passwordForm">
+                            <form action="./backend/proupdate.php" method="post" id="passwordForm">
                                 <div class="card-body pb-2">
                                     <div class="form-group">
                                         <label class="form-label">Current password</label>
@@ -262,7 +262,7 @@
                         </div>
                         <div class="tab-pane fade" id="account-info">
                             <?php
-                            include './adminPanel/include/connection.php';
+                          
                             if(isset($_SESSION['UsName'])){  
                                 $user=$_SESSION["UsName"];
 
@@ -271,7 +271,7 @@
                                 $result=mysqli_query($con,$query);
                                 $row=mysqli_fetch_assoc($result);
                                 ?>
-                            <form action="./backEnd/proUpdate.php" method="post">
+                            <form action="./backend/proupdate.php" method="post">
                                 <div class="card-body pb-2">
                                     <div class="form-group">
                                         <label class="form-label">Birthday</label>
@@ -307,7 +307,7 @@
                             ?>
                         </div>
                         <div class="tab-pane fade" id="add-blogs">
-                            <form action="./adminPanel/include/blogAddBack.php" method="post"
+                            <form action="./adminPanel/include/blogaddback.php" method="post"
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-lg-6 mb-4">
@@ -403,7 +403,6 @@
 
                                                     <tbody>
                                                         <?php
-                                                    include './adminPanel/include/connection.php';
 
                                                     $sql = "SELECT * FROM blogs";
                                                     $result = mysqli_query($con, $sql);
@@ -414,7 +413,7 @@
                                                         <tr>
                                                             <td class="tb_data">
                                                                 <img class="table_image" style="width: 100px;"
-                                                                    src="./adminPanel/assets/blogImages/blogTitle/<?php echo htmlspecialchars($row['image']); ?>">
+                                                                    src="./adminPanel/assets/blogimages/blogtitle/<?php echo htmlspecialchars($row['image']); ?>">
                                                             </td>
 
                                                             <td>
@@ -444,7 +443,7 @@
 
                                                             <td>
                                                                 <a class="table_delete_btn"
-                                                                    href="./adminPanel/include/blogAddBack.php?blog_delete_emp=<?php echo $row['id']; ?>">Delete</a>
+                                                                    href="./adminPanel/include/blogaddback.php?blog_delete_emp=<?php echo $row['id']; ?>">Delete</a>
                                                             </td>
 
                                                             <td style="width: 1050px !important;">
@@ -452,7 +451,7 @@
                                                                     data-target="#UpdateModal-<?php echo $row['id']; ?>">Edit
                                                                     More</a>
                                                             </td>
-                                                            <form action="./adminPanel/include/blogAddBack.php"
+                                                            <form action="./adminPanel/include/blogaddback.php"
                                                                 method="POST" enctype="multipart/form-data">
                                                                 <div class="modal fade"
                                                                     id="UpdateModal-<?php echo $row['id']; ?>"
@@ -544,7 +543,7 @@
                             <div class="row-new">
                                 <div class="container-img-new">
                                     <!-- File input for image selection -->
-                                    <form id="image-form-new" action="./adminPanel/include/imageGalleryBack.php"
+                                    <form id="image-form-new" action="./adminPanel/include/imagegalleryback.php"
                                         method="POST" enctype="multipart/form-data">
                                         <input type="file" id="file-input-new" name="images[]" multiple
                                             accept="image/png, image/jpeg" onchange="previewNew()">
@@ -595,8 +594,6 @@
 
                                                     <tbody>
                                                 <?php
-                                                include './adminPanel/include/connection.php';
-
                                                 // Fetch images from the database
                                                 $sql = "SELECT * FROM image_gallery";
                                                 $result = mysqli_query($con, $sql);
@@ -622,13 +619,13 @@
                                                     <tr>
                                                         <td class="tb_data">
                                                             <!-- Use corrected filename -->
-                                                            <img class="table_image" src="./adminPanel/assets/imagesLibrary/<?php echo htmlspecialchars($image_name); ?>" alt="Image">
+                                                            <img class="table_image" src="./adminPanel/assets/imageslibrary/<?php echo htmlspecialchars($image_name); ?>" alt="Image">
                                                         </td>
                                                         <td>
                                                             <?php echo htmlspecialchars($row['category']); ?>
                                                         </td>
                                                         <td>
-                                                            <a class="table_delete_btn" href="./adminPanel/include/imageGalleryBack.php?img_id=<?php echo $row['id']; ?>">
+                                                            <a class="table_delete_btn" href="./adminPanel/include/imagegalleryback.php?img_id=<?php echo $row['id']; ?>">
                                                                 Delete
                                                             </a>
                                                         </td>
@@ -776,7 +773,7 @@
 
     <script src="./adminPanel/assets/js/script.js"></script>
 
-    <script src="./adminPanel/assets/js/addBlog_multiimg.js"></script>
+    <script src="./adminPanel/assets/js/addblog_multiimg.js"></script>
 
     <script src="./adminPanel/assets/js/image_drag.js"></script>
 

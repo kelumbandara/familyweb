@@ -1,7 +1,7 @@
 <?php include("header.php")?>
     
     <div class="header">
-      ඵින්තූර පිටුව
+      පින්තූර පිටුව
     </div>
 
 
@@ -39,8 +39,8 @@
                             ?>
                             <div class="item" data-id="<?php echo $gallery_row['category']; ?>">
                                 <div class="inner">
-                                    <a href="./adminPanel/assets/imagesLibrary/<?php echo $image_name; ?>" data-lightbox="mygallery">
-                                        <img src="./adminPanel/assets/imagesLibrary/<?php echo $image_name; ?>" alt="portfolio">
+                                    <a href="./adminPanel/assets/imageslibrary/<?php echo $image_name; ?>" data-lightbox="mygallery">
+                                        <img src="./adminPanel/assets/imageslibrary/<?php echo $image_name; ?>" alt="portfolio">
                                     </a>
                                 </div>
                             </div>

@@ -43,7 +43,7 @@ if (isset($_GET['employe']) && $_GET['employe'] == 'aprove') {
 ?>
     <div class="container">
         <div class="form_box login">
-            <form action="backEnd/loginback.php" method="post">
+            <form action="backend/loginback.php" method="post">
                 <h1>Login</h1>
                 <div class="input_box">
                     <input type="text" placeholder="Username" name="login_Username" >
@@ -68,7 +68,7 @@ if (isset($_GET['employe']) && $_GET['employe'] == 'aprove') {
         </div>
 
         <div class="form_box register">
-            <form action="backEnd/register.php" method="post">
+            <form action="backend/register.php" method="post">
                 <h1>Registration</h1>
                 <div class="input_box">
                     <input type="text" placeholder="Username" name="regi_Username">

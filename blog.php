@@ -17,11 +17,11 @@
                 $row=mysqli_fetch_assoc($result);
             ?>
             <div class="img" id="breakingImg">
-                <img src="./adminPanel/assets/blogImages/blogTitle/<?php echo $row['image']?>" alt="">
+                <img src="./adminPanel/assets/blogimages/blogtitle/<?php echo $row['image']?>" alt="">
             </div>
             <div class="text" id="breakingNews">
                 <div class="title">
-                    <a href="./blog_detail.php?blog_id=<?php echo $row['id']?>">
+                    <a href="./blogdetail.php?blog_id=<?php echo $row['id']?>">
                         <h2><?php echo $row['heading']?></h2>
                     </a>
                 </div>
@@ -50,11 +50,11 @@
                             ?>
                     <div class="news">
                     <div class="img">
-                        <img src="./adminPanel/assets/blogImages/blogTitle/<?php echo $row2['image']?>" alt="">
+                        <img src="./adminPanel/assets/blogimages/blogtitle/<?php echo $row2['image']?>" alt="">
                     </div>
                     <div class="text">
                         <div class="title">
-                            <a href="./blog_detail.php?blog_id=<?php echo $row2['id']?>">
+                            <a href="./blogdetail.php?blog_id=<?php echo $row2['id']?>">
                                 <p><?php echo $row2['heading']?></p>
                             </a>
                             
@@ -88,11 +88,11 @@
                         ?>
                 <div class="newsCard">
                     <div class="img">
-                        <img src="./adminPanel/assets/blogImages/blogTitle/<?php echo $row2['image']?>" alt="">
+                        <img src="./adminPanel/assets/blogimages/blogtitle/<?php echo $row2['image']?>" alt="">
                     </div>
                     <div class="text">
                         <div class="title">
-                        <a href="./blog_detail.php?blog_id=<?php echo $row2['id']?>"> <p><?php echo $row2['heading']?></p></a>
+                        <a href="./blogdetail.php?blog_id=<?php echo $row2['id']?>"> <p><?php echo $row2['heading']?></p></a>
                         </div>
                     </div>
                 </div>

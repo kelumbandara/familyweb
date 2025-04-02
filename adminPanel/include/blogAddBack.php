@@ -18,7 +18,7 @@
         // Handle the main blog image (head image)
         $image = preg_replace("/[^a-zA-Z0-9\._-]/", "_", $_FILES['head_img']['name']);
         $temp_name = $_FILES['head_img']['tmp_name'];
-        $folder = "../assets/blogImages/blogTitle/" . $image;
+        $folder = "../assets/blogimages/blogtitle/" . $image;
     
         // Handle multiple images for the gallery
         $totalImages = count($_FILES['blog_images']['tmp_name']);
@@ -47,7 +47,7 @@
                     $fileTmpName = $_FILES['blog_images']['tmp_name'][$index];
                     $fileSize = $_FILES['blog_images']['size'][$index];
                     $fileError = $_FILES['blog_images']['error'][$index];
-                    $uploadDir = "../assets/blogImages/blogGalleries/" . $fileName;
+                    $uploadDir = "../assets/blogimages/bloggalleries/" . $fileName;
     
                     // Check for file upload errors
                     if ($fileError !== UPLOAD_ERR_OK) {
@@ -117,7 +117,7 @@
     // Handle the main blog image (head image)
     $image = preg_replace("/[^a-zA-Z0-9\._-]/", "_", $_FILES['head_img']['name']);
     $temp_name = $_FILES['head_img']['tmp_name'];
-    $folder = "../assets/blogImages/blogTitle/" . $image;
+    $folder = "../assets/blogimages/blogtitle/" . $image;
 
     // Handle multiple images for the gallery
     $totalImages = count($_FILES['blog_images']['tmp_name']);
@@ -145,7 +145,7 @@
                 $fileTmpName = $_FILES['blog_images']['tmp_name'][$index];
                 $fileSize = $_FILES['blog_images']['size'][$index];
                 $fileError = $_FILES['blog_images']['error'][$index];
-                $uploadDir = "../assets/blogImages/blogGalleries/" . $fileName;
+                $uploadDir = "../assets/blogimages/bloggalleries/" . $fileName;
 
                 // Check for file upload errors
                 if ($fileError !== UPLOAD_ERR_OK) {
@@ -185,7 +185,7 @@
             }
 
             // Redirect after successful insertion
-            header("Location: ../../Profile.php?error=sended#add-blogs");
+            header("Location: ../../profile.php?error=sended#add-blogs");
             exit;
         } else {
             echo "Error: " . $stmt->error . "<br>";
@@ -214,7 +214,7 @@
 
         // Delete the main blog image from the server
         if (!empty($main_image)) {
-            $mainImagePath = "../assets/blogImages/blogTitle/" . $main_image;
+            $mainImagePath = "../assets/blogimages/blogtitle/" . $main_image;
             if (file_exists($mainImagePath)) {
                 unlink($mainImagePath);
             }
@@ -228,7 +228,7 @@
 
         // Delete each image file from the server
         while ($row = $result->fetch_assoc()) {
-            $imagePath = "../assets/blogImages/blogGalleries/" . $row['blog_images'];
+            $imagePath = "../assets/blogimages/bloggalleries/" . $row['blog_images'];
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
@@ -267,7 +267,7 @@
 
         // Delete the main blog image from the server
         if (!empty($main_image)) {
-            $mainImagePath = "../assets/blogImages/blogTitle/" . $main_image;
+            $mainImagePath = "../assets/blogimages/blogtitle/" . $main_image;
             if (file_exists($mainImagePath)) {
                 unlink($mainImagePath);
             }
@@ -281,7 +281,7 @@
 
         // Delete each image file from the server
         while ($row = $result->fetch_assoc()) {
-            $imagePath = "../assets/blogImages/blogGalleries/" . $row['blog_images'];
+            $imagePath = "../assets/blogimages/bloggalleries/" . $row['blog_images'];
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
@@ -299,7 +299,7 @@
         $stmt->bind_param("i", $blog_id);
         if ($stmt->execute()) {
             echo "Blog and associated images deleted successfully.";
-            header("Location:../../Profile.php?error=deleted#add-blogs");
+            header("Location:../../profile.php?error=deleted#add-blogs");
         } else {
             echo "Error deleting blog: " . $stmt->error;
         }
@@ -334,11 +334,11 @@ if (isset($_REQUEST["update_blog"])) {
     // Handle the main blog image (head image)
     $up_image = $_FILES['head_img']['name'];
     $up_temp_name = $_FILES['head_img']['tmp_name'];
-    $up_folder = "../assets/blogImages/blogTitle/" . $up_image;
+    $up_folder = "../assets/blogimages/blogtitle/" . $up_image;
 
     // If a new image is uploaded, delete the old image
     if (!empty($up_image)) {
-        $old_image_path = "../assets/blogImages/blogTitle/" . $existing_image;
+        $old_image_path = "../assets/blogimages/blogtitle/" . $existing_image;
         if (file_exists($old_image_path) && !empty($existing_image)) {
             unlink($old_image_path); // Remove the old image
         }
@@ -378,11 +378,11 @@ if (isset($_REQUEST["update_blog"])) {
     // Handle the main blog image (head image)
     $up_image = $_FILES['head_img']['name'];
     $up_temp_name = $_FILES['head_img']['tmp_name'];
-    $up_folder = "../assets/blogImages/blogTitle/" . $up_image;
+    $up_folder = "../assets/blogimages/blogtitle/" . $up_image;
 
     // If a new image is uploaded, delete the old image
     if (!empty($up_image)) {
-        $old_image_path = "../assets/blogImages/blogTitle/" . $existing_image;
+        $old_image_path = "../assets/blogimages/blogtitle/" . $existing_image;
         if (file_exists($old_image_path) && !empty($existing_image)) {
             unlink($old_image_path); // Remove the old image
         }
@@ -399,7 +399,7 @@ if (isset($_REQUEST["update_blog"])) {
 
     if (mysqli_query($con, $update_query)) {
         echo "up";
-        header("Location:../../Profile.php?error=updated#add-blogs");
+        header("Location:../../profile.php?error=updated#add-blogs");
     } else {
         echo "Error updating blog: " . mysqli_error($con);
     }

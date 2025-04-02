@@ -20,7 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="./assets/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="./assets/css/addBlog.css">
+    <link rel="stylesheet" href="./assets/css/addblog.css">
 
     <style>
         .preview-image {
@@ -218,7 +218,7 @@
                     <div class="row-new">
                         <div class="container-img-new">
                             <!-- File input for image selection -->
-                            <form id="image-form-new" action="./include/imageGalleryBack.php"
+                            <form id="image-form-new" action="./include/imagegalleryback.php"
                                 method="POST" enctype="multipart/form-data">
                                 <input type="file" id="file-input-new" name="images[]" multiple
                                     accept="image/png, image/jpeg" onchange="previewNew()">
@@ -301,13 +301,13 @@
                                                     <tr>
                                                         <td class="tb_data">
                                                             <!-- Use corrected filename -->
-                                                            <img class="table_image" src="./assets/imagesLibrary/<?php echo htmlspecialchars($image_name); ?>" alt="Image">
+                                                            <img class="table_image" src="./assets/imageslibrary/<?php echo htmlspecialchars($image_name); ?>" alt="Image">
                                                         </td>
                                                         <td>
                                                             <?php echo htmlspecialchars($row['category']); ?>
                                                         </td>
                                                         <td>
-                                                            <a class="table_delete_btn" href="./include/imageGalleryBack.php?img_id=<?php echo $row['id']; ?>">
+                                                            <a class="table_delete_btn" href="./include/imagegalleryback.php?img_id=<?php echo $row['id']; ?>">
                                                                 Delete
                                                             </a>
                                                         </td>

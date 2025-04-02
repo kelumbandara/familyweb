@@ -16,7 +16,7 @@
     $result = mysqli_query($con, $sql);
     while ($row = mysqli_fetch_assoc($result)) { ?>
         <div class="slider-item swiper-slide"
-            style="background: url('./adminPanel/assets/blogImages/blogTitle/<?php echo $row['image']; ?>'); !important; background-repeat: no-repeat; background-position: center; background-size: cover;">
+            style="background: url('./adminPanel/assets/blogimages/blogtitle/<?php echo $row['image']; ?>'); !important; background-repeat: no-repeat; background-position: center; background-size: cover;">
             <div class="overlay"></div>
             <div class="slide-content">
                 <h3 class="slide-subtitle">
@@ -34,7 +34,7 @@
                         : $content;
                     ?>
                 </p>
-                <a href="./blog_detail.php?blog_id=<?php echo $row['id']; ?>" class="slide-button"><h3>තවත් හදාරන්න</h3></a>
+                <a href="./blogdetail.php?blog_id=<?php echo $row['id']; ?>" class="slide-button"><h3>තවත් හදාරන්න</h3></a>
             </div>
         </div>
     <?php
@@ -130,32 +130,32 @@
                 <i id="left" class="bx bx-left-arrow-alt" aria-hidden="true"></i>
                 <ul class="carousel">
                     <li class="card">
-                        <div class="img"><img src="assets/images/Member images/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
+                        <div class="img"><img src="assets/images/memberimages/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
                         <h2>Balance Pearson</h2>
                         <span>Sales Manager</span>
                     </li>
                     <li class="card">
-                        <div class="img"><img src="assets/images/Member images/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
+                        <div class="img"><img src="assets/images/memberimages/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
                         <h2>Joenas Brauers</h2>
                         <span>Web Developer</span>
                     </li>
                     <li class="card">
-                        <div class="img"><img src="assets/images/Member images/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
+                        <div class="img"><img src="assets/images/memberimages/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
                         <h2>Lariach French</h2>
                         <span>Online Teacher</span>
                     </li>
                     <li class="card">
-                        <div class="img"><img src="assets/images/Member images/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
+                        <div class="img"><img src="assets/images/memberimages/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
                         <h2>James Khosravi</h2>
                         <span>Freelancer</span>
                     </li>
                     <li class="card">
-                        <div class="img"><img src="assets/images/Member images/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
+                        <div class="img"><img src="assets/images/memberimages/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
                         <h2>Kristiana Zasiadko</h2>
                         <span>Bank Manager</span>
                     </li>
                     <li class="card">
-                        <div class="img"><img src="assets/images/Member images/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
+                        <div class="img"><img src="assets/images/memberimages/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
                         <h2>Donald Horton</h2>
                         <span>App Designer</span>
                     </li>
@@ -242,8 +242,8 @@
                             ?>
                             <div class="item" data-id="<?php echo $gallery_row['category']; ?>">
                                 <div class="inner">
-                                    <a href="./adminPanel/assets/imagesLibrary/<?php echo $image_name; ?>" data-lightbox="mygallery">
-                                        <img src="./adminPanel/assets/imagesLibrary/<?php echo $image_name; ?>" alt="portfolio">
+                                    <a href="./adminPanel/assets/imageslibrary/<?php echo $image_name; ?>" data-lightbox="mygallery">
+                                        <img src="./adminPanel/assets/imageslibrary/<?php echo $image_name; ?>" alt="portfolio">
                                     </a>
                                 </div>
                             </div>
