@@ -625,7 +625,7 @@
                                                             <?php echo htmlspecialchars($row['category']); ?>
                                                         </td>
                                                         <td>
-                                                            <a class="table_delete_btn" href="./adminPanel/include/imagegalleryback.php?img_id=<?php echo $row['id']; ?>">
+                                                            <a class="table_delete_btn" href="./adminPanel/include/imagegalleryback.php?img_id_emp=<?php echo $row['id']; ?>">
                                                                 Delete
                                                             </a>
                                                         </td>
