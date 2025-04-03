@@ -116,18 +116,22 @@ body {
 }
 
 .card .img {
-    background-color: #4070f4;
+    background-color:#fff ;
     width: 148px;
     height: 148px;
     border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .card .img img {
-    width: 140px;
-    height: 140px;
+    width: 148px;
+    height: 148px;
     object-fit: cover;
     border-radius: 50%;
-    border: 4px solid #fff;
+    border: 4px solid #4070f4;
 }
 
 .card h2 {

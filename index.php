@@ -120,34 +120,69 @@
                 <i id="left" class="bx bx-left-arrow-alt" aria-hidden="true"></i>
                 <ul class="carousel">
                     <li class="card">
-                        <div class="img"><img src="assets/images/memberimages/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
-                        <h2>Balance Pearson</h2>
-                        <span>Sales Manager</span>
+                        <div class="img"><img src="assets/images/man.png" alt="" draggable="false"></div>
+                        <h2>ලොකු අම්මා</h2>
+                        <!-- <span>Sales Manager</span> -->
                     </li>
                     <li class="card">
-                        <div class="img"><img src="assets/images/memberimages/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
-                        <h2>Joenas Brauers</h2>
-                        <span>Web Developer</span>
+                        <div class="img"><img src="assets/images/man.png"  alt="" draggable="false"></div>
+                        <h2>අම්මා</h2>
+                        <!-- <span>Web Developer</span> -->
                     </li>
                     <li class="card">
-                        <div class="img"><img src="assets/images/memberimages/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
-                        <h2>Lariach French</h2>
-                        <span>Online Teacher</span>
+                        <div class="img"><img src="assets/images/man.png"  alt="" draggable="false"></div>
+                        <h2>මාමා</h2>
+                        <!-- <span>Online Teacher</span> -->
                     </li>
                     <li class="card">
-                        <div class="img"><img src="assets/images/memberimages/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
-                        <h2>James Khosravi</h2>
-                        <span>Freelancer</span>
+                        <div class="img"><img src="assets/images/man.png"  alt="" draggable="false"></div>
+                        <h2>සීලවතී අබේසිංහ</h2>
+                        <!-- <span>Freelancer</span> -->
                     </li>
                     <li class="card">
-                        <div class="img"><img src="assets/images/memberimages/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
-                        <h2>Kristiana Zasiadko</h2>
-                        <span>Bank Manager</span>
+                        <div class="img"><img src="assets/images/man.png"  alt="" draggable="false"></div>
+                        <h2>අනුලාවතී කුමාරිහාමි (උඩිස්පත්තුවේ අත්තම්මා)</h2>
+                        <!-- <span>Bank Manager</span> -->
                     </li>
                     <li class="card">
-                        <div class="img"><img src="assets/images/memberimages/pexels-howdy-30542773.jpg" alt="" draggable="false"></div>
-                        <h2>Donald Horton</h2>
-                        <span>App Designer</span>
+                        <div class="img"><img src="assets/images/man.png"  alt="" draggable="false"></div>
+                        <h2>වීරසේකර බණ්ඩා</h2>
+                        <!-- <span>App Designer</span> -->
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="assets/images/man.png"  alt="" draggable="false"></div>
+                        <h2>ටිකිරි මැණිකේ  (කුමාරි අත්තම්මා)</h2>
+                        <!-- <span>App Designer</span> -->
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="assets/images/man.png"  alt="" draggable="false"></div>
+                        <h2>එරාවතී අබේසිංහ (එරා අත්තම්මා)</h2>
+                        <!-- <span>App Designer</span> -->
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="assets/images/man.png"  alt="" draggable="false"></div>
+                        <h2>බාල මැණිකේ  (කුඩා අවදියේ වලිප්පුව වැළදී මියගොස්)</h2>
+                        <!-- <span>App Designer</span> -->
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="assets/images/man.png"  alt="" draggable="false"></div>
+                        <h2>නන්දාවතී කුමාරිහාමි  (දයා අත්තම්මා)</h2>
+                        <!-- <span>App Designer</span> -->
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="assets/images/man.png"  alt="" draggable="false"></div>
+                        <h2>අබේසිංහ (නිමල් අත්තා)</h2>
+                        <!-- <span>App Designer</span> -->
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="assets/images/man.png"  alt="" draggable="false"></div>
+                        <h2>සීතා කුමාරිහාමි (සීතා අත්තම්මා)</h2>
+                        <!-- <span>App Designer</span> -->
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="assets/images/man.png"  alt="" draggable="false"></div>
+                        <h2>පුෂ්පලතා රංජනී මැණිකේ</h2>
+                        <!-- <span>App Designer</span> -->
                     </li>
                 </ul>
                 <i id="right" class="bx bx-right-arrow-alt" aria-hidden="true"></i>

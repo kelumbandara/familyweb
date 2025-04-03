@@ -28,8 +28,8 @@
 <link rel="stylesheet" href="./assets/css/footer.css">
 <link rel="stylesheet" href="./assets/css/gallery.css">
 <link rel="stylesheet" href="./assets/css/blog_detail.css">
-<link rel="stylesheet" href="assets/css/vision_mision.css">
-
+<link rel="stylesheet" href="./assets/css/vision_mision.css">
+<link rel="stylesheet" href="./assets/css/style.css">
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="./assets/images/images.png">
@@ -96,7 +96,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
     <nav>
         <div class="nav_bar">
             <i class='bx bx-menu sideBarOpen'></i>
-            <span class="logo"><a href="#">Skynet</a></span>
+            <span class="logo"><img src="./assets/images/images.png" alt=""></span>
 
             <div class="menu">
                 <div class="logo_toggle">
@@ -106,7 +106,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
 
                 <ul class="nav_links">
                     <li><a href="index.php">මූල පිටුව</a></li>
-                    <!-- <li><a href="#">පවුල් රාමුව</a></li> -->
+                    <li><a href="familyfram.php">පවුල් රාමුව</a></li>
                     <li><a href="blog.php"> පුවත් සහ යාවත්කාලීන</a></li>
                     <li><a href="gallery.php">ගැලරිය</a></li>
                 </ul>
@@ -186,7 +186,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
 
             <ul class="nav_links">
                     <li><a href="index.php">මූල පිටුව</a></li>
-                    <!-- <li><a href="#">පවුල් රාමුව</a></li> -->
+                    <li><a href="familyfram.php">පවුල් රාමුව</a></li>
                     <li><a href="blog.php"> පුවත් සහ යාවත්කාලීන</a></li>
                     <li><a href="gallery.php">ගැලරිය</a></li>
             </ul>

@@ -1,278 +1,65 @@
-@font-face {
-    font-family: 'Noto Serif Sinhala';
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-    src: url('https://ws-downloads.files.bbci.co.uk/fonts/NotoSerifSinhala/v1.00/normal.woff2') format('woff2');
-  }
-  
-  @font-face {
-    font-family: 'Noto Serif Sinhala';
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-    src: url('https://ws-downloads.files.bbci.co.uk/fonts/NotoSerifSinhala/v1.00/bold.woff2') format('woff2');
-  }
-  
+    
 
-body {
-    background: #f5f5f5;
-    margin-top: 20px;
-    font-family: 'Noto Serif Sinhala', serif;
+
+.family {
+    gap: 20px; /* Space between images */
+    background-color: #f5f5f5;
 }
 
-.ui-w-80 {
-    width : 80px !important;
+.familyfram {
+    position: relative; /* Needed for absolute positioning inside */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     height: auto;
 }
 
-.btn-default {
-    border-color: rgba(24, 28, 33, 0.1);
-    background  : rgba(0, 0, 0, 0);
-    color       : #4E5155;
+.familyImg {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
 }
 
-label.btn {
-    margin-bottom: 0;
+/* Overlay */
+.familyfram:nth-child(1)::after {
+    content: "";
+    position: absolute;
+    top: -5%;
+    left: 0%;
+    width: 100%;
+    height: 105%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0, 0, 0, 0.7) 100%);
 }
 
-.btn-outline-primary {
-    border-color: #26B4FF;
-    background  : transparent;
-    color       : #26B4FF;
-}
-
-.btn {
-    cursor: pointer;
-}
-
-.text-light {
-    color: #babbbc !important;
-}
-
-.btn-facebook {
-    border-color: rgba(0, 0, 0, 0);
-    background  : #3B5998;
-    color       : #fff;
-}
-
-.btn-instagram {
-    border-color: rgba(0, 0, 0, 0);
-    background  : #000;
-    color       : #fff;
-}
-
-.card {
-    background-clip: padding-box;
-    box-shadow     : 0 1px 4px rgba(24, 28, 33, 0.012);
-}
-
-.row-bordered {
-    overflow: hidden;
-}
-
-.account-settings-fileinput {
-    position  : absolute;
-    visibility: hidden;
-    width     : 1px;
-    height    : 1px;
-    opacity   : 0;
-}
-
-.account-settings-links .list-group-item.active {
-    font-weight: bold !important;
-}
-
-html:not(.dark-style) .account-settings-links .list-group-item.active {
-    background: transparent !important;
-}
-
-.account-settings-multiselect~.select2-container {
-    width: 100% !important;
-}
-
-.light-style .account-settings-links .list-group-item {
-    padding     : 0.85rem 1.5rem;
-    border-color: rgba(24, 28, 33, 0.03) !important;
-}
-
-.light-style .account-settings-links .list-group-item.active {
-    color: #4e5155 !important;
-}
-
-.material-style .account-settings-links .list-group-item {
-    padding     : 0.85rem 1.5rem;
-    border-color: rgba(24, 28, 33, 0.03) !important;
-}
-
-.material-style .account-settings-links .list-group-item.active {
-    color: #4e5155 !important;
-}
-
-.dark-style .account-settings-links .list-group-item {
-    padding     : 0.85rem 1.5rem;
-    border-color: rgba(255, 255, 255, 0.03) !important;
-}
-
-.dark-style .account-settings-links .list-group-item.active {
-    color: #fff !important;
-}
-
-.light-style .account-settings-links .list-group-item.active {
-    color: #4E5155 !important;
-}
-
-.light-style .account-settings-links .list-group-item {
-    padding     : 0.85rem 1.5rem;
-    border-color: rgba(24, 28, 33, 0.03) !important;
-}
-
-
-
-
-#hero {
-  height: 100vh;
-  width: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.342), rgba(0, 0, 0, 0.342)),
-    url("https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80")
-      no-repeat center bottom / cover;
-  color: whitesmoke;
-}
-.container_hero {
-  width: 50%;
-  height: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  /*   text-align: center; */
-}
-#hero .info h1 {
-  font-size: 5rem;
-  text-transform: uppercase;
-  margin-bottom: 1rem;
-  font-weight: 800;
-}
-#hero .info h2 {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-}
-#hero .info p {
-  font-size: 1.2rem;
-  max-width: 50%;
-}
-#hero .info a {
-  text-decoration: none;
-  display: inline-block;
-  background-color: white;
-  border-radius: 4px;
-  font-size: 1.8rem;
-  padding: 0.5em 2em;
-  margin-top: 2rem;
-  color: #ee6c09;
-}
-@media only screen and (max-width: 768px) {
-  html {
-    font-size: 10px;
-  }
-}
-
-
-/* Container for the media body */
-.media-body {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-}
-
-/* Label styles for the file upload button */
-label.btn {
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    background-color: #007bff;
-    color: #fff;
-    padding: 8px 15px;
+/* Positioning the text */
+.familyfram .familyText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 54px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 2;
     border-radius: 5px;
-    font-size: 16px;
-    width: 180px; /* Set a fixed width */
-    justify-content: center; /* Centers the text inside */
-    text-align: center; /* Aligns the text in the middle */
-    box-sizing: border-box; /* Ensures padding and width are included in the width */
 }
 
-label.btn:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+/* Adjust margins for different images */
+.familyfram:nth-child(1) .familyImg {
+    margin-top: -50px;
+    height: 103vh;
 }
 
-/* Hide the default file input */
-.account-settings-fileinput {
-    display: none;
+.familyfram:nth-child(3) .familyImg {
+    margin-top: 50px;
+    width: 50%;
+    margin-bottom: 50px;
 }
 
-/* Reset button styles */
-button.md-btn-flat {
-    margin-left: 15px;
-    padding: 8px 15px;
-    font-size: 16px;
-    color: #000000;
-    background: transparent;
-    border: 2px solid #888888;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 180px; /* Set the same width as the upload button */
-    box-sizing: border-box; /* Ensures padding and width are included in the width */
+.familyfram:nth-child(2) .familyImg {
+    margin-top: 50px;
+    width: 50%;
+    object-fit: contain;
 }
-
-button.md-btn-flat:hover {
-    background-color: #000000;
-    color: #fff;
-    border: 2px solid #000000;
-}
-
-
-
-
-/* Container for the buttons */
-.Updatebuttons {
-    display: flex; /* Align buttons in a row */
-    justify-content: flex-start; /* Align buttons to the left */
-    gap: 15px; /* Space between buttons */
-    margin-top: 20px; /* Add some top margin for spacing */
-}
-
-/* Button styles for both buttons */
-.update_button, .update_cancel {
-    flex: 1; /* Ensure both buttons have the same width */
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    border: none; /* Remove default border */
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Update button styling */
-.update_button {
-    background-color: #007bff;
-    color: #fff;
-}
-
-.update_button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
-
-/* Cancel button styling */
-.update_cancel {
-    background-color: #f8f9fa;
-    color: #007bff;
-    border: 2px solid #007bff;
-}
-
-.update_cancel:hover {
-    background-color: #007bff;
-    color: #fff;
-}
-
-
