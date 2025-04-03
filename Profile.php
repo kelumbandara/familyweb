@@ -14,17 +14,17 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 
-    <link rel="stylesheet" href="./adminPanel/assets/css/addblog.css">
+    <link rel="stylesheet" href="./adminpanel/assets/css/addblog.css">
 
 
     <!-- Custom fonts for this template-->
-    <link href="./adminPanel/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="./adminpanel/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="./adminPanel/assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="./adminpanel/assets/css/sb-admin-2.min.css" rel="stylesheet">
 
     <style>
         .preview-image {
@@ -80,7 +80,7 @@
                         <div class="tab-pane fade active show" id="account-general">
                             <?php
                             session_start();
-                            include './adminPanel/include/connection.php';
+                            include './adminpanel/include/connection.php';
                             if(isset($_SESSION['UsName'])){  
                                 $user=$_SESSION["UsName"];
 
@@ -307,7 +307,7 @@
                             ?>
                         </div>
                         <div class="tab-pane fade" id="add-blogs">
-                            <form action="./adminPanel/include/blogaddback.php" method="post"
+                            <form action="./adminpanel/include/blogaddback.php" method="post"
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-lg-6 mb-4">
@@ -413,7 +413,7 @@
                                                         <tr>
                                                             <td class="tb_data">
                                                                 <img class="table_image" style="width: 100px;"
-                                                                    src="./adminPanel/assets/blogimages/blogtitle/<?php echo htmlspecialchars($row['image']); ?>">
+                                                                    src="./adminpanel/assets/blogimages/blogtitle/<?php echo htmlspecialchars($row['image']); ?>">
                                                             </td>
 
                                                             <td>
@@ -443,7 +443,7 @@
 
                                                             <td>
                                                                 <a class="table_delete_btn"
-                                                                    href="./adminPanel/include/blogaddback.php?blog_delete_emp=<?php echo $row['id']; ?>">Delete</a>
+                                                                    href="./adminpanel/include/blogaddback.php?blog_delete_emp=<?php echo $row['id']; ?>">Delete</a>
                                                             </td>
 
                                                             <td style="width: 1050px !important;">
@@ -451,7 +451,7 @@
                                                                     data-target="#UpdateModal-<?php echo $row['id']; ?>">Edit
                                                                     More</a>
                                                             </td>
-                                                            <form action="./adminPanel/include/blogaddback.php"
+                                                            <form action="./adminpanel/include/blogaddback.php"
                                                                 method="POST" enctype="multipart/form-data">
                                                                 <div class="modal fade"
                                                                     id="UpdateModal-<?php echo $row['id']; ?>"
@@ -543,7 +543,7 @@
                             <div class="row-new">
                                 <div class="container-img-new">
                                     <!-- File input for image selection -->
-                                    <form id="image-form-new" action="./adminPanel/include/imagegalleryback.php"
+                                    <form id="image-form-new" action="./adminpanel/include/imagegalleryback.php"
                                         method="POST" enctype="multipart/form-data">
                                         <input type="file" id="file-input-new" name="images[]" multiple
                                             accept="image/png, image/jpeg" onchange="previewNew()">
@@ -619,13 +619,13 @@
                                                     <tr>
                                                         <td class="tb_data">
                                                             <!-- Use corrected filename -->
-                                                            <img class="table_image" src="./adminPanel/assets/imageslibrary/<?php echo htmlspecialchars($image_name); ?>" alt="Image">
+                                                            <img class="table_image" src="./adminpanel/assets/imageslibrary/<?php echo htmlspecialchars($image_name); ?>" alt="Image">
                                                         </td>
                                                         <td>
                                                             <?php echo htmlspecialchars($row['category']); ?>
                                                         </td>
                                                         <td>
-                                                            <a class="table_delete_btn" href="./adminPanel/include/imagegalleryback.php?img_id_emp=<?php echo $row['id']; ?>">
+                                                            <a class="table_delete_btn" href="./adminpanel/include/imagegalleryback.php?img_id_emp=<?php echo $row['id']; ?>">
                                                                 Delete
                                                             </a>
                                                         </td>
@@ -657,7 +657,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
-    <script src="./adminPanel/assets/js/demo/datatables-demo.js"></script>
+    <script src="./adminpanel/assets/js/demo/datatables-demo.js"></script>
 
     <script>
         function validations() {
@@ -768,14 +768,14 @@
         });
     </script>
 
-    <script src="./adminPanel/assets/js/submit_multipleImg.js"></script>
+    <script src="./adminpanel/assets/js/submit_multipleImg.js"></script>
 
 
-    <script src="./adminPanel/assets/js/script.js"></script>
+    <script src="./adminpanel/assets/js/script.js"></script>
 
-    <script src="./adminPanel/assets/js/addblog_multiimg.js"></script>
+    <script src="./adminpanel/assets/js/addblog_multiimg.js"></script>
 
-    <script src="./adminPanel/assets/js/image_drag.js"></script>
+    <script src="./adminpanel/assets/js/image_drag.js"></script>
 
 
 

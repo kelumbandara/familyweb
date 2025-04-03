@@ -1,6 +1,5 @@
 <?php
-
-include '../adminPanel/include/connection.php';
+include '../adminpanel/include/connection.php';
 
 if (isset($_REQUEST['update'])) {
 
@@ -63,7 +62,7 @@ if (isset($_REQUEST['update'])) {
 
 <?php
 if (isset($_REQUEST["submitPassword"])) {
-    include("../adminPanel/include/connection.php"); // Ensure the correct database connection is included.
+    include("../adminpanel/include/connection.php"); // Ensure the correct database connection is included.
     session_start(); // Start the session to access session variables (if needed).
 
     $pass_id = $_REQUEST["hidden_id"];

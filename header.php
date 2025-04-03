@@ -41,7 +41,7 @@
 <body>
     <?php
 session_start();
-include './adminPanel/include/connection.php';
+include './adminpanel/include/connection.php';
 
 // Default profile image
 $profileImage = "./assets/images/memberimages/avatar1.png";
@@ -130,41 +130,41 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
                         <?php if ($role == 'employee'): ?>
                         <a href="./profile.php?user=<?php echo urlencode($user); ?>" class="sub_menu_links">
                             <img src="./assets/images/profile.png">
-                            <p>Edit Profile</p>
+                            <p>පැතිකඩ සංස්කරණය කරන්න</p>
                             <span>></span>
                         </a>
                         <?php endif; ?>
                         <?php if ($role == 'employee'): ?>
                         <a href="./profile.php?user=<?php echo urlencode($user); ?>#add-blogs" class="sub_menu_links">
                             <img src="./assets/images/blog.png">
-                            <p>Add Blogs</p>
+                            <p>බ්ලොග් එකතු කරන්න</p>
                             <span>></span>
                         </a>
                         <?php endif; ?>
                         <?php if ($role == 'employee'): ?>
                         <a href="./profile.php?user=<?php echo urlencode($user); ?>#add-images-to-gallery" class="sub_menu_links">
                             <img src="./assets/images/image.png">
-                            <p>Add Gallery</p>
+                            <p>ගැලරිය එක් කරන්න</p>
                             <span>></span>
                         </a>
                         <?php endif; ?>
                         <?php if ($role == 'admin'): ?>
-                        <a href="./adminPanel/index.php" class="sub_menu_links">
+                        <a href="./adminpanel/index.php" class="sub_menu_links">
                             <img src="./assets/images/setting.png">
-                            <p>Admin Panel</p>
+                            <p>පරිපාලක මණ්ඩලය</p>
                             <span>></span>
                         </a>
                         <?php endif; ?>
                         <a href="./logout.php" class="sub_menu_links">
                             <img src="./assets/images/logout.png">
-                            <p>Log Out</p>
+                            <p>ලොග් අවුට්</p>
                             <span>></span>
                         </a>
                     </div>
                 </div>
                 <?php else: ?>
                 <div class="login_button">
-                    <a href="loginpage.php"><i class='bx bx-log-in'></i> Login</a>
+                    <a href="loginpage.php"><i class='bx bx-log-in'></i>ඇතුල් වන්න</a>
                 </div>
                 <?php endif; ?>
             </div>
@@ -194,7 +194,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
 
         <div class="login_profile">
             <div class="login_button">
-                <a href="loginpage.php"><i class='bx bx-log-in'></i> Login</a>
+                <a href="loginpage.php"><i class='bx bx-log-in'></i>ඇතුල් වන්න</a>
             </div>
         </div>
     </div>

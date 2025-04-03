@@ -39,8 +39,8 @@
                             ?>
                             <div class="item" data-id="<?php echo $gallery_row['category']; ?>">
                                 <div class="inner">
-                                    <a href="./adminPanel/assets/imageslibrary/<?php echo $image_name; ?>" data-lightbox="mygallery">
-                                        <img src="./adminPanel/assets/imageslibrary/<?php echo $image_name; ?>" alt="portfolio">
+                                    <a href="./adminpanel/assets/imageslibrary/<?php echo $image_name; ?>" data-lightbox="mygallery">
+                                        <img src="./adminpanel/assets/imageslibrary/<?php echo $image_name; ?>" alt="portfolio">
                                     </a>
                                 </div>
                             </div>

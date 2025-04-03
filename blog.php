@@ -17,7 +17,7 @@
                 $row=mysqli_fetch_assoc($result);
             ?>
             <div class="img" id="breakingImg">
-                <img src="./adminPanel/assets/blogimages/blogtitle/<?php echo $row['image']?>" alt="">
+                <img src="./adminpanel/assets/blogimages/blogtitle/<?php echo $row['image']?>" alt="">
             </div>
             <div class="text" id="breakingNews">
                 <div class="title">
@@ -50,7 +50,7 @@
                             ?>
                     <div class="news">
                     <div class="img">
-                        <img src="./adminPanel/assets/blogimages/blogtitle/<?php echo $row2['image']?>" alt="">
+                        <img src="./adminpanel/assets/blogimages/blogtitle/<?php echo $row2['image']?>" alt="">
                     </div>
                     <div class="text">
                         <div class="title">
@@ -88,7 +88,7 @@
                         ?>
                 <div class="newsCard">
                     <div class="img">
-                        <img src="./adminPanel/assets/blogimages/blogtitle/<?php echo $row2['image']?>" alt="">
+                        <img src="./adminpanel/assets/blogimages/blogtitle/<?php echo $row2['image']?>" alt="">
                     </div>
                     <div class="text">
                         <div class="title">

@@ -24,7 +24,7 @@ if ($single_row = mysqli_fetch_assoc($single_result)) {
     $blog_image = $single_row['image']; 
 ?>
     <div class="header"
-    style="background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,.5) 100%), url('./adminPanel/assets/blogimages/blogtitle/<?php echo $blog_image; ?>');">
+    style="background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,.5) 100%), url('./adminpanel/assets/blogimages/blogtitle/<?php echo $blog_image; ?>');">
     </div>
 
     <section class="body">
@@ -61,7 +61,7 @@ if ($single_row = mysqli_fetch_assoc($single_result)) {
                     }
 
                     while ($single_row_images = mysqli_fetch_assoc($Blog_images_result)) {
-                        $image_path = "./adminPanel/assets/blogimages/bloggalleries/" . $single_row_images['blog_images'];
+                        $image_path = "./adminpanel/assets/blogimages/bloggalleries/" . $single_row_images['blog_images'];
                         if (file_exists($image_path) && !empty($single_row_images['blog_images'])) {
                             echo "<a href='$image_path' data-lightbox='mygallery'>
                                     <img src='$image_path' alt='portfolio'>

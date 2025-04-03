@@ -1,5 +1,5 @@
 <?php
-include("../adminPanel/include/connection.php");
+include("../adminpanel/include/connection.php");
 if (isset($_REQUEST["register"])) {
     // Trim input data to remove unwanted spaces
     $username = trim($_REQUEST["regi_Username"]);

@@ -7,16 +7,11 @@
 
         <div class="slider-wrapper swiper-wrapper">
     <?php
-    $con = mysqli_connect("localhost", "root", "", "family_tree");
-    if (!$con) {
-        die("Connection Failed: " . mysqli_connect_error());
-    }
-
     $sql = "SELECT * FROM blogs ORDER BY date DESC LIMIT 5";
     $result = mysqli_query($con, $sql);
     while ($row = mysqli_fetch_assoc($result)) { ?>
         <div class="slider-item swiper-slide"
-            style="background: url('./adminPanel/assets/blogimages/blogtitle/<?php echo $row['image']; ?>'); !important; background-repeat: no-repeat; background-position: center; background-size: cover;">
+            style="background: url('./adminpanel/assets/blogimages/blogtitle/<?php echo $row['image']; ?>'); !important; background-repeat: no-repeat; background-position: center; background-size: cover;">
             <div class="overlay"></div>
             <div class="slide-content">
                 <h3 class="slide-subtitle">
@@ -47,11 +42,6 @@
         <div class="slider-controls">
             <ul class="slider-pagination">
                 <?php
-    $con=mysqli_connect("localhost","root","","family_tree");
-    if(!$con){
-      die("Connection Faild".mysqli_connect());
-    };
-    
       $sql="SELECT * FROM blogs ORDER BY date DESC LIMIT 5";
       $result=mysqli_query($con,$sql);
       while($row=mysqli_fetch_assoc($result)){?>
@@ -242,8 +232,8 @@
                             ?>
                             <div class="item" data-id="<?php echo $gallery_row['category']; ?>">
                                 <div class="inner">
-                                    <a href="./adminPanel/assets/imageslibrary/<?php echo $image_name; ?>" data-lightbox="mygallery">
-                                        <img src="./adminPanel/assets/imageslibrary/<?php echo $image_name; ?>" alt="portfolio">
+                                    <a href="./adminpanel/assets/imageslibrary/<?php echo $image_name; ?>" data-lightbox="mygallery">
+                                        <img src="./adminpanel/assets/imageslibrary/<?php echo $image_name; ?>" alt="portfolio">
                                     </a>
                                 </div>
                             </div>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../adminPanel/include/connection.php'); // Ensure correct database connection
+include('../adminpanel/include/connection.php'); // Ensure correct database connection
 
 // Check if the login form was submitted
 if (isset($_POST['login'])) {
