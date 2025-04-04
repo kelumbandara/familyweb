@@ -96,7 +96,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
     <nav>
         <div class="nav_bar">
             <i class='bx bx-menu sideBarOpen'></i>
-            <span class="logo"><img src="./assets/images/images.png" alt=""></span>
+            <span class="logo"><img src="./assets/images/logo.jpg" alt=""></span>
 
             <div class="menu">
                 <div class="logo_toggle">
@@ -176,7 +176,7 @@ if (isset($_SESSION['UsName']) || isset($_SESSION['adminId'])) {
 <nav>
     <div class="nav_bar">
         <i class='bx bx-menu sideBarOpen'></i>
-        <span class="logo"><a href="#">Skynet</a></span>
+        <span class="logo"><img src="./assets/images/logo.jpg" alt=""></span>
 
         <div class="menu">
             <div class="logo_toggle">
